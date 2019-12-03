@@ -5,7 +5,7 @@ dependencies {
     //reference the data domain modules from the app module
     implementation project(':domain')
     implementation project(':data')
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
 }
 
 sourceCompatibility = "7"
