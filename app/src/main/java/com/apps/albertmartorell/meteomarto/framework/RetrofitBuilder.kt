@@ -14,10 +14,12 @@ import java.util.concurrent.TimeUnit
  */
 object RetrofitBuilder {
 
-    val baseUrl = "http://api.openweathermap.org/"
+    private val baseUrl = "http://api.openweathermap.org/"
     private val safeHttpClient = OkHttpClient().newBuilder()
 
         .connectTimeout(60, TimeUnit.SECONDS)
+        //We recommend to add logging as the last interceptor, because this will also log the information
+        // which you added with previous interceptors to your request.
         .addInterceptor(HttpLoggingInterceptor().apply {
             level =
                 if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE
@@ -28,6 +30,7 @@ object RetrofitBuilder {
         .build()
 
 
+    // Using "lazy" delegate, we garantee that the instance will not be initialized unless it is used
     private val retrofit: Retrofit by lazy {
 
         Retrofit.Builder()
@@ -38,6 +41,7 @@ object RetrofitBuilder {
 
     }
 
+    // Global properties: they are a singleton dependency in a lazy fashion
     val cityWeatherByName by lazy { retrofit.create(ICitytWeatherByName::class.java) }
     val cityWeatherByCoordinates by lazy { retrofit.create(ICityWeatherByCoordinates::class.java) }
 
