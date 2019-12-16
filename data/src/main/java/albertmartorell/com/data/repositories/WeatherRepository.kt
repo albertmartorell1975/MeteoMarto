@@ -10,30 +10,34 @@ import retrofit2.Call
 
 // The repository will user a couple of sources: one has access to the current weather (server) and the other to the saved weather (device). Both sources are interfaces which allow us the dependency inversion.
 // The data layer does not know (and it does not need it) which is the implementation of these interfaces. The current and saved weathers must be manage by the specific frameworks (retrofit and room in this scope)
+// Now the repository can user both sources without need its implementation
 class WeatherRepository(
     private val serverSource: WeatherServerSource,
     private val deviceSource: WeatherDeviceSource
 ) {
 
-    // now the repository can user both sources without need its implementation
+    //Note that you mark all the methods with the suspend modifier. This allows you to use coroutine-powered mechanisms in Room or Retrofit, for simpler threading.
+
     suspend fun requestWeatherByCoordinates(latitude: Float, longitude: Float) =
-        serverSource.getWeather(latitude, longitude)
+        serverSource.getWeatherByCoordinates(latitude, longitude)
 
     suspend fun requestWeatherByName(name: String) = serverSource.getCityWeatherByName(name)
 
     suspend fun getSavedWeatherByCoordinates(latitude: Float, longitude: Float) =
-        deviceSource.getDeviceCityWeatherByCoordinates(latitude, longitude)
+        deviceSource.getCityWeatherByCoordinates(latitude, longitude)
 
-    suspend fun getSavedWeatherByName(name: String) = deviceSource.getDeviceCityWeatherByName(name)
+    suspend fun getSavedWeatherByName(name: String) = deviceSource.getCityWeatherByName(name)
 
     /**
      * The interface that the framework layer must implement
+     *
+     * Nota: PODRIEM SEPARAR CADA MÈTODE EN UNA INTERFACE A PART (en aquest cas n'hi haurien 4)
      */
     interface WeatherServerSource {
 
         suspend fun getCityWeatherByName(name: String): Call<WeatherResponse>
 
-        suspend fun getWeather(
+        suspend fun getWeatherByCoordinates(
             latitude: Float,
             longitude: Float
         ): Call<WeatherResponse>
@@ -42,8 +46,8 @@ class WeatherRepository(
 
     interface WeatherDeviceSource {
 
-        suspend fun getDeviceCityWeatherByName(name: String): WeatherResponse
-        suspend fun getDeviceCityWeatherByCoordinates(
+        suspend fun getCityWeatherByName(name: String): WeatherResponse
+        suspend fun getCityWeatherByCoordinates(
             latitude: Float,
             longitude: Float
         ): WeatherResponse

@@ -1,9 +1,10 @@
-package com.apps.albertmartorell.meteomarto
+package com.apps.albertmartorell.meteomarto.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.apps.albertmartorell.meteomarto.R
 
-class MainActivity : AppCompatActivity() {
+class ListOfCities : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
 

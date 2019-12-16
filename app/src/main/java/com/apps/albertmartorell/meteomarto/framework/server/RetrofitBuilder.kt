@@ -1,4 +1,4 @@
-package com.apps.albertmartorell.meteomarto.framework
+package com.apps.albertmartorell.meteomarto.framework.server
 
 import albertmartorell.com.data.server.interfaces.ICityWeatherByCoordinates
 import albertmartorell.com.data.server.interfaces.ICitytWeatherByName
