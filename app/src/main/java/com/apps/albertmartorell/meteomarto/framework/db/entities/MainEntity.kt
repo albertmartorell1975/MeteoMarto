@@ -5,7 +5,8 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "main")
 data class MainEntity(
-    @PrimaryKey(autoGenerate = true) val id: Int = 0, val temperature: Float = 0F,
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
+    val temperature: Float = 0F,
     val humidity: Float = 0F,
     val pressure: Float = 0F,
     val temperatureMin: Float = 0F,

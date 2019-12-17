@@ -8,7 +8,7 @@ import retrofit2.Call
  * It implements one dependency offered by the data layer, in this case the WeatherServerSource
  *
  */
-class RetrofitRequestCityWeather : WeatherRepository.WeatherServerSource {
+class ImpWeatherServerSource : WeatherRepository.WeatherServerSource {
 
     override suspend fun getCityWeatherByName(name: String): Call<WeatherResponse> {
 

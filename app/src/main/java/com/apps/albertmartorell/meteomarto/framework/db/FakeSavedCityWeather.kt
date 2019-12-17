@@ -1,4 +1,4 @@
-package com.apps.albertmartorell.meteomarto.framework.db.daos
+package com.apps.albertmartorell.meteomarto.framework.db
 
 import albertmartorell.com.data.repositories.WeatherRepository
 import albertmartorell.com.domain.*

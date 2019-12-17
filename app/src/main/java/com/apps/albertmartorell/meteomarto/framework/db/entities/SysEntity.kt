@@ -5,7 +5,8 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "sys")
 data class SysEntity(
-    @PrimaryKey(autoGenerate = true) val id: Int = 0, val type: Int = 0,
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
+    val type: Int = 0,
     val message: String = "",
     val country: String = "",
     val sunrise: Long = 0,

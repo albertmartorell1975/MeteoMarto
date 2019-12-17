@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "wind")
 data class WindEntity(
     @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
+    val Long: Int = 0,
     val speed: Float = 0F,
     val degrees: Float = 0F
 )

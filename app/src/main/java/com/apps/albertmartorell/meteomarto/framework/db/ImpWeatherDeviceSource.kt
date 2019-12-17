@@ -1,13 +1,14 @@
-package com.apps.albertmartorell.meteomarto.framework.db.daos
+package com.apps.albertmartorell.meteomarto.framework.db
 
 import albertmartorell.com.data.repositories.WeatherRepository
 import albertmartorell.com.domain.responses.WeatherResponse
+import android.content.Context
 
 /**
  * It implements one dependency offered by the data layer, in this case the WeatherDeviceSource
  *
  */
-class RoomCityWeather : WeatherRepository.WeatherDeviceSource {
+class ImpWeatherDeviceSource(context: Context) : WeatherRepository.WeatherDeviceSource {
 
     override suspend fun getCityWeatherByName(name: String): WeatherResponse {
 
