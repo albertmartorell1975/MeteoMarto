@@ -6,7 +6,7 @@ package albertmartorell.com.domain
  */
 sealed class Forecast {
 
-    data class Weather(val id: Int, val main: String, val description: String, val icon: String)
-    data class Coord(val lon: Float, val lat: Float)
+    data class Weather(val main: String = "", val description: String = "", val icon: String = "")
+    data class Coord(val lon: Float = 0F, val lat: Float = 0F)
 
 }

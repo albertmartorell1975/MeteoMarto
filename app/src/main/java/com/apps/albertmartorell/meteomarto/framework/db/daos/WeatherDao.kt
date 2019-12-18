@@ -21,7 +21,7 @@ interface WeatherDao {
     fun getAll(): List<CityEntity>
 
     @Query(value = "SELECT * FROM CITIES WHERE NAME = name")
-    fun getCityWeatherByName(): CityEntity
+    fun getCityWeatherByName(name: String): CityEntity
 
     @Query(value = "SELECT * FROM CITIES WHERE ID = id")
     fun getCityWeatherById(): CityEntity

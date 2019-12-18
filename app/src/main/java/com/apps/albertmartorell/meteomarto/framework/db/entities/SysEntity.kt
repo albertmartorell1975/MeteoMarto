@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 data class SysEntity(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
     val type: Int = 0,
-    val message: String = "",
+    val message: Float = 0F,
     val country: String = "",
     val sunrise: Long = 0,
     val sunset: Long = 0

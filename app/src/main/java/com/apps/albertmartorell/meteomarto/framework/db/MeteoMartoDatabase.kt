@@ -1,6 +1,8 @@
 package com.apps.albertmartorell.meteomarto.framework.db
 
+import android.content.Context
 import androidx.room.Database
+import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.apps.albertmartorell.meteomarto.framework.db.daos.WeatherDao
 import com.apps.albertmartorell.meteomarto.framework.db.entities.*
@@ -20,6 +22,25 @@ import com.apps.albertmartorell.meteomarto.framework.db.entities.*
     version = 1
 )
 abstract class MeteoMartoDatabase : RoomDatabase() {
+
+    //A function or a property to be tied to a class rather than to instances of it
+    // (similar to @staticmethod in Python), you can declare it inside a companion object:
+    companion object {
+
+        private var instance: MeteoMartoDatabase? = null
+
+        private fun createDatabase(context: Context): MeteoMartoDatabase =
+            Room.databaseBuilder(
+                context,
+                MeteoMartoDatabase::class.java,
+                "MeteoMartoDatabase"
+            ).build()
+
+        fun getInstance(context: Context): MeteoMartoDatabase =
+            (instance ?: createDatabase(context).also
+            { instance = it })
+
+    }
 
     abstract fun weatherDao(): WeatherDao
 
