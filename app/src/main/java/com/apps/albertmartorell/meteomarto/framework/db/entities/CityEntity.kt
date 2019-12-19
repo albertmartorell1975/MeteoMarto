@@ -13,5 +13,6 @@ data class CityEntity(
     val wind: WindEntity,
     val clouds: CloudsEntity,
     val sys: SysEntity,
-    val name: String = ""
+    val name: String = "",
+    val dateServerUpdated: Long = 0
 )

@@ -8,5 +8,6 @@ data class WeatherEntity(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
     val main: String = "",
     val description: String = "",
-    val icon: String = ""
+    val icon: String = "",
+    val dateServerUpdated: Long = 0
 )

@@ -16,7 +16,7 @@ class ImpWeatherDeviceSource(context: Context) : WeatherRepository.WeatherDevice
 
     override suspend fun getCityWeatherByName(name: String): WeatherResponse {
 
-        return dao.getCityWeatherByName(name)
+        return dao.getCityWeatherByName(name).convertToResponse()
 
     }
 
@@ -26,42 +26,136 @@ class ImpWeatherDeviceSource(context: Context) : WeatherRepository.WeatherDevice
 
     ): WeatherResponse {
 
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return dao.getCityWeatherByCoordinates().convertToResponse()
 
     }
 
-    private fun WeatherResponse.convertToEntity() {
+    // Converters
 
-        CityEntity(
-            0,
-            Coordinates().convertToEntity(),
-            Weather().convertToEntity(),
-            Main().convertToEntity(),
+    private fun CityEntity.convertToResponse(): WeatherResponse =
+
+        WeatherResponse(
+            CoordinatesEntity().convertToResponse(),
+            WeatherEntity().convertToResponse(),
+            MainEntity().convertToResponse(),
             visibility,
-            Wind().convertToEntity(),
-            Clouds().convertToEntity(),
-            Sys().converToEntity(),
+            WindEntity().convertToResponse(),
+            CloudsEntity().convertToResponse(),
+            SysEntity().convertToResponse(),
             name
         )
 
+    private fun CoordinatesEntity.convertToResponse() =
+
+        Coordinates(
+            latitude,
+            longitude
+        )
+
+    private fun WeatherEntity.convertToResponse(): List<Weather> {
+
+        val weather = Weather(main, description, icon)
+        val weatherList: List<Weather> = listOf(weather)
+        return weatherList
+
     }
 
-    private fun Coordinates.convertToEntity() =
-        CoordinatesEntity(0, latitude, longitude)
+    private fun MainEntity.convertToResponse() =
 
-    private fun Weather.convertToEntity() =
-        WeatherEntity(0, main, description, icon)
+        Main(
+            temperature,
+            humidity,
+            pressure,
+            temperatureMin,
+            temperatureMax
+        )
 
-    private fun Main.convertToEntity() =
-        MainEntity(0, temperature, humidity, pressure, temperatureMin, temperatureMax)
+    private fun WindEntity.convertToResponse() =
 
-    private fun Wind.convertToEntity() =
-        WindEntity(0, speed, degrees)
+        Wind(
+            speed,
+            degrees
+        )
 
-    private fun Clouds.convertToEntity() =
-        CloudsEntity(0, coverage)
+    private fun CloudsEntity.convertToResponse() =
+        Clouds(coverage)
 
-    private fun Sys.converToEntity() =
-        SysEntity(0, type, message, country, sunrise, sunset)
+    private fun SysEntity.convertToResponse() =
+
+        Sys(
+            type,
+            message,
+            country,
+            sunrise,
+            sunset
+        )
+
+//    private fun WeatherResponse.convertToEntity(): CityEntity =
+//
+//        CityEntity(
+//            0,
+//            Coordinates().convertToEntity(),
+//            Weather().convertToEntity(),
+//            Main().convertToEntity(),
+//            visibility,
+//            Wind().convertToEntity(),
+//            Clouds().convertToEntity(),
+//            Sys().converToEntity(),
+//            name
+//        )
+//
+//    private fun Coordinates.convertToEntity(): CoordinatesEntity =
+//
+//        CoordinatesEntity(
+//            0,
+//            latitude,
+//            longitude
+//        )
+//
+//    private fun Weather.convertToEntity(): WeatherEntity =
+//
+//        WeatherEntity(
+//            0,
+//            main,
+//            description,
+//            icon
+//        )
+//
+//    private fun Main.convertToEntity(): MainEntity =
+//
+//        MainEntity(
+//            0,
+//            temperature,
+//            humidity,
+//            pressure,
+//            temperatureMin,
+//            temperatureMax
+//        )
+//
+//    private fun Wind.convertToEntity(): WindEntity =
+//
+//        WindEntity(
+//            0,
+//            speed,
+//            degrees
+//        )
+//
+//    private fun Clouds.convertToEntity(): CloudsEntity =
+//
+//        CloudsEntity(
+//            0,
+//            coverage
+//        )
+//
+//    private fun Sys.converToEntity(): SysEntity =
+//
+//        SysEntity(
+//            0,
+//            type,
+//            message,
+//            country,
+//            sunrise,
+//            sunset
+//        )
 
 }

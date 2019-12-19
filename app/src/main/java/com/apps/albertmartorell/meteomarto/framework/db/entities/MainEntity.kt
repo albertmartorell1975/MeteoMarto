@@ -10,5 +10,6 @@ data class MainEntity(
     val humidity: Float = 0F,
     val pressure: Float = 0F,
     val temperatureMin: Float = 0F,
-    val temperatureMax: Float = 0F
+    val temperatureMax: Float = 0F,
+    val dateServerUpdated: Long = 0
 )

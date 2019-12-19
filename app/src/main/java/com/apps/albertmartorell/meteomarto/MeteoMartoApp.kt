@@ -14,7 +14,6 @@ class MeteoMartoApp : Application() {
 
     override fun onCreate() {
 
-
         super.onCreate()
         val weatherRepository =
             WeatherRepository(ImpWeatherServerSource(), ImpWeatherDeviceSource(this))

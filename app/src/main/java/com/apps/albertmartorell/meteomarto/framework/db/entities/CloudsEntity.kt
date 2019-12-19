@@ -6,5 +6,6 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "clouds")
 data class CloudsEntity(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
-    val coverage: Float = 0F
+    val coverage: Float = 0F,
+    val dateServerUpdated: Long = 0
 )
