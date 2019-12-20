@@ -4,6 +4,6 @@ import com.google.gson.annotations.SerializedName
 
 data class Coordinates(
     @SerializedName("long")
-    var longitude: Float = 0.toFloat(), @SerializedName("lat")
-    var latitude: Float = 0.toFloat()
+    val longitude: Float = 0.toFloat(), @SerializedName("lat")
+    val latitude: Float = 0.toFloat()
 )

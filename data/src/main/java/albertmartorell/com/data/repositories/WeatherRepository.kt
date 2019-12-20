@@ -12,8 +12,8 @@ import retrofit2.Call
 // The data layer does not know (and it does not need it) which is the implementation of these interfaces. The current and saved weathers must be manage by the specific frameworks (retrofit and room in this scope)
 // Now the repository can user both sources without need its implementation
 class WeatherRepository(
-    private val serverSource: WeatherServerSource,
-    private val deviceSource: WeatherDeviceSource
+    val serverSource: WeatherServerSource,
+    val deviceSource: WeatherDeviceSource
 ) {
 
     //Note that you mark all the methods with the suspend modifier. This allows you to use coroutine-powered mechanisms in Room or Retrofit, for simpler threading.
