@@ -1,11 +1,7 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
-
 apply plugin: 'kotlin-kapt'
-
 apply plugin: 'androidx.navigation.safeargs.kotlin'
 
 android {
@@ -29,10 +25,19 @@ android {
         sourceCompatibility = "1.8"
     }
     buildToolsVersion = '28.0.3'
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
     def roomVersion = "2.2.3"
+    def navigationVersion = "2.1.0"
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
     implementation "androidx.appcompat:appcompat:1.1.0"
@@ -63,5 +68,8 @@ dependencies {
     kapt "androidx.room:room-compiler:$roomVersion"
     // Test helpers
     testImplementation "androidx.room:room-testing:$roomVersion"
+    // navigation
+    implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
+    implementation "androidx.navigation:navigation-ui-ktx:$navigationVersion"
 
 }

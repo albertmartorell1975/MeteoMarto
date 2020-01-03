@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.apps.albertmartorell.meteomarto.R
 
-class ListOfCities : AppCompatActivity() {
+class Landing : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -14,4 +14,3 @@ class ListOfCities : AppCompatActivity() {
     }
 
 }
-

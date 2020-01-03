@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/meteo_marto_nav_graph"
+    app:startDestination="@id/frgCityWeather">
+    <fragment
+        android:id="@+id/frgCityWeather"
+        android:name="com.apps.albertmartorell.meteomarto.ui.FrgCityWeather"
+        android:label="FrgCityWeather"
+        app:startDestination="@id/action_frgCityWeather_to_frgCityForecast">
+        <action
+            android:id="@+id/action_frgCityWeather_to_frgCityForecast"
+            app:destination="@id/frgCityForecast"
+            app:enterAnim="@anim/translate_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/translate_out"></action>
+    </fragment>
+    <fragment
+        android:id="@+id/frgCityForecast"
+        android:name="com.apps.albertmartorell.meteomarto.ui.FrgCityForecast"
+        android:label="FrgCityForecast">
+        <argument
+            android:name="hola"
+            android:defaultValue="-1"
+            app:argType="integer" />
+        <argument
+            android:name="hola2"
+            android:defaultValue="doctor2"
+            app:argType="string" />
+
+        <argument
+            android:name="hola3"
+            android:defaultValue="doctor3"
+            app:argType="string" />
+    </fragment>
+</navigation>

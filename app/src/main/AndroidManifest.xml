@@ -14,7 +14,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".ui.ListOfCities"
+            android:name=".ui.Landing"
             android:resizeableActivity="false"
             android:windowSoftInputMode="stateUnchanged|adjustResize|stateAlwaysHidden">
             <intent-filter>
