@@ -18,7 +18,8 @@ import com.apps.albertmartorell.meteomarto.framework.db.entities.*
  * Room also verifies all of your queries in Dao classes while the application is being compiled so that if there is a problem in one of the queries, you will be notified instantly.
  */
 @Database(
-    entities = [CityEntity::class, CloudsEntity::class, CoordinatesEntity::class, MainEntity::class, SysEntity::class, WeatherEntity::class, WindEntity::class],
+    //entities = [CityEntity::class, CloudsEntity::class, CoordinatesEntity::class, MainEntity::class, SysEntity::class, WeatherEntity::class, WindEntity::class],
+    entities = [CityEntity::class],
     version = 1
 )
 abstract class MeteoMartoDatabase : RoomDatabase() {

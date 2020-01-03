@@ -12,6 +12,7 @@ import com.apps.albertmartorell.meteomarto.framework.db.entities.*
  */
 class ImpWeatherDeviceSource(context: Context) : WeatherRepository.WeatherDeviceSource {
 
+    // Use database to get an instance of WeatherDao an d store it in local field
     private val dao = MeteoMartoDatabase.getInstance(context).weatherDao()
 
     override suspend fun getCityWeatherByName(name: String): WeatherResponse {
@@ -26,8 +27,16 @@ class ImpWeatherDeviceSource(context: Context) : WeatherRepository.WeatherDevice
 
     ): WeatherResponse {
 
-        return dao.getCityWeatherByCoordinates().convertToResponse()
+        return dao.getCityWeatherByCoordinates(latitude, longitude ).convertToResponse()
 
+    }
+
+    override suspend fun isEmpty(): Boolean {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override suspend fun saveCityWeather(cityWeather: WeatherResponse) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     // Converters

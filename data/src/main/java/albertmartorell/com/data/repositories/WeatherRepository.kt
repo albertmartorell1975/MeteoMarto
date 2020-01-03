@@ -18,6 +18,19 @@ class WeatherRepository(
 
     //Note that you mark all the methods with the suspend modifier. This allows you to use coroutine-powered mechanisms in Room or Retrofit, for simpler threading.
 
+    suspend fun getCityWeather(latitude: Float, longitude: Float): WeatherResponse {
+
+        if (deviceSource.isEmpty()) {
+
+            val cityWeather = serverSource.getWeatherByCoordinates(latitude, longitude)
+            deviceSource.saveCityWeather(cityWeather)
+
+        }
+
+        return deviceSource.getCityWeatherByCoordinates(latitude, longitude)
+
+    }
+
     suspend fun requestWeatherByCoordinates(latitude: Float, longitude: Float) =
         serverSource.getWeatherByCoordinates(latitude, longitude)
 
@@ -35,17 +48,19 @@ class WeatherRepository(
      */
     interface WeatherServerSource {
 
-        suspend fun getCityWeatherByName(name: String): Call<WeatherResponse>
+        suspend fun getCityWeatherByName(name: String): WeatherResponse
 
         suspend fun getWeatherByCoordinates(
             latitude: Float,
             longitude: Float
-        ): Call<WeatherResponse>
+        ): WeatherResponse
 
     }
 
     interface WeatherDeviceSource {
 
+        suspend fun isEmpty(): Boolean
+        suspend fun saveCityWeather(cityWeather: WeatherResponse)
         suspend fun getCityWeatherByName(name: String): WeatherResponse
         suspend fun getCityWeatherByCoordinates(
             latitude: Float,

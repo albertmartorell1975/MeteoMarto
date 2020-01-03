@@ -12,17 +12,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="false"
         android:theme="@style/AppTheme">
+
         <activity
             android:name=".ui.ListOfCities"
-            android:resizeableActivity="false">
+            android:resizeableActivity="false"
+            android:windowSoftInputMode="stateUnchanged|adjustResize|stateAlwaysHidden">
             <intent-filter>
-                <intent-filter>
-                    <action android:name="android.intent.action.VIEW" />
-                    <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN" />
 
-                    <category android:name="android.intent.category.LAUNCHER" />
-                </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
     </application>
+
 </manifest>

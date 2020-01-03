@@ -4,12 +4,12 @@ import albertmartorell.com.domain.*
 import com.google.gson.annotations.SerializedName
 
 data class WeatherResponse(
-    @SerializedName("coord") val coordinates: Coordinates?,
-    val weather: List<Weather>?,
-    val main: Main?,
-    val visibility: Long = 0,
-    val wind: Wind?,
-    val clouds: Clouds?,
-    val sys: Sys?,
-    val name: String = ""
+    @SerializedName("coord") var coordinates: Coordinates?,
+    var weather: List<Weather>?,
+    var main: Main?,
+    var visibility: Long = 0,
+    var wind: Wind?,
+    var clouds: Clouds?,
+    var sys: Sys?,
+    var name: String = ""
 )

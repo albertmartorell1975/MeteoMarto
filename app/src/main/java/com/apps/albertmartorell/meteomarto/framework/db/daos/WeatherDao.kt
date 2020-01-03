@@ -20,13 +20,13 @@ interface WeatherDao {
     @Query("SELECT * FROM cities")
     fun getAll(): List<CityEntity>
 
-    @Query(value = "SELECT * FROM CITIES WHERE NAME = name")
+    @Query(value = "SELECT * FROM cities WHERE name = :name")
     fun getCityWeatherByName(name: String): CityEntity
 
-    @Query(value = "SELECT * FROM CITIES WHERE ID = id")
-    fun getCityWeatherById(): CityEntity
+    @Query(value = "SELECT * FROM cities WHERE id = :id")
+    fun getCityWeatherById(id: Long): CityEntity
 
-    @Query(value = "SELECT * FROM CITIES WHERE coordinates = coordinates")
-    fun getCityWeatherByCoordinates(): CityEntity
+    @Query(value = "SELECT * FROM cities WHERE latitude = :latitude and longitude = :longitude")
+    fun getCityWeatherByCoordinates(latitude: Float, longitude: Float): CityEntity
 
 }

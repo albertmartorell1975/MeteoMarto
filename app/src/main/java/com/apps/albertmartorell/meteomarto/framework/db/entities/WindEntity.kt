@@ -3,10 +3,10 @@ package com.apps.albertmartorell.meteomarto.framework.db.entities
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "wind")
+//@Entity(tableName = "wind")
 data class WindEntity(
-    @PrimaryKey(autoGenerate = true) val id: Long = 0,
-    val speed: Float = 0F,
-    val degrees: Float = 0F,
-    val dateServerUpdated: Long = 0
+    //@PrimaryKey(autoGenerate = true) var id: Long = 0,
+    var speed: Float = 0F,
+    var degrees: Float = 0F
+    //var dateServerUpdated: Long = 0
 )

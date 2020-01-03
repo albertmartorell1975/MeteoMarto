@@ -3,13 +3,13 @@ package com.apps.albertmartorell.meteomarto.framework.db.entities
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "main")
+//@Entity(tableName = "main")
 data class MainEntity(
-    @PrimaryKey(autoGenerate = true) val id: Long = 0,
-    val temperature: Float = 0F,
-    val humidity: Float = 0F,
-    val pressure: Float = 0F,
-    val temperatureMin: Float = 0F,
-    val temperatureMax: Float = 0F,
-    val dateServerUpdated: Long = 0
+    //@PrimaryKey(autoGenerate = true) var id: Long = 0,
+    var temperature: Float = 0F,
+    var humidity: Float = 0F,
+    var pressure: Float = 0F,
+    var temperatureMin: Float = 0F,
+    var temperatureMax: Float = 0F
+    //var dateServerUpdated: Long = 0
 )

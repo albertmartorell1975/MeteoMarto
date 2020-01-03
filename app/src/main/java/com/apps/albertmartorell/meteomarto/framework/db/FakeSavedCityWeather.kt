@@ -14,9 +14,8 @@ class FakeSavedCityWeather : WeatherRepository.WeatherDeviceSource {
     override suspend fun getCityWeatherByName(name: String): WeatherResponse {
 
         lateinit var weatherResponse: WeatherResponse
-        weatherResponse.id = 1
         weatherResponse.name = name
-        weatherResponse.visibitliy = 75
+        weatherResponse.visibility = 75
 
         lateinit var clouds: Clouds
         clouds.coverage = 100F
@@ -29,7 +28,6 @@ class FakeSavedCityWeather : WeatherRepository.WeatherDeviceSource {
 
         lateinit var sys: Sys
         sys.country = "Catalunya"
-        sys.id = 7
         sys.message = 5F
         sys.type = 8
         sys.sunrise = 51
@@ -39,7 +37,6 @@ class FakeSavedCityWeather : WeatherRepository.WeatherDeviceSource {
         lateinit var weather: Weather
         weather.description = "Neu generalitzada. Precipitacions fortes"
         weather.icon = "Neu"
-        weather.id = 10
         weather.main = "Invasió siberiana de primera categoria"
         val weatherList = mutableListOf<Weather>()
         weatherList.add(weather)
@@ -55,6 +52,14 @@ class FakeSavedCityWeather : WeatherRepository.WeatherDeviceSource {
 
         return weatherResponse
 
+    }
+
+    override suspend fun isEmpty(): Boolean {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override suspend fun saveCityWeather(cityWeather: WeatherResponse) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override suspend fun getCityWeatherByCoordinates(

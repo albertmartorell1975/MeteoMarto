@@ -6,7 +6,7 @@ import retrofit2.Call
 
 class FakeRequestWeatherByName: WeatherRepository.WeatherServerSource {
 
-    override suspend fun getCityWeatherByName(name: String): Call<WeatherResponse> {
+    override suspend fun getCityWeatherByName(name: String): WeatherResponse {
 
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
 
@@ -15,7 +15,7 @@ class FakeRequestWeatherByName: WeatherRepository.WeatherServerSource {
     override suspend fun getWeatherByCoordinates(
         latitude: Float,
         longitude: Float
-    ): Call<WeatherResponse> {
+    ): WeatherResponse {
 
 
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.

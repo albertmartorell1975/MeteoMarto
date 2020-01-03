@@ -1,7 +1,7 @@
 package albertmartorell.com.domain
 
 data class Weather(
-    val main: String = "",
-    val description: String = "",
-    val icon: String=""
+    var main: String = "",
+    var description: String = "",
+    var icon: String=""
 )

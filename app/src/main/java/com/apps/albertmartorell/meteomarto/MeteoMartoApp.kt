@@ -23,4 +23,18 @@ class MeteoMartoApp : Application() {
 
     }
 
+    // This injects all the dependencies into the ViewModelFactory. It creates ViewModels in the app and passes interactor dependencies to them
+//    MajesticViewModelFactory.inject(
+//    this,
+//    Interactors(
+//    AddBookmark(bookmarkRepository),
+//    GetBookmarks(bookmarkRepository),
+//    RemoveBookmark(bookmarkRepository),
+//    AddDocument(documentRepository),
+//    GetDocuments(documentRepository),
+//    RemoveDocument(documentRepository),
+//    GetOpenDocument(documentRepository),
+//    SetOpenDocument(documentRepository)
+//    )
+//    )
 }
