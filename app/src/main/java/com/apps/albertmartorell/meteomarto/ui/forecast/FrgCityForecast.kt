@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.apps.albertmartorell.meteomarto.R
 import com.apps.albertmartorell.meteomarto.databinding.LytFrgCityForecastBinding
-import com.apps.albertmartorell.meteomarto.ui.FrgCityForecastArgs
 
 class FrgCityForecast : Fragment() {
 

@@ -11,13 +11,13 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.apps.albertmartorell.meteomarto.R
 import com.apps.albertmartorell.meteomarto.databinding.LytFrgCityWeatherBinding
-import com.apps.albertmartorell.meteomarto.ui.FrgCityWeatherDirections
 
 class FrgCityWeather : Fragment() {
 
     lateinit var binding: LytFrgCityWeatherBinding
     lateinit var root: ConstraintLayout
     lateinit var navController: NavController
+
 
 //    // Provides a method fro creating new instances of the fragment (factory method)
 //    companion object {
@@ -30,6 +30,7 @@ class FrgCityWeather : Fragment() {
 //
 //    }
 
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -39,10 +40,7 @@ class FrgCityWeather : Fragment() {
         binding =
             DataBindingUtil.inflate(inflater, R.layout.lyt_frg_city_weather, container, false)
         root = binding.root as ConstraintLayout
-
         binding.lifecycleOwner = viewLifecycleOwner
-
-        //binding.setViewModel(viewModel)
         //The third parameter of inflate specifies whether the inflated fragment should be added to the container.
         // The container is the parent view that will hold the fragment’s view hierarchy.
         // You should always set this to false when inflating a view for a fragment: The FragmentManager will take care of adding the fragment to the container.
@@ -68,4 +66,5 @@ class FrgCityWeather : Fragment() {
         }
 
     }
+
 }

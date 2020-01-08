@@ -6,7 +6,7 @@ class CityViewModel : ViewModel() {
 
     init {
 
-        initScope()
+        //initScope()
 
     }
 
