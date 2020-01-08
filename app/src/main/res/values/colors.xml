@@ -1,6 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#f2a215</color>
+    <color name="colorControlNormal">#f9cd6d</color>
+    <color name="colorTest">#f2a215</color>
+    <color name="colorControlNormalDisabled">#50f9cd6d</color>
+    <color name="transparent">#00000000</color>
+    <color name="view_shadow">#dee1e5</color>
+    <!--50% of transparency: 50 and the color is f9cd6d-->
+    <color name="colorControlDisabled">#50f9cd6d</color>
+    <color name="colorControlHighlight">#f2a215</color>
+    <color name="fifty_percent_transparency_grey_400">#80bdbdbd</color>
+    <color name="ripple_color_buttons_card_primary_ks_1">#80bdbdbd</color>
+
+    <!-- Book config  -->
+    <color name="sections_nav_background">#f9f9f9</color>
+    <color name="book_config_header">#f0f0f0</color>
+    <color name="book_config_header_vertical_line">#e5e7eb</color>
+    <color name="book_config_content_line">#c6c6c6</color>
+    <color name="book_config_examples">#706f6f</color>
+    <color name="cognitive_level1">#297ecc</color>
+    <color name="cognitive_level2">#e20613</color>
+    <color name="cognitive_level3">#009640</color>
+    <color name="mark_sobresaliente">#4ea829</color>
+    <color name="mark_notable">#76b331</color>
+    <color name="mark_bien">#96be2d</color>
+    <color name="mark_suficiente">#b2c92a</color>
+    <color name="mark_insuficiente">#e0121e</color>
+    <color name="mark_sobresaliente_background">#dceed4</color>
+    <color name="mark_notable_background">#e4f0d6</color>
+    <color name="mark_bien_background">#eaf2d5</color>
+    <color name="mark_suficiente_background">#f0f4d4</color>
+    <color name="mark_insuficiente_background">#f9d0d2</color>
+
+    <!--text colors-->
+    <color name="text_color_teacher">#4a4a4a</color>
+    <color name="text_color_standard">#444444</color>
+    <color name="text_color_standard_disabled">#50444444</color>
+    <color name="text_color_not_primary">#706F6F</color>
+    <color name="text_link_color">#9d9d9c</color>
+    <color name="rol_title">#a52016</color>
+    <color name="hint_color">#c6c6c6</color>
+    <color name="text_color_error">#e20613</color>
+    <color name="text_color_fine">#009640</color>
+    <color name="text_color_zoom_unit_title">#a1050e</color>
+
+    <!--toolbar-->
+    <color name="toolbar_background_color">#fafafa</color>
+    <color name="toolbar_system_buttons_color">#706f6f</color>
+
+    <!-- buttons -->
+    <color name="toolbar_text_buttons">#f2a116</color>
+    <!--50% of transparency: 50 and the color is f9cd6d-->
+    <color name="toolbar_text_buttons_disabled">#500f7995</color>
+
+    <!--TextInputLayout -->
+    <color name="text_input_layout_line">#c6c6c6</color>
+
+    <!--Snackbar-->
+    <color name="snackbar_error">#ffe8e8</color>
+
+    <!--CardView-->
+    <color name="card_view_toolbar">#f2f4f6</color>
+    <color name="card_view_border">#e5e7eb</color>
+    <color name="card_view_border_with_alpha">#95e5e7eb</color>
+    <color name="card_view_selected">#26000000</color>
+    <color name="card_view_darker">#99000000</color>
+    <color name="card_view_not_finished_book">#e6fdefd0</color>
+    <color name="card_view_not_finished_book_teacher">#fff3e3</color>
+    <color name="card_view_to_download_unit">#CC444444</color>
+
+    <!--Box infos -->
+    <color name="box_info_color">#fff3e4</color>
+    <color name="link_color">#0f7995</color>
+
+    <!--Screen book info-->
+    <color name="close_book_info">#9c9c9a</color>
+
+    <!-- resources -->
+    <color name="resource_format">#fdefd1</color>
+    <color name="resource_color_adp">#F2444444</color>
+
+    <!-- Progress bar -->
+    <color name="progress_bar_list_color">#f2a116</color>
+    <color name="progress_bar_list_seconday_color">#f0f0f0</color>
+
+    <!-- Zoom Book Resources -->
+    <color name="zoom_book_resources_card_color">#fff3e3</color>
+
+    <!-- Update App alert color -->
+    <color name="dashboard_alert_update_app_color">#ffe64c</color>
+
+    <!-- Dashboard course layout -->
+    <color name="dashboard_color_course">#e6444444</color>
+
+    <!-- Color Highlights -->
+    <color name="highlight_red_color">#FBD5E6</color>
+    <color name="highlight_green_color">#E1EDC4</color>
+    <color name="highlight_grey_color">#FFF1C1</color>
+
+    <!-- Background color for messge that warns the user has already done a mAuthor exercise-->
+    <color name ="mauthor_warning_color">#fafafa</color>
 </resources>

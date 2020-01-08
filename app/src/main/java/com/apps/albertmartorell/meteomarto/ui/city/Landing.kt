@@ -1,4 +1,4 @@
-package com.apps.albertmartorell.meteomarto.ui
+package com.apps.albertmartorell.meteomarto.ui.city
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

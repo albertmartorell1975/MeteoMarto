@@ -5,7 +5,7 @@
     app:startDestination="@id/frgCityWeather">
     <fragment
         android:id="@+id/frgCityWeather"
-        android:name="com.apps.albertmartorell.meteomarto.ui.FrgCityWeather"
+        android:name="com.apps.albertmartorell.meteomarto.ui.city.FrgCityWeather"
         android:label="FrgCityWeather"
         app:startDestination="@id/action_frgCityWeather_to_frgCityForecast">
         <action
@@ -18,7 +18,7 @@
     </fragment>
     <fragment
         android:id="@+id/frgCityForecast"
-        android:name="com.apps.albertmartorell.meteomarto.ui.FrgCityForecast"
+        android:name="com.apps.albertmartorell.meteomarto.ui.forecast.FrgCityForecast"
         android:label="FrgCityForecast">
         <argument
             android:name="hola"
