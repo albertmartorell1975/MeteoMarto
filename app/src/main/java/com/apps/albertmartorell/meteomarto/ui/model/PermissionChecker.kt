@@ -1,4 +1,4 @@
-package com.apps.albertmartorell.meteomarto.ui
+package com.apps.albertmartorell.meteomarto.ui.model
 
 import android.app.Activity
 import com.karumi.dexter.Dexter
@@ -14,7 +14,7 @@ import kotlin.coroutines.resume
  */
 class PermissionChecker(private val activity: Activity, private val permission: String) {
 
-    // I create a suspend fun in order to be called from a coroutine
+    // I create a suspend function in order to be called from a coroutine
 
     // Potser hi ha llibreries que només tenen funcions async amb callbacks, i no tenen
     // la seva equivlència sync. Per poder utilitzar aquestes llibreries amb corrutines,
