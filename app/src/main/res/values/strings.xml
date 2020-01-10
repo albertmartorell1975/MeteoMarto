@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MeteoMarto</string>
+    <string name="lyt_act_landing_permission_denied">"Tienes que dar permisos de localización</string>
 </resources>

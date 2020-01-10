@@ -20,6 +20,10 @@ class CityViewModel(private val weatherRepository: WeatherRepository) : ViewMode
         class Content(val cityEntity: String) : UiModel()
 
         object NotInternet : UiModel()
+
+        object RequestLocationPermission : UiModel()
+
+        object PermissionDenied : UiModel()
         //todo it left others ui scopes....
     }
 
@@ -49,10 +53,18 @@ class CityViewModel(private val weatherRepository: WeatherRepository) : ViewMode
      */
     private fun refresh() {
 
+        _model.value = UiModel.RequestLocationPermission
+
+    }
+
+    fun onCoarsePermissionRequested(success: Boolean) {
+
         launch {
 
-            _model.value = UiModel.Loading
-            _model.value = UiModel.Content(weatherRepository.getCityWeather())
+            //_model.value = UiModel.Loading
+            if (success) _model.value =
+                UiModel.Content(weatherRepository.getCityWeather()) else _model.value =
+                UiModel.PermissionDenied
 
         }
 

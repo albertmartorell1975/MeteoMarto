@@ -1,7 +1,7 @@
 package com.apps.albertmartorell.meteomarto.ui.model
 
 import android.Manifest
-import android.app.Activity
+import android.app.Application
 import android.location.Geocoder
 import android.location.Location
 import com.apps.albertmartorell.meteomarto.ui.toRegion
@@ -9,7 +9,7 @@ import com.apps.albertmartorell.meteomarto.ui.toRegion
 /**
  * Entity that returns the current region (country)
  */
-class RegionRepository(activity: Activity) {
+class RegionRepository(application: Application) {
 
     companion object {
 
@@ -17,25 +17,21 @@ class RegionRepository(activity: Activity) {
 
     }
 
-    suspend fun findLastRegion(): String = findLastLocation().toRegion(
-        geoCoder,
-        DEFAULT_REGION
-    )
-
     // to get the current user location. To avoid to be coupled to Google's LocationServices, RegionRepository depends on LocationDataSource which is an interface
-    private var locationDataSource: LocationDataSource = PlayServicesLocationDataSource(activity)
+    private var locationDataSource: LocationDataSource = PlayServicesLocationDataSource(application)
     // it checks if the user permission is granted
     private val coarsePermissionChecker =
-        PermissionChecker(
-            activity,
-            Manifest.permission.ACCESS_COARSE_LOCATION
-        )
+        PermissionChecker(application, Manifest.permission.ACCESS_COARSE_LOCATION)
+
+
+    suspend fun findLastRegion(): String = findLastLocation().toRegion(geoCoder, DEFAULT_REGION)
+
     // to get a direction from location to find out the country
-    private var geoCoder = Geocoder(activity)
+    private var geoCoder = Geocoder(application)
 
     private suspend fun findLastLocation(): Location? {
 
-        val success = coarsePermissionChecker.request()
+        val success = coarsePermissionChecker.check()
         return if (success) locationDataSource.findLastLocation() else null
 
     }
