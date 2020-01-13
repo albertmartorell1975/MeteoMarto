@@ -1,4 +1,4 @@
-package com.apps.albertmartorell.mymeteocities
+package com.apps.albertmartorell.meteomarto
 
 import org.junit.Test
 

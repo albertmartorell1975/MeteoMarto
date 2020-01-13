@@ -32,7 +32,11 @@ class RegionRepository(application: Application) {
     private suspend fun findLastLocation(): Location? {
 
         val success = coarsePermissionChecker.check()
-        return if (success) locationDataSource.findLastLocation() else null
+
+        return if (success)
+            locationDataSource.findLastLocation()
+        else
+            null
 
     }
 

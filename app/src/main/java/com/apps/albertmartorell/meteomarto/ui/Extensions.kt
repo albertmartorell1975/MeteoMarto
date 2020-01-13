@@ -14,7 +14,8 @@ fun Location?.toRegion(geoCoder: Geocoder, defaultRegion: String): String {
 
     }
 
-    return addresses?.firstOrNull()?.countryCode ?: defaultRegion
+    // If null, then location should be read from local database
+    return addresses?.firstOrNull()?.countryCode ?: ""
 
 }
 

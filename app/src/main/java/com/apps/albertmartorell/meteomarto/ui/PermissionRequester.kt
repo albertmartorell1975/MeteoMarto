@@ -2,8 +2,10 @@ package com.apps.albertmartorell.meteomarto.ui
 
 import android.app.Activity
 import com.karumi.dexter.Dexter
+import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionDeniedResponse
 import com.karumi.dexter.listener.PermissionGrantedResponse
+import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.single.BasePermissionListener
 
 /**
@@ -44,7 +46,6 @@ class PermissionRequester(private val activity: Activity, private val permission
 //
 //    }
 
-
     fun request(): Boolean {
 
         var result = false
@@ -62,6 +63,35 @@ class PermissionRequester(private val activity: Activity, private val permission
                 override fun onPermissionDenied(response: PermissionDeniedResponse?) {
 
                     result = false
+
+                }
+
+                override fun onPermissionRationaleShouldBeShown(
+                    permission: PermissionRequest,
+                    token: PermissionToken?
+                ) {
+                    // This method will be called when the user rejects a permission request
+                    // You must display a dialog box that explains to the user why the application needs this permission
+                    token?.continuePermissionRequest()
+                    result = false
+
+//                    val builder = AlertDialog.Builder(activity)
+//
+//                    builder.setMessage("El missatge de l'alerta")
+//                    builder.setTitle("Títol")
+//                    builder.setNegativeButton("No") { dialog, which ->
+//                        Toast.makeText(activity, "You are not agree.", Toast.LENGTH_SHORT).show()
+//                    }
+//
+//                    builder.setPositiveButton("Yes") { dialog, which ->
+//                        Toast.makeText(activity, "You are agree.", Toast.LENGTH_SHORT).show()
+//                    }
+//
+//                    // Finally, make the alert dialog using builder
+//                    val dialog: AlertDialog = builder.create()
+//
+//                    // Display the alert dialog on app interface
+//                    dialog.show()
 
                 }
 
