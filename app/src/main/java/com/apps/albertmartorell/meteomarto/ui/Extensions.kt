@@ -1,12 +1,14 @@
 package com.apps.albertmartorell.meteomarto.ui
 
+import android.content.Context
 import android.location.Geocoder
 import android.location.Location
+import com.apps.albertmartorell.meteomarto.MeteoMartoApp
 
 /*
  From a Location it returns a region. Else returns a default region
  */
-fun Location?.toRegion(geoCoder: Geocoder, defaultRegion: String): String {
+fun Location?.toRegion(geoCoder: Geocoder, defaultRegion: String=""): String {
 
     val addresses = this?.let {
 
@@ -19,4 +21,6 @@ fun Location?.toRegion(geoCoder: Geocoder, defaultRegion: String): String {
 
 }
 
+val Context.app: MeteoMartoApp
+    get() = applicationContext as MeteoMartoApp
 // todo inflate layout, toast.....

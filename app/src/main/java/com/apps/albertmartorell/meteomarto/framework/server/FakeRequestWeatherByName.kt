@@ -1,12 +1,11 @@
 package com.apps.albertmartorell.meteomarto.framework.server
 
 import albertmartorell.com.data.repositories.WeatherRepository
-import albertmartorell.com.domain.responses.WeatherResponse
-import retrofit2.Call
+import albertmartorell.com.domain.responses.City
 
 class FakeRequestWeatherByName: WeatherRepository.WeatherServerSource {
 
-    override suspend fun getCityWeatherByName(name: String): WeatherResponse {
+    override suspend fun getCityWeatherByName(name: String): City {
 
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
 
@@ -15,7 +14,7 @@ class FakeRequestWeatherByName: WeatherRepository.WeatherServerSource {
     override suspend fun getWeatherByCoordinates(
         latitude: Float,
         longitude: Float
-    ): WeatherResponse {
+    ): City {
 
 
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.

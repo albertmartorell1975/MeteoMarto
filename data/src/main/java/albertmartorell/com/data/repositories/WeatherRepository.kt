@@ -1,7 +1,6 @@
 package albertmartorell.com.data.repositories
 
-import albertmartorell.com.domain.responses.WeatherResponse
-import retrofit2.Call
+import albertmartorell.com.domain.responses.City
 
 
 // We use the Repository pattern, which its main purpose is to abstract the concrete implementation of data access. To achieve this, I will add one interface and one class for each model
@@ -12,24 +11,36 @@ import retrofit2.Call
 // The data layer does not know (and it does not need it) which is the implementation of these interfaces. The current and saved weathers must be manage by the specific frameworks (retrofit and room in this scope)
 // Now the repository can user both sources without need its implementation
 class WeatherRepository(
-    val serverSource: WeatherServerSource,
-    val deviceSource: WeatherDeviceSource
+    private val serverSource: WeatherServerSource,
+    private val deviceSource: WeatherDeviceSource
 ) {
 
     //Note that you mark all the methods with the suspend modifier. This allows you to use coroutine-powered mechanisms in Room or Retrofit, for simpler threading.
 
-    suspend fun getCityWeather(latitude: Float, longitude: Float): WeatherResponse {
+    suspend fun getCityWeatherOnLocal() {
 
-        if (deviceSource.isEmpty()) {
+        if (!deviceSource.isEmpty()) {
 
-            val cityWeather = serverSource.getWeatherByCoordinates(latitude, longitude)
-            deviceSource.saveCityWeather(cityWeather)
+            deviceSource.getCity()
 
         }
 
-        return deviceSource.getCityWeatherByCoordinates(latitude, longitude)
-
     }
+
+    suspend fun isThereCityOnLocal(): Boolean = !deviceSource.isEmpty()
+
+//    suspend fun getCityWeatherOnLocal(latitude: Float, longitude: Float): City {
+//
+//        if (deviceSource.isEmpty()) {
+//
+//            val cityWeather = serverSource.getWeatherByCoordinates(latitude, longitude)
+//            deviceSource.saveCityWeather(cityWeather)
+//
+//        }
+//
+//        return deviceSource.getCityWeatherByCoordinates(latitude, longitude)
+//
+//    }
 
     suspend fun requestWeatherByCoordinates(latitude: Float, longitude: Float) =
         serverSource.getWeatherByCoordinates(latitude, longitude)
@@ -48,24 +59,26 @@ class WeatherRepository(
      */
     interface WeatherServerSource {
 
-        suspend fun getCityWeatherByName(name: String): WeatherResponse
+
+        suspend fun getCityWeatherByName(name: String): City
 
         suspend fun getWeatherByCoordinates(
             latitude: Float,
             longitude: Float
-        ): WeatherResponse
+        ): City
 
     }
 
     interface WeatherDeviceSource {
 
+        suspend fun getCity(): City
         suspend fun isEmpty(): Boolean
-        suspend fun saveCityWeather(cityWeather: WeatherResponse)
-        suspend fun getCityWeatherByName(name: String): WeatherResponse
+        suspend fun saveCityWeather(cityWeather: City)
+        suspend fun getCityWeatherByName(name: String): City
         suspend fun getCityWeatherByCoordinates(
             latitude: Float,
             longitude: Float
-        ): WeatherResponse
+        ): City
 
     }
 

@@ -2,7 +2,7 @@ package com.apps.albertmartorell.meteomarto.framework.db
 
 import albertmartorell.com.data.repositories.WeatherRepository
 import albertmartorell.com.domain.*
-import albertmartorell.com.domain.responses.WeatherResponse
+import albertmartorell.com.domain.responses.City
 import android.content.Context
 import com.apps.albertmartorell.meteomarto.framework.db.entities.*
 
@@ -15,7 +15,7 @@ class ImpWeatherDeviceSource(context: Context) : WeatherRepository.WeatherDevice
     // Use database to get an instance of WeatherDao an d store it in local field
     private val dao = MeteoMartoDatabase.getInstance(context).weatherDao()
 
-    override suspend fun getCityWeatherByName(name: String): WeatherResponse {
+    override suspend fun getCityWeatherByName(name: String): City {
 
         return dao.getCityWeatherByName(name).convertToResponse()
 
@@ -25,7 +25,7 @@ class ImpWeatherDeviceSource(context: Context) : WeatherRepository.WeatherDevice
         latitude: Float,
         longitude: Float
 
-    ): WeatherResponse {
+    ): City {
 
         return dao.getCityWeatherByCoordinates(latitude, longitude ).convertToResponse()
 
@@ -35,15 +35,19 @@ class ImpWeatherDeviceSource(context: Context) : WeatherRepository.WeatherDevice
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override suspend fun saveCityWeather(cityWeather: WeatherResponse) {
+    override suspend fun saveCityWeather(cityWeather: City) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override suspend fun getCity(): City {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     // Converters
 
-    private fun CityEntity.convertToResponse(): WeatherResponse =
+    private fun CityEntity.convertToResponse(): City =
 
-        WeatherResponse(
+        City(
             CoordinatesEntity().convertToResponse(),
             WeatherEntity().convertToResponse(),
             MainEntity().convertToResponse(),

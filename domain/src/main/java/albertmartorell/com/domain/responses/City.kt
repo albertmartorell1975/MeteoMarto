@@ -3,7 +3,7 @@ package albertmartorell.com.domain.responses
 import albertmartorell.com.domain.*
 import com.google.gson.annotations.SerializedName
 
-data class WeatherResponse(
+data class City(
     @SerializedName("coord") var coordinates: Coordinates?,
     var weather: List<Weather>?,
     var main: Main?,

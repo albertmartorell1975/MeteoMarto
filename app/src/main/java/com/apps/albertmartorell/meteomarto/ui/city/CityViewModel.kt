@@ -4,13 +4,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.apps.albertmartorell.meteomarto.framework.Interactors
 import com.apps.albertmartorell.meteomarto.ui.Scope
 import com.apps.albertmartorell.meteomarto.ui.common.Event
-import com.apps.albertmartorell.meteomarto.ui.model.WeatherRepository
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class CityViewModel(private val weatherRepository: WeatherRepository) : ViewModel(), Scope {
+class CityViewModel(private val interactors: Interactors) : ViewModel(), Scope {
 
     override lateinit var job: Job
 
@@ -31,7 +31,6 @@ class CityViewModel(private val weatherRepository: WeatherRepository) : ViewMode
 //        object NotInternet : UiModel() // there is not Internet connection
 //
 //    }
-
 
     private val _eventRequestLocationPermission = MutableLiveData<Event<Unit>>()
     val eventRequestLocationPermission: LiveData<Event<Unit>>
@@ -88,7 +87,7 @@ class CityViewModel(private val weatherRepository: WeatherRepository) : ViewMode
         launch {
 
             _eventRequestedLocationPermissionFinished.value =
-                Event(weatherRepository.getCityWeather())
+                Event(interactors.findCurrentRegion.invoke())
 
         }
 
@@ -104,12 +103,12 @@ class CityViewModel(private val weatherRepository: WeatherRepository) : ViewMode
      * As CityViewModel has arguments, we need to create it with a factory, else Android will create a ViewModel with empty constructor, and CityViewModel needs arguments
      */
     @Suppress("UNCHECKED_CAST")
-    class CityViewModelFactory(private val weatherRepository: WeatherRepository) :
+    class CityViewModelFactory(private val interactors: Interactors) :
         ViewModelProvider.Factory {
 
         override fun <T : ViewModel?> create(modelClass: Class<T>): T =
 
-            CityViewModel(weatherRepository) as T
+            CityViewModel(interactors) as T
 
     }
 

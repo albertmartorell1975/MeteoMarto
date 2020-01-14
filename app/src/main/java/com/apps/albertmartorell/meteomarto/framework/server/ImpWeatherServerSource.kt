@@ -1,8 +1,7 @@
 package com.apps.albertmartorell.meteomarto.framework.server
 
 import albertmartorell.com.data.repositories.WeatherRepository
-import albertmartorell.com.domain.responses.WeatherResponse
-import retrofit2.Call
+import albertmartorell.com.domain.responses.City
 
 /**
  * It implements one dependency offered by the data layer, in this case the WeatherServerSource
@@ -10,7 +9,7 @@ import retrofit2.Call
  */
 class ImpWeatherServerSource : WeatherRepository.WeatherServerSource {
 
-    override suspend fun getCityWeatherByName(name: String): WeatherResponse {
+    override suspend fun getCityWeatherByName(name: String): City {
 
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
 
@@ -19,7 +18,7 @@ class ImpWeatherServerSource : WeatherRepository.WeatherServerSource {
     override suspend fun getWeatherByCoordinates(
         latitude: Float,
         longitude: Float
-    ): WeatherResponse {
+    ): City {
 
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
 

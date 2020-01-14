@@ -2,7 +2,7 @@ package com.apps.albertmartorell.meteomarto.framework.db
 
 import albertmartorell.com.data.repositories.WeatherRepository
 import albertmartorell.com.domain.*
-import albertmartorell.com.domain.responses.WeatherResponse
+import albertmartorell.com.domain.responses.City
 
 /**
  * It implements one dependency offered by the data layer
@@ -11,20 +11,20 @@ import albertmartorell.com.domain.responses.WeatherResponse
  */
 class FakeSavedCityWeather : WeatherRepository.WeatherDeviceSource {
 
-    override suspend fun getCityWeatherByName(name: String): WeatherResponse {
+    override suspend fun getCityWeatherByName(name: String): City {
 
-        lateinit var weatherResponse: WeatherResponse
-        weatherResponse.name = name
-        weatherResponse.visibility = 75
+        lateinit var city: City
+        city.name = name
+        city.visibility = 75
 
         lateinit var clouds: Clouds
         clouds.coverage = 100F
-        weatherResponse.clouds = clouds
+        city.clouds = clouds
 
         lateinit var coordinates: Coordinates
         coordinates.latitude = 45F
         coordinates.longitude = 2F
-        weatherResponse.coordinates = coordinates
+        city.coordinates = coordinates
 
         lateinit var sys: Sys
         sys.country = "Catalunya"
@@ -32,7 +32,7 @@ class FakeSavedCityWeather : WeatherRepository.WeatherDeviceSource {
         sys.type = 8
         sys.sunrise = 51
         sys.sunset = 6
-        weatherResponse.sys = sys
+        city.sys = sys
 
         lateinit var weather: Weather
         weather.description = "Neu generalitzada. Precipitacions fortes"
@@ -40,7 +40,7 @@ class FakeSavedCityWeather : WeatherRepository.WeatherDeviceSource {
         weather.main = "Invasió siberiana de primera categoria"
         val weatherList = mutableListOf<Weather>()
         weatherList.add(weather)
-        weatherResponse.weather = weatherList
+        city.weather = weatherList
 
         lateinit var main: Main
         main.humidity = 80F
@@ -48,9 +48,9 @@ class FakeSavedCityWeather : WeatherRepository.WeatherDeviceSource {
         main.temperature = -6F
         main.temperatureMax = -5F
         main.temperatureMin - 11F
-        weatherResponse.main = main
+        city.main = main
 
-        return weatherResponse
+        return city
 
     }
 
@@ -58,7 +58,7 @@ class FakeSavedCityWeather : WeatherRepository.WeatherDeviceSource {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override suspend fun saveCityWeather(cityWeather: WeatherResponse) {
+    override suspend fun saveCityWeather(cityWeather: City) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
@@ -66,10 +66,13 @@ class FakeSavedCityWeather : WeatherRepository.WeatherDeviceSource {
         latitude: Float,
         longitude: Float
 
-    ): WeatherResponse {
+    ): City {
 
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
 
     }
 
+    override suspend fun getCity(): City {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 }

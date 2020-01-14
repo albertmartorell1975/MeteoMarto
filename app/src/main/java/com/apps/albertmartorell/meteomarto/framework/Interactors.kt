@@ -1,9 +1,6 @@
 package com.apps.albertmartorell.meteomarto.framework
 
-import albertmartorell.com.usecases.GetSavedWeatherByCoordinates
-import albertmartorell.com.usecases.GetSavedWeatherByName
-import albertmartorell.com.usecases.RequestWeatherByCoordinates
-import com.apps.albertmartorell.meteomarto.framework.server.FakeRequestWeatherByName
+import albertmartorell.com.usecases.*
 
 /**
  * This data class contains all the use cases
@@ -12,8 +9,10 @@ import com.apps.albertmartorell.meteomarto.framework.server.FakeRequestWeatherBy
  */
 data class Interactors(
 
-    val getSavedWeatherByCompiler: GetSavedWeatherByCoordinates,
-    val getSavedWeatherByName: GetSavedWeatherByName,
-    val requestWeatherByCoordinates: RequestWeatherByCoordinates,
-    val requestWeatherByName: FakeRequestWeatherByName
+    //val getCityOnLocal: GetCityOnLocal,
+    val findCurrentRegion: FindCurrentRegion
+//    val getSavedWeatherByCoordinates: GetSavedWeatherByCoordinates,
+//    val getSavedWeatherByName: GetSavedWeatherByName,
+//    val requestWeatherByCoordinates: RequestWeatherByCoordinates,
+//    val requestWeatherByName: FakeRequestWeatherByName
 )
