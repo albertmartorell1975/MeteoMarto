@@ -7,8 +7,10 @@ import androidx.lifecycle.ViewModelProvider
 import com.apps.albertmartorell.meteomarto.framework.Interactors
 import com.apps.albertmartorell.meteomarto.ui.Scope
 import com.apps.albertmartorell.meteomarto.ui.common.Event
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class CityViewModel(private val interactors: Interactors) : ViewModel(), Scope {
 
@@ -33,6 +35,7 @@ class CityViewModel(private val interactors: Interactors) : ViewModel(), Scope {
 //    }
 
     private val _eventRequestLocationPermission = MutableLiveData<Event<Unit>>()
+
     val eventRequestLocationPermission: LiveData<Event<Unit>>
         get() {
 
@@ -46,6 +49,9 @@ class CityViewModel(private val interactors: Interactors) : ViewModel(), Scope {
             return _eventRequestLocationPermission
 
         }
+
+    private val _eventFinished = MutableLiveData<Event<Unit>>()
+    val eventFinished: LiveData<Event<Unit>> = _eventFinished
 
     private val _eventPermissionDenied = MutableLiveData<Event<Unit>>()
     val eventPermissionDenied: LiveData<Event<Unit>> = _eventPermissionDenied
@@ -96,6 +102,17 @@ class CityViewModel(private val interactors: Interactors) : ViewModel(), Scope {
     override fun onCleared() {
 
         cancelScope()
+
+    }
+
+    fun getCityWeatherFromDatabase() {
+
+        launch {
+
+            withContext(Dispatchers.IO) { interactors.getCityWeatherFromDatabase.invoke() }
+            withContext(Dispatchers.Main) { _eventFinished.value = Event(Unit) }
+
+        }
 
     }
 

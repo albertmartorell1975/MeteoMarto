@@ -7,7 +7,8 @@ import kotlinx.coroutines.SupervisorJob
 import kotlin.coroutines.CoroutineContext
 
 /**
- * Each entity that has a lifecycle will need the below functions. So I have created this interface to avoid boilerplate code
+ * Each entity that has a lifecycle will need the below functions.
+ * So I have created this interface to avoid boilerplate code
  */
 interface Scope : CoroutineScope {
 

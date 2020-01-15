@@ -4,6 +4,7 @@ import albertmartorell.com.data.repositories.WeatherRepository
 import albertmartorell.com.domain.*
 import albertmartorell.com.domain.responses.City
 import android.content.Context
+import com.apps.albertmartorell.meteomarto.framework.db.common.convertToResponse
 import com.apps.albertmartorell.meteomarto.framework.db.entities.*
 
 /**
@@ -27,148 +28,27 @@ class ImpWeatherDeviceSource(context: Context) : WeatherRepository.WeatherDevice
 
     ): City {
 
-        return dao.getCityWeatherByCoordinates(latitude, longitude ).convertToResponse()
+        return dao.getCityWeatherByCoordinates(latitude, longitude).convertToResponse()
 
     }
 
     override suspend fun isEmpty(): Boolean {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
+        if (dao.getAll().count() > 0)
+            return true
+        else
+            return false
+
     }
 
     override suspend fun saveCityWeather(cityWeather: City) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override suspend fun getCity(): City {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override suspend fun getCity() {
 
-    // Converters
-
-    private fun CityEntity.convertToResponse(): City =
-
-        City(
-            CoordinatesEntity().convertToResponse(),
-            WeatherEntity().convertToResponse(),
-            MainEntity().convertToResponse(),
-            visibility,
-            WindEntity().convertToResponse(),
-            CloudsEntity().convertToResponse(),
-            SysEntity().convertToResponse(),
-            name
-        )
-
-    private fun CoordinatesEntity.convertToResponse() =
-
-        Coordinates(
-            latitude,
-            longitude
-        )
-
-    private fun WeatherEntity.convertToResponse(): List<Weather> {
-
-        val weather = Weather(main, description, icon)
-        val weatherList: List<Weather> = listOf(weather)
-        return weatherList
+        dao.getCity()
 
     }
-
-    private fun MainEntity.convertToResponse() =
-
-        Main(
-            temperature,
-            humidity,
-            pressure,
-            temperatureMin,
-            temperatureMax
-        )
-
-    private fun WindEntity.convertToResponse() =
-
-        Wind(
-            speed,
-            degrees
-        )
-
-    private fun CloudsEntity.convertToResponse() =
-        Clouds(coverage)
-
-    private fun SysEntity.convertToResponse() =
-
-        Sys(
-            type,
-            message,
-            country,
-            sunrise,
-            sunset
-        )
-
-//    private fun WeatherResponse.convertToEntity(): CityEntity =
-//
-//        CityEntity(
-//            0,
-//            Coordinates().convertToEntity(),
-//            Weather().convertToEntity(),
-//            Main().convertToEntity(),
-//            visibility,
-//            Wind().convertToEntity(),
-//            Clouds().convertToEntity(),
-//            Sys().converToEntity(),
-//            name
-//        )
-//
-//    private fun Coordinates.convertToEntity(): CoordinatesEntity =
-//
-//        CoordinatesEntity(
-//            0,
-//            latitude,
-//            longitude
-//        )
-//
-//    private fun Weather.convertToEntity(): WeatherEntity =
-//
-//        WeatherEntity(
-//            0,
-//            main,
-//            description,
-//            icon
-//        )
-//
-//    private fun Main.convertToEntity(): MainEntity =
-//
-//        MainEntity(
-//            0,
-//            temperature,
-//            humidity,
-//            pressure,
-//            temperatureMin,
-//            temperatureMax
-//        )
-//
-//    private fun Wind.convertToEntity(): WindEntity =
-//
-//        WindEntity(
-//            0,
-//            speed,
-//            degrees
-//        )
-//
-//    private fun Clouds.convertToEntity(): CloudsEntity =
-//
-//        CloudsEntity(
-//            0,
-//            coverage
-//        )
-//
-//    private fun Sys.converToEntity(): SysEntity =
-//
-//        SysEntity(
-//            0,
-//            type,
-//            message,
-//            country,
-//            sunrise,
-//            sunset
-//        )
 
 }

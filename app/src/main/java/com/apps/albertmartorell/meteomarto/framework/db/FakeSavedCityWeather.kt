@@ -72,7 +72,7 @@ class FakeSavedCityWeather : WeatherRepository.WeatherDeviceSource {
 
     }
 
-    override suspend fun getCity(): City {
+    override suspend fun getCity() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

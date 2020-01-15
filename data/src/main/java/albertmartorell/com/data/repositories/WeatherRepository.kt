@@ -2,7 +2,6 @@ package albertmartorell.com.data.repositories
 
 import albertmartorell.com.domain.responses.City
 
-
 // We use the Repository pattern, which its main purpose is to abstract the concrete implementation of data access. To achieve this, I will add one interface and one class for each model
 // Using the repository pattern is a good example of the Dependency Inversion Principle because an more abstract layer (data) does not depend on a more specific layer (framework),
 // so the repository is an abstraction that do not depend on details
@@ -15,21 +14,7 @@ class WeatherRepository(
     private val deviceSource: WeatherDeviceSource
 ) {
 
-    //Note that you mark all the methods with the suspend modifier. This allows you to use coroutine-powered mechanisms in Room or Retrofit, for simpler threading.
-
-    suspend fun getCityWeatherOnLocal() {
-
-        if (!deviceSource.isEmpty()) {
-
-            deviceSource.getCity()
-
-        }
-
-    }
-
-    suspend fun isThereCityOnLocal(): Boolean = !deviceSource.isEmpty()
-
-//    suspend fun getCityWeatherOnLocal(latitude: Float, longitude: Float): City {
+    //    suspend fun getCityWeatherOnLocal(latitude: Float, longitude: Float): City {
 //
 //        if (deviceSource.isEmpty()) {
 //
@@ -41,6 +26,16 @@ class WeatherRepository(
 //        return deviceSource.getCityWeatherByCoordinates(latitude, longitude)
 //
 //    }
+
+    suspend fun getCityWeatherFromDatabase() {
+
+        if (!deviceSource.isEmpty()) {
+
+            deviceSource.getCity()
+
+        }
+
+    }
 
     suspend fun requestWeatherByCoordinates(latitude: Float, longitude: Float) =
         serverSource.getWeatherByCoordinates(latitude, longitude)
@@ -55,7 +50,6 @@ class WeatherRepository(
     /**
      * The interface that the framework layer must implement
      *
-     * Nota: PODRIEM SEPARAR CADA MÈTODE EN UNA INTERFACE A PART (en aquest cas n'hi haurien 4)
      */
     interface WeatherServerSource {
 
@@ -71,7 +65,7 @@ class WeatherRepository(
 
     interface WeatherDeviceSource {
 
-        suspend fun getCity(): City
+        suspend fun getCity()
         suspend fun isEmpty(): Boolean
         suspend fun saveCityWeather(cityWeather: City)
         suspend fun getCityWeatherByName(name: String): City

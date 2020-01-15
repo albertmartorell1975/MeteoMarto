@@ -9,8 +9,8 @@ import albertmartorell.com.usecases.*
  */
 data class Interactors(
 
-    //val getCityOnLocal: GetCityOnLocal,
-    val findCurrentRegion: FindCurrentRegion
+    val findCurrentRegion: FindCurrentRegion,
+    val getCityWeatherFromDatabase: GetCityWeatherFromDatabase
 //    val getSavedWeatherByCoordinates: GetSavedWeatherByCoordinates,
 //    val getSavedWeatherByName: GetSavedWeatherByName,
 //    val requestWeatherByCoordinates: RequestWeatherByCoordinates,

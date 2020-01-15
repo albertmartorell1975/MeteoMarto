@@ -3,7 +3,7 @@ package com.apps.albertmartorell.meteomarto.ui.city
 import albertmartorell.com.data.repositories.RegionRepository
 import albertmartorell.com.data.repositories.WeatherRepository
 import albertmartorell.com.usecases.FindCurrentRegion
-import albertmartorell.com.usecases.GetCityOnLocal
+import albertmartorell.com.usecases.GetCityWeatherFromDatabase
 import android.Manifest.permission.ACCESS_COARSE_LOCATION
 import android.os.Bundle
 import android.view.View
@@ -34,8 +34,9 @@ class Landing : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
 
-        val weatherRepository= WeatherRepository(ImpWeatherServerSource(), ImpWeatherDeviceSource(applicationContext))
-        val getCityOnLocal = GetCityOnLocal(weatherRepository)
+        val weatherRepository =
+            WeatherRepository(ImpWeatherServerSource(), ImpWeatherDeviceSource(applicationContext))
+        val getCityWeatherFromDatabase = GetCityWeatherFromDatabase(weatherRepository)
 
         val findCurrentRegion = FindCurrentRegion(
             RegionRepository(
@@ -51,7 +52,7 @@ class Landing : AppCompatActivity() {
         // the this param does that each time we access the view model providers checks if this view model already exists: if not it is created else it is got again
         viewModel = ViewModelProviders.of(
             this, CityViewModelFactory(
-                Interactors(findCurrentRegion)
+                Interactors(findCurrentRegion, getCityWeatherFromDatabase)
             )
         )[CityViewModel::class.java]
 
@@ -83,8 +84,7 @@ class Landing : AppCompatActivity() {
 
                     if (it.isEmpty()) {
 
-                        Toast.makeText(this, "Error obtenir localització", Toast.LENGTH_SHORT)
-                            .show()
+                        viewModel.getCityWeatherFromDatabase()
 
                     } else {
 
@@ -114,6 +114,16 @@ class Landing : AppCompatActivity() {
 
                 progressBar.visibility = View.GONE
                 binding.lytFrgActPermissionDenied.visibility = View.VISIBLE
+
+            }
+
+        })
+
+        viewModel.eventFinished.observe(this, Observer {
+
+            it.getContentIfNotHandled()?.let {
+
+                progressBar.visibility = View.GONE
 
             }
 
