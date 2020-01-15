@@ -18,22 +18,67 @@ class PlayServicesLocationDataSource(application: Application) : LocationDataSou
     private val geocoder = Geocoder(application)
     private val fusedLocationClient = LocationServices.getFusedLocationProviderClient(application)
 
+    /**
+
+    override suspend fun findLastRegion(): String? =
+    suspendCancellableCoroutine { continuation ->
+    fusedLocationClient.lastLocation
+    .addOnCompleteListener {
+    continuation.resume(it.result.toRegion())
+    }
+    }
+     **/
+
     override suspend fun findLastRegion(): String? =
         suspendCancellableCoroutine { continuation ->
             fusedLocationClient.lastLocation
                 .addOnCompleteListener {
-                    continuation.resume(it.result.toRegion())
+                    continuation.resume(it.result.getCoordinate())
                 }
         }
 
-    private fun Location?.toRegion(): String? {
+
+
+    private fun Location?.getCoordinate(): Location {
+
+    val addresses = this?.let {
+
+    geocoder.getFromLocation(latitude, longitude, 1)
+    }
+
+
+    addresses?.firstOrNull()?.latitude.toString() + "-" + addresses?.firstOrNull()?.longitude.toString()
+    return coordinates
+
+    }
+
+    /**
+    private fun Location?.getCoordinate(): String {
 
         val addresses = this?.let {
+
             geocoder.getFromLocation(latitude, longitude, 1)
         }
 
-        return addresses?.firstOrNull()?.countryCode
+        val coordinates =
+            addresses?.firstOrNull()?.latitude.toString() + "-" + addresses?.firstOrNull()?.longitude.toString()
+        return coordinates
 
     }
+
+    **/
+    /**
+    private fun Location?.toRegion(): String? {
+
+    val addresses = this?.let {
+
+    geocoder.getFromLocation(latitude, longitude, 1)
+    }
+
+    return addresses?.firstOrNull()?.latitude.toString() +
+    addresses?.firstOrNull()?.longitude.toString()
+
+    }
+     **/
 
 }

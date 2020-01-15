@@ -69,7 +69,8 @@ class CityViewModel(private val interactors: Interactors) : ViewModel(), Scope {
     }
 
     /**
-     * I wonder when to call this method: a good moment is wait when somebody is subscribed to the LiveData for the first time. As alternative it could be called in the init constructor
+     * I wonder when to call this method: a good moment is wait when somebody is subscribed to the LiveData
+     * for the first time. As alternative it could be called in the init constructor
      */
     private fun refresh() {
 
@@ -111,6 +112,21 @@ class CityViewModel(private val interactors: Interactors) : ViewModel(), Scope {
 
             withContext(Dispatchers.IO) { interactors.getCityWeatherFromDatabase.invoke() }
             withContext(Dispatchers.Main) { _eventFinished.value = Event(Unit) }
+
+        }
+
+    }
+
+    fun getCityWeatherFromService(_latitude: Float, _longitude: Float) {
+
+        launch {
+
+            withContext(Dispatchers.IO) {
+                interactors.requestWeatherByCoordinates.invoke(
+                    _latitude,
+                    _longitude
+                )
+            }
 
         }
 

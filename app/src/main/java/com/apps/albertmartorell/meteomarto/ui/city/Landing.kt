@@ -4,6 +4,7 @@ import albertmartorell.com.data.repositories.RegionRepository
 import albertmartorell.com.data.repositories.WeatherRepository
 import albertmartorell.com.usecases.FindCurrentRegion
 import albertmartorell.com.usecases.GetCityWeatherFromDatabase
+import albertmartorell.com.usecases.RequestWeatherByCoordinates
 import android.Manifest.permission.ACCESS_COARSE_LOCATION
 import android.os.Bundle
 import android.view.View
@@ -49,10 +50,15 @@ class Landing : AppCompatActivity() {
             )
         )
 
+        val requestCityWeatherByCoordinates = RequestWeatherByCoordinates(weatherRepository)
         // the this param does that each time we access the view model providers checks if this view model already exists: if not it is created else it is got again
         viewModel = ViewModelProviders.of(
             this, CityViewModelFactory(
-                Interactors(findCurrentRegion, getCityWeatherFromDatabase)
+                Interactors(
+                    findCurrentRegion,
+                    getCityWeatherFromDatabase,
+                    requestCityWeatherByCoordinates
+                )
             )
         )[CityViewModel::class.java]
 
@@ -88,7 +94,9 @@ class Landing : AppCompatActivity() {
 
                     } else {
 
-                        Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+                        //Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+
+                        viewModel.getCityWeatherFromService(, 0F)
 
                     }
 
