@@ -8,7 +8,6 @@ import albertmartorell.com.usecases.RequestWeatherByCoordinates
 import android.Manifest.permission.ACCESS_COARSE_LOCATION
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -88,15 +87,13 @@ class Landing : AppCompatActivity() {
 
                     progressBar.visibility = View.GONE
 
-                    if (it.isEmpty()) {
+                    if (it.latitude == 0F || it.longitude == 0F) {
 
                         viewModel.getCityWeatherFromDatabase()
 
                     } else {
 
-                        //Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
-
-                        viewModel.getCityWeatherFromService(, 0F)
+                        viewModel.getCityWeatherFromService(it)
 
                     }
 

@@ -1,6 +1,7 @@
 package albertmartorell.com.data.repositories
 
 import albertmartorell.com.domain.responses.City
+import albertmartorell.com.domain.Result
 
 // We use the Repository pattern, which its main purpose is to abstract the concrete implementation of data access. To achieve this, I will add one interface and one class for each model
 // Using the repository pattern is a good example of the Dependency Inversion Principle because an more abstract layer (data) does not depend on a more specific layer (framework),
@@ -37,8 +38,11 @@ class WeatherRepository(
 
     }
 
-    suspend fun requestWeatherByCoordinates(latitude: Float, longitude: Float) =
-        serverSource.getWeatherByCoordinates(latitude, longitude)
+    suspend fun requestWeatherByCoordinates(latitude: Float, longitude: Float): Result<City> {
+
+        return serverSource.getWeatherByCoordinates(latitude, longitude)
+
+    }
 
     suspend fun requestWeatherByName(name: String) = serverSource.getCityWeatherByName(name)
 
@@ -53,13 +57,12 @@ class WeatherRepository(
      */
     interface WeatherServerSource {
 
-
         suspend fun getCityWeatherByName(name: String): City
 
         suspend fun getWeatherByCoordinates(
             latitude: Float,
             longitude: Float
-        ): City
+        ): Result<City>
 
     }
 

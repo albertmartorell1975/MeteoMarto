@@ -1,6 +1,7 @@
 package com.apps.albertmartorell.meteomarto.ui.common
 
 import albertmartorell.com.data.sources.LocationDataSource
+import albertmartorell.com.domain.Coordinates
 import android.app.Application
 import android.location.Geocoder
 import android.location.Location
@@ -29,7 +30,7 @@ class PlayServicesLocationDataSource(application: Application) : LocationDataSou
     }
      **/
 
-    override suspend fun findLastRegion(): String? =
+    override suspend fun findLastRegion(): Coordinates =
         suspendCancellableCoroutine { continuation ->
             fusedLocationClient.lastLocation
                 .addOnCompleteListener {
@@ -38,35 +39,35 @@ class PlayServicesLocationDataSource(application: Application) : LocationDataSou
         }
 
 
+    private fun Location?.getCoordinate(): Coordinates {
 
-    private fun Location?.getCoordinate(): Location {
+        var coordinates = Coordinates(0F, 0F)
 
-    val addresses = this?.let {
+        this?.let {
 
-    geocoder.getFromLocation(latitude, longitude, 1)
-    }
+            coordinates = Coordinates(latitude.toFloat(), longitude.toFloat())
 
+        }
 
-    addresses?.firstOrNull()?.latitude.toString() + "-" + addresses?.firstOrNull()?.longitude.toString()
-    return coordinates
+        return coordinates
 
     }
 
     /**
     private fun Location?.getCoordinate(): String {
 
-        val addresses = this?.let {
+    val addresses = this?.let {
 
-            geocoder.getFromLocation(latitude, longitude, 1)
-        }
+    geocoder.getFromLocation(latitude, longitude, 1)
+    }
 
-        val coordinates =
-            addresses?.firstOrNull()?.latitude.toString() + "-" + addresses?.firstOrNull()?.longitude.toString()
-        return coordinates
+    val coordinates =
+    addresses?.firstOrNull()?.latitude.toString() + "-" + addresses?.firstOrNull()?.longitude.toString()
+    return coordinates
 
     }
 
-    **/
+     **/
     /**
     private fun Location?.toRegion(): String? {
 

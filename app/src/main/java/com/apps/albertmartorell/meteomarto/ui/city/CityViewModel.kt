@@ -1,5 +1,7 @@
 package com.apps.albertmartorell.meteomarto.ui.city
 
+import albertmartorell.com.domain.Coordinates
+import albertmartorell.com.domain.Result
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -59,7 +61,7 @@ class CityViewModel(private val interactors: Interactors) : ViewModel(), Scope {
     private val _eventPerMissionGranted = MutableLiveData<Event<Unit>>()
     val eventPermissionGranted: LiveData<Event<Unit>> = _eventPerMissionGranted
 
-    private val _eventRequestedLocationPermissionFinished = MutableLiveData<Event<String>>()
+    private val _eventRequestedLocationPermissionFinished = MutableLiveData<Event<Coordinates>>()
     val eventRequestedLocationPermissionFinished = _eventRequestedLocationPermissionFinished
 
     init {
@@ -117,15 +119,32 @@ class CityViewModel(private val interactors: Interactors) : ViewModel(), Scope {
 
     }
 
-    fun getCityWeatherFromService(_latitude: Float, _longitude: Float) {
+    fun getCityWeatherFromService(coordinates: Coordinates) {
 
         launch {
 
             withContext(Dispatchers.IO) {
-                interactors.requestWeatherByCoordinates.invoke(
-                    _latitude,
-                    _longitude
+                val response = interactors.requestWeatherByCoordinates.invoke(
+                    coordinates.latitude,
+                    coordinates.longitude
                 )
+
+                when (response) {
+
+                    is Result.Success -> {
+
+                        val s = response.value.name
+
+                    }
+
+                    is Result.Error -> {
+
+                        val error = response.exception.message
+
+                    }
+
+                }
+
             }
 
         }

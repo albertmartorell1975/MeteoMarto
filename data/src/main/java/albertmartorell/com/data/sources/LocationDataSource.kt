@@ -1,7 +1,10 @@
 package albertmartorell.com.data.sources
 
+import albertmartorell.com.domain.Coordinates
+
+
 interface LocationDataSource {
 
-    suspend fun findLastRegion(): String?
+    suspend fun findLastRegion(): Coordinates?
 
 }

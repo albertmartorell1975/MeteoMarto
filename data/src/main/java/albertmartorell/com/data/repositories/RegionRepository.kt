@@ -1,23 +1,27 @@
 package albertmartorell.com.data.repositories
 
 import albertmartorell.com.data.sources.LocationDataSource
+import albertmartorell.com.domain.Coordinates
 
 class RegionRepository(
     private val locationDataSource: LocationDataSource,
     private val permissionChecker: PermissionChecker
 ) {
-//    companion object {
-//        private const val DEFAULT_REGION = "US"
-//    }
 
-    suspend fun findLastRegion(): String {
+    suspend fun findLastRegion(): Coordinates {
+
         return if (permissionChecker.check(PermissionChecker.Permission.COARSE_LOCATION)) {
-            locationDataSource.findLastRegion() ?: "" // DEFAULT_REGION
+
+            locationDataSource.findLastRegion() ?: Coordinates(0F, 0F)
+
         } else {
-            // DEFAULT_REGION
-            ""
+
+            Coordinates(0F, 0F)
+
         }
+
     }
+
 }
 
 interface PermissionChecker {
