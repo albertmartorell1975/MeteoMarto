@@ -1,11 +1,8 @@
 package com.apps.albertmartorell.meteomarto
 
-import albertmartorell.com.data.repositories.WeatherRepository
 import android.app.Application
 import androidx.room.Room
-import com.apps.albertmartorell.meteomarto.framework.db.ImpWeatherDeviceSource
 import com.apps.albertmartorell.meteomarto.framework.db.MeteoMartoDatabase
-import com.apps.albertmartorell.meteomarto.framework.server.ImpWeatherServerSource
 
 class MeteoMartoApp : Application() {
 

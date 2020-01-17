@@ -16,27 +16,27 @@ class ResultHandler {
         errorMessage: String
     ): Result<T> =
 
-        //try {
+        try {
 
             call.invoke()
 
-//        } catch (e: Exception) {
-//
-//            when (e) {
-//
-////                is HTTPException ->
-////                    Result.Error(IOException("Http errònia", e))
-//                is UnknownHostException ->
-//                    Result.Error(IOException("No hi ha Internet", e))
-//
-//                is SocketTimeoutException ->
-//                    Result.Error(IOException("Servidor caigut", e))
-//
-//                else ->
-//                    Result.Error(IOException("Crida errònia", e))
-//
-//            }
-//
-//        }
+        } catch (e: Exception) {
+
+            when (e) {
+
+//                is HTTPException ->
+//                    Result.Error(IOException("Http errònia", e))
+                is UnknownHostException ->
+                    Result.Error(IOException("No hi ha Internet", e))
+
+                is SocketTimeoutException ->
+                    Result.Error(IOException("Servidor caigut", e))
+
+                else ->
+                    Result.Error(IOException("Crida errònia", e))
+
+            }
+
+        }
 
 }
