@@ -1,6 +1,7 @@
 package albertmartorell.com.usecases
 
 import albertmartorell.com.data.repositories.WeatherRepository
+import albertmartorell.com.domain.Resource
 import albertmartorell.com.domain.Result
 import albertmartorell.com.domain.responses.City
 
@@ -9,7 +10,7 @@ import albertmartorell.com.domain.responses.City
  */
 class RequestWeatherByCoordinates(private val weatherRepository: WeatherRepository) {
 
-    suspend operator fun invoke(_latitude: Float, _longitude: Float):Result<City> {
+    suspend operator fun invoke(_latitude: Float, _longitude: Float): City {
 
         return weatherRepository.requestWeatherByCoordinates(_latitude, _longitude)
 

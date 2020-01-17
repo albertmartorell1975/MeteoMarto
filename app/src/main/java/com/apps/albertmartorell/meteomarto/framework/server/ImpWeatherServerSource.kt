@@ -1,9 +1,11 @@
 package com.apps.albertmartorell.meteomarto.framework.server
 
 import albertmartorell.com.data.repositories.WeatherRepository
+import albertmartorell.com.domain.Resource
 import albertmartorell.com.domain.Result
 import albertmartorell.com.domain.ResultHandler
 import albertmartorell.com.domain.responses.City
+import java.lang.Exception
 
 /**
  * It implements one dependency offered by the data layer, in this case the WeatherServerSource
@@ -19,14 +21,15 @@ class ImpWeatherServerSource : WeatherRepository.WeatherServerSource {
 
     }
 
-    override suspend fun getWeatherByCoordinates(latitude: Float, longitude: Float): Result<City> {
+    override suspend fun getWeatherByCoordinates(latitude: Float, longitude: Float): City {
 
-        val resultHandler = ResultHandler()
+        //val resultHandler = ResultHandler()
 
-        val result: Result<City> = resultHandler.safeApiCall(
-            { client.getWeather(latitude.toString(), longitude.toString()) }, "Error occurred"
-        )
+//        val result: Resource<City> = resultHandler.safeApiCall(
+//            { client.getWeather(latitude.toString(), longitude.toString()) }, "Error occurred"
+//        )
 
+        val result = client.getWeather(latitude.toString(), longitude.toString())
         return result
 
     }

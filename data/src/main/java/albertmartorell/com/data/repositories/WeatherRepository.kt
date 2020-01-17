@@ -1,5 +1,6 @@
 package albertmartorell.com.data.repositories
 
+import albertmartorell.com.domain.Resource
 import albertmartorell.com.domain.responses.City
 import albertmartorell.com.domain.Result
 
@@ -38,7 +39,7 @@ class WeatherRepository(
 
     }
 
-    suspend fun requestWeatherByCoordinates(latitude: Float, longitude: Float): Result<City> {
+    suspend fun requestWeatherByCoordinates(latitude: Float, longitude: Float): City {
 
         return serverSource.getWeatherByCoordinates(latitude, longitude)
 
@@ -62,7 +63,7 @@ class WeatherRepository(
         suspend fun getWeatherByCoordinates(
             latitude: Float,
             longitude: Float
-        ): Result<City>
+        ): City
 
     }
 

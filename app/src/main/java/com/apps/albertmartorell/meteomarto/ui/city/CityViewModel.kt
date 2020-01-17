@@ -1,7 +1,8 @@
 package com.apps.albertmartorell.meteomarto.ui.city
 
 import albertmartorell.com.domain.Coordinates
-import albertmartorell.com.domain.Result
+import albertmartorell.com.domain.Resource
+import albertmartorell.com.domain.ResponseHandler
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,6 +14,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.lang.Exception
 
 class CityViewModel(private val interactors: Interactors) : ViewModel(), Scope {
 
@@ -124,26 +126,32 @@ class CityViewModel(private val interactors: Interactors) : ViewModel(), Scope {
         launch {
 
             withContext(Dispatchers.IO) {
-                val response = interactors.requestWeatherByCoordinates.invoke(
-                    coordinates.latitude,
-                    coordinates.longitude
-                )
 
-                when (response) {
+                val responseHandler = ResponseHandler()
 
-                    is Result.Success -> {
+                try {
+                    val response = responseHandler.handleSuccess(
+                        interactors.requestWeatherByCoordinates.invoke(
+                            coordinates.latitude,
+                            coordinates.longitude
+                        )
+                    )
 
-                        val s = response.value.name
-
-                    }
-
-                    is Result.Error -> {
-
-                        val error = response.exception.message
-
-                    }
+                    val s: String = ""
 
                 }
+                catch (e:Exception){
+
+                   // todo update ui accordingly
+
+
+                }
+
+
+//                val response = interactors.requestWeatherByCoordinates.invoke(
+//                    coordinates.latitude,
+//                    coordinates.longitude
+//                )
 
             }
 
