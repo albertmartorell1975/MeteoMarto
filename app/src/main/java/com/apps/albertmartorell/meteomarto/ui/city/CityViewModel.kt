@@ -1,6 +1,7 @@
 package com.apps.albertmartorell.meteomarto.ui.city
 
 import albertmartorell.com.domain.Coordinates
+import albertmartorell.com.domain.MyResponse
 import albertmartorell.com.domain.Resource
 import albertmartorell.com.domain.ResponseHandler
 import androidx.lifecycle.LiveData
@@ -127,26 +128,35 @@ class CityViewModel(private val interactors: Interactors) : ViewModel(), Scope {
 
             withContext(Dispatchers.IO) {
 
-                val responseHandler = ResponseHandler()
+                //val responseHandler = ResponseHandler()
+
+                val myResponse = MyResponse()
 
                 try {
-                    val response = responseHandler.handleSuccess(
+                    /**
+                    val response = myResponse.handleRequest(
+                    interactors.requestWeatherByCoordinates.invoke(
+                    coordinates.latitude,
+                    coordinates.longitude
+                    )
+                    )
+                     **/
+
+                    val response = myResponse.handleRequest() {
                         interactors.requestWeatherByCoordinates.invoke(
                             coordinates.latitude,
                             coordinates.longitude
                         )
-                    )
+                    }
 
                     val s: String = ""
+                    //todo interactor.saveCityWeatherOnDatabase
+
+                } catch (e: Exception) {
+
+                    // todo update ui accordingly
 
                 }
-                catch (e:Exception){
-
-                   // todo update ui accordingly
-
-
-                }
-
 
 //                val response = interactors.requestWeatherByCoordinates.invoke(
 //                    coordinates.latitude,

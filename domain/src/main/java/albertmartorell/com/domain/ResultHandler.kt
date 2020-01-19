@@ -26,6 +26,7 @@ class ResultHandler {
 
 //                is HTTPException ->
 //                    Result.Error(IOException("Http errònia", e))
+
                 is UnknownHostException ->
                     Result.Error(IOException("No hi ha Internet", e))
 

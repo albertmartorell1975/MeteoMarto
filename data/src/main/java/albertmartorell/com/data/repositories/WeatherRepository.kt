@@ -1,8 +1,6 @@
 package albertmartorell.com.data.repositories
 
-import albertmartorell.com.domain.Resource
 import albertmartorell.com.domain.responses.City
-import albertmartorell.com.domain.Result
 
 // We use the Repository pattern, which its main purpose is to abstract the concrete implementation of data access. To achieve this, I will add one interface and one class for each model
 // Using the repository pattern is a good example of the Dependency Inversion Principle because an more abstract layer (data) does not depend on a more specific layer (framework),

@@ -1,8 +1,6 @@
 package albertmartorell.com.usecases
 
 import albertmartorell.com.data.repositories.WeatherRepository
-import albertmartorell.com.domain.Resource
-import albertmartorell.com.domain.Result
 import albertmartorell.com.domain.responses.City
 
 /**
