@@ -33,7 +33,7 @@ class ImpWeatherDeviceSource(context: Context) : WeatherRepository.WeatherDevice
 
     }
 
-    override fun getCity(): Flow<City> {
+    override suspend fun getCity(): Flow<City> {
 
         return dao.getCity().map { it.convertToResponse() }.distinctUntilChanged()
 

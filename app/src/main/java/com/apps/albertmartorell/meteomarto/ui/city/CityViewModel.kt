@@ -2,12 +2,16 @@ package com.apps.albertmartorell.meteomarto.ui.city
 
 import albertmartorell.com.domain.Coordinates
 import albertmartorell.com.domain.responses.City
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.apps.albertmartorell.meteomarto.framework.Interactors
 import com.apps.albertmartorell.meteomarto.ui.Scope
 import com.apps.albertmartorell.meteomarto.ui.common.Event
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -62,11 +66,13 @@ class CityViewModel(private val interactors: Interactors) : ViewModel(), Scope {
     val eventRequestedLocationPermissionFinished = _eventRequestedLocationPermissionFinished
 
     //private val _eventCityWeather = MutableLiveData<Event<City>>()
-    val eventCityWeather: LiveData<City> =
-        interactors.getCityWeatherFromDatabase.invoke().asLiveData()
+//    val eventCityWeather: LiveData<City> =
+//        interactors.getCityWeatherFromDatabase.invoke().collect{
+//            eventCityWeather.value = it
+//        }
 
-    //val plantsUsingFlow: LiveData<List<Plant>> = plantRepository.plantsFlow.asLiveData()
-    //val favoriteMovies: LiveData<List<Movie>> get() = getFavoriteMovieListWithChangesUseCase.invoke().asLiveData()
+    private val _eventCityWeather = MutableLiveData<Event<City>>()
+    val eventCityWeather = _eventCityWeather
 
     init {
 
@@ -116,8 +122,14 @@ class CityViewModel(private val interactors: Interactors) : ViewModel(), Scope {
 
         launch {
 
-            //withContext(Dispatchers.IO) { interactors.getCityWeatherFromDatabase.invoke() }
-            //withContext(Dispatchers.Main) { _eventFinished.value = Event(Unit) }
+            withContext(Dispatchers.IO) {
+                interactors.getCityWeatherFromDatabase.invoke().collect {
+
+                    withContext(Dispatchers.Main) { eventCityWeather.value = Event(it) }
+
+                }
+
+            }
 
         }
 
@@ -137,55 +149,20 @@ class CityViewModel(private val interactors: Interactors) : ViewModel(), Scope {
                     )
 
                     interactors.saveCityWeather.invoke(response)
-                    //_eventCityWeather.value(interactors.getCityWeatherFromDatabase.invoke())
-                    //eventCityWeather = interactors.getCityWeatherFromDatabase.invoke().asLiveData()
+                    interactors.getCityWeatherFromDatabase.invoke().collect {
+
+                        withContext(Dispatchers.Main) { eventCityWeather.value = Event(it) }
+
+                    }
 
                 } catch (ex: Exception) {
 
                     // error
-                    val s: String = ""
+                    withContext(Dispatchers.Main) { _eventFinished.value = Event(Unit) }
 
                 }
 
             }
-
-
-//                val myResponse = MyResponse()
-//                val response = myResponse.handleRequest() {
-//                    interactors.requestWeatherByCoordinates.invoke(
-//                        coordinates.latitude,
-//                        coordinates.longitude
-//                    )
-//                }
-//
-//                when (response) {
-//
-//                    // todo update ui accordingly
-//                    is Result.Error -> {
-//
-//                        if (response.exception.message.equals(ERROR_HTTP)) {
-//
-//                            val s: String = "error http"
-//
-//                        } else if (response.exception.message.equals(ERROR_INTERNET)) {
-//
-//                            val s: String = "error Internet"
-//
-//                        } else {
-//
-//                            val s: String = "error servidor"
-//                        }
-//
-//                    }
-//                    else -> {
-//
-//                        interactors.saveCityWeather.invoke(response)
-//
-//                    }
-//
-//                }
-
-            //withContext(Dispatchers.Main) { _eventFinished.value = Event(Unit) }
 
         }
 

@@ -12,14 +12,28 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/lyt_frg_city_weather_search"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lyt_frg_city_weather_button"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/lyt_frg_act_permission_denied"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/lyt_act_landing_permission_denied"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Sense permissos!!" />
 
         <TextView
             android:id="@+id/lyt_frg_city_weather_date"
@@ -32,7 +46,7 @@
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/lyt_frg_city_weather_search"
+            app:layout_constraintTop_toBottomOf="@id/lyt_frg_city_weather_button"
             tools:text="7 de gener, 12:35 PM" />
 
         <TextView
@@ -111,6 +125,6 @@
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/lyt_frg_city_weather_search" />
+            app:layout_constraintTop_toBottomOf="@id/lyt_frg_city_weather_button" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

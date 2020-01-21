@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 class GetCityWeatherFromDatabase(private val weatherRepository: WeatherRepository) {
 
-    operator fun invoke(): Flow<City> {
+    suspend operator fun invoke(): Flow<City> {
 
         return weatherRepository.getCityWeatherFromDatabase()
 

@@ -1,6 +1,5 @@
 package com.apps.albertmartorell.meteomarto.framework.db.daos
 
-import albertmartorell.com.domain.responses.City
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
