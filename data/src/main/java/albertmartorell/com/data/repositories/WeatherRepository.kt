@@ -50,6 +50,12 @@ class WeatherRepository(
 
     }
 
+    suspend fun deleteAllCities(){
+
+        deviceSource.deleteAllCities()
+
+    }
+
     suspend fun requestWeatherByName(name: String) = serverSource.getCityWeatherByName(name)
 
     /**
@@ -72,6 +78,7 @@ class WeatherRepository(
         suspend fun getCity(): Flow<City>
         suspend fun isEmpty(): Boolean
         suspend fun saveCityWeather(cityWeather: City)
+        suspend fun deleteAllCities()
 
     }
 

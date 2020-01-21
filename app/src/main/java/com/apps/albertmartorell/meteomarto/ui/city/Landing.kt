@@ -2,10 +2,7 @@ package com.apps.albertmartorell.meteomarto.ui.city
 
 import albertmartorell.com.data.repositories.RegionRepository
 import albertmartorell.com.data.repositories.WeatherRepository
-import albertmartorell.com.usecases.FindCurrentRegion
-import albertmartorell.com.usecases.GetCityWeatherFromDatabase
-import albertmartorell.com.usecases.RequestWeatherByCoordinates
-import albertmartorell.com.usecases.SaveCityWeather
+import albertmartorell.com.usecases.*
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -45,8 +42,9 @@ class Landing : AppCompatActivity() {
         )
 
         val saveCityWeather = SaveCityWeather(weatherRepository)
-
         val requestCityWeatherByCoordinates = RequestWeatherByCoordinates(weatherRepository)
+        val deleteAllCities = DeleteAllCities(weatherRepository)
+
         // the this param does that each time we access the view model providers checks if this view model already exists: if not it is created else it is got again
         viewModel = ViewModelProviders.of(
             this, CityViewModelFactory(
@@ -54,7 +52,8 @@ class Landing : AppCompatActivity() {
                     findCurrentRegion,
                     getCityWeatherFromDatabase,
                     requestCityWeatherByCoordinates,
-                    saveCityWeather
+                    saveCityWeather,
+                    deleteAllCities
                 )
             )
         )[CityViewModel::class.java]

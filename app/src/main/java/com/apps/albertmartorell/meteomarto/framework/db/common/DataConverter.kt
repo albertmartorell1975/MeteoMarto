@@ -85,7 +85,7 @@ fun City.convertToEntity(): CityEntity =
 fun CityEntity.convertToResponse(): City =
 
     City(
-        Coordinates(longitude, latitude),
+        Coordinates(latitude, longitude),
         WeatherEntity().convertToResponse(main, description, icon),
         Main(
             temperature,

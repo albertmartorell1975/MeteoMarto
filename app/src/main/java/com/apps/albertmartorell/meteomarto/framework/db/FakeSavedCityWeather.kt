@@ -66,4 +66,9 @@ class FakeSavedCityWeather : WeatherRepository.WeatherDeviceSource {
     override suspend fun getCity(): Flow<City> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
+
+    override suspend fun deleteAllCities() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
 }

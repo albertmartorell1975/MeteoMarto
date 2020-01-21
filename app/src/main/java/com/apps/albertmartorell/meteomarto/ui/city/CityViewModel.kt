@@ -148,6 +148,7 @@ class CityViewModel(private val interactors: Interactors) : ViewModel(), Scope {
                         coordinates.longitude
                     )
 
+                    interactors.deleteAllCities.invoke()
                     interactors.saveCityWeather.invoke(response)
                     interactors.getCityWeatherFromDatabase.invoke().collect {
 

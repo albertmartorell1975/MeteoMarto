@@ -1,9 +1,6 @@
 package com.apps.albertmartorell.meteomarto.framework
 
-import albertmartorell.com.usecases.FindCurrentRegion
-import albertmartorell.com.usecases.GetCityWeatherFromDatabase
-import albertmartorell.com.usecases.RequestWeatherByCoordinates
-import albertmartorell.com.usecases.SaveCityWeather
+import albertmartorell.com.usecases.*
 
 /**
  * This data class contains all the use cases
@@ -15,6 +12,7 @@ data class Interactors(
     val findCurrentRegion: FindCurrentRegion,
     val getCityWeatherFromDatabase: GetCityWeatherFromDatabase,
     val requestWeatherByCoordinates: RequestWeatherByCoordinates,
-    val saveCityWeather: SaveCityWeather
+    val saveCityWeather: SaveCityWeather,
+    val deleteAllCities: DeleteAllCities
 
 )
