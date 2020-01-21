@@ -8,7 +8,7 @@ import albertmartorell.com.domain.responses.City
  */
 class RequestWeatherByCoordinates(private val weatherRepository: WeatherRepository) {
 
-    suspend operator fun invoke(_latitude: Float, _longitude: Float): City {
+    suspend operator fun invoke(_latitude: Float?, _longitude: Float?): City {
 
         return weatherRepository.requestWeatherByCoordinates(_latitude, _longitude)
 

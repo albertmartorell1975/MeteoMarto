@@ -11,10 +11,7 @@ class FakeRequestWeatherByName : WeatherRepository.WeatherServerSource {
 
     }
 
-    override suspend fun getWeatherByCoordinates(
-        latitude: Float,
-        longitude: Float
-    ): City {
+    override suspend fun getWeatherByCoordinates(latitude: Float?, longitude: Float?): City {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

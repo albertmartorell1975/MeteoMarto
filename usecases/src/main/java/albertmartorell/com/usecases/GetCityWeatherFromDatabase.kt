@@ -1,12 +1,15 @@
 package albertmartorell.com.usecases
 
 import albertmartorell.com.data.repositories.WeatherRepository
+import albertmartorell.com.domain.responses.City
+import kotlinx.coroutines.flow.Flow
 
 class GetCityWeatherFromDatabase(private val weatherRepository: WeatherRepository) {
 
-    suspend operator fun invoke() {
+    operator fun invoke(): Flow<City> {
 
-        weatherRepository.getCityWeatherFromDatabase()
+        return weatherRepository.getCityWeatherFromDatabase()
 
     }
+
 }

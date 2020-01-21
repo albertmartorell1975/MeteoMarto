@@ -1,6 +1,8 @@
 package albertmartorell.com.data.repositories
 
 import albertmartorell.com.domain.responses.City
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.distinctUntilChanged
 
 // We use the Repository pattern, which its main purpose is to abstract the concrete implementation of data access. To achieve this, I will add one interface and one class for each model
 // Using the repository pattern is a good example of the Dependency Inversion Principle because an more abstract layer (data) does not depend on a more specific layer (framework),
@@ -27,28 +29,29 @@ class WeatherRepository(
 //
 //    }
 
-    suspend fun getCityWeatherFromDatabase() {
+    suspend fun saveCityWeather(city: City) {
 
-        if (!deviceSource.isEmpty()) {
-
-            deviceSource.getCity()
-
-        }
+        deviceSource.saveCityWeather(city)
 
     }
 
-    suspend fun requestWeatherByCoordinates(latitude: Float, longitude: Float): City {
+    fun getCityWeatherFromDatabase():Flow<City> {
+
+        //if (!deviceSource.isEmpty()) {
+
+            return deviceSource.getCity()
+
+        //}
+
+    }
+
+    suspend fun requestWeatherByCoordinates(latitude: Float?, longitude: Float?): City {
 
         return serverSource.getWeatherByCoordinates(latitude, longitude)
 
     }
 
     suspend fun requestWeatherByName(name: String) = serverSource.getCityWeatherByName(name)
-
-    suspend fun getSavedWeatherByCoordinates(latitude: Float, longitude: Float) =
-        deviceSource.getCityWeatherByCoordinates(latitude, longitude)
-
-    suspend fun getSavedWeatherByName(name: String) = deviceSource.getCityWeatherByName(name)
 
     /**
      * The interface that the framework layer must implement
@@ -59,22 +62,17 @@ class WeatherRepository(
         suspend fun getCityWeatherByName(name: String): City
 
         suspend fun getWeatherByCoordinates(
-            latitude: Float,
-            longitude: Float
+            latitude: Float?,
+            longitude: Float?
         ): City
 
     }
 
     interface WeatherDeviceSource {
 
-        suspend fun getCity()
+        fun getCity(): Flow<City>
         suspend fun isEmpty(): Boolean
         suspend fun saveCityWeather(cityWeather: City)
-        suspend fun getCityWeatherByName(name: String): City
-        suspend fun getCityWeatherByCoordinates(
-            latitude: Float,
-            longitude: Float
-        ): City
 
     }
 

@@ -1,11 +1,13 @@
 package com.apps.albertmartorell.meteomarto.framework.db
 
 import albertmartorell.com.data.repositories.WeatherRepository
-import albertmartorell.com.domain.*
 import albertmartorell.com.domain.responses.City
 import android.content.Context
+import com.apps.albertmartorell.meteomarto.framework.db.common.convertToEntity
 import com.apps.albertmartorell.meteomarto.framework.db.common.convertToResponse
-import com.apps.albertmartorell.meteomarto.framework.db.entities.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.map
 
 /**
  * It implements one dependency offered by the data layer, in this case the WeatherDeviceSource
@@ -13,24 +15,8 @@ import com.apps.albertmartorell.meteomarto.framework.db.entities.*
  */
 class ImpWeatherDeviceSource(context: Context) : WeatherRepository.WeatherDeviceSource {
 
-    // Use database to get an instance of WeatherDao an d store it in local field
+    // Use database to get an instance of WeatherDao and store it in local field
     private val dao = MeteoMartoDatabase.getInstance(context).weatherDao()
-
-    override suspend fun getCityWeatherByName(name: String): City {
-
-        return dao.getCityWeatherByName(name).convertToResponse()
-
-    }
-
-    override suspend fun getCityWeatherByCoordinates(
-        latitude: Float,
-        longitude: Float
-
-    ): City {
-
-        return dao.getCityWeatherByCoordinates(latitude, longitude).convertToResponse()
-
-    }
 
     override suspend fun isEmpty(): Boolean {
 
@@ -42,12 +28,14 @@ class ImpWeatherDeviceSource(context: Context) : WeatherRepository.WeatherDevice
     }
 
     override suspend fun saveCityWeather(cityWeather: City) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
+        dao.insertWeatherCity(cityWeather.convertToEntity())
+
     }
 
-    override suspend fun getCity() {
+    override fun getCity(): Flow<City> {
 
-        dao.getCity()
+        return dao.getCity().map { it.convertToResponse() }.distinctUntilChanged()
 
     }
 

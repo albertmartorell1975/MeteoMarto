@@ -5,9 +5,11 @@ import albertmartorell.com.data.repositories.WeatherRepository
 import albertmartorell.com.usecases.FindCurrentRegion
 import albertmartorell.com.usecases.GetCityWeatherFromDatabase
 import albertmartorell.com.usecases.RequestWeatherByCoordinates
+import albertmartorell.com.usecases.SaveCityWeather
 import android.Manifest.permission.ACCESS_COARSE_LOCATION
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -23,6 +25,7 @@ import com.apps.albertmartorell.meteomarto.ui.city.CityViewModel.CityViewModelFa
 import com.apps.albertmartorell.meteomarto.ui.common.AndroidPermissionChecker
 import com.apps.albertmartorell.meteomarto.ui.common.PlayServicesLocationDataSource
 import kotlinx.android.synthetic.main.lyt_act_landing.*
+import kotlinx.android.synthetic.main.lyt_frg_city_weather.*
 
 class Landing : AppCompatActivity() {
 
@@ -49,6 +52,8 @@ class Landing : AppCompatActivity() {
             )
         )
 
+        val saveCityWeather = SaveCityWeather(weatherRepository)
+
         val requestCityWeatherByCoordinates = RequestWeatherByCoordinates(weatherRepository)
         // the this param does that each time we access the view model providers checks if this view model already exists: if not it is created else it is got again
         viewModel = ViewModelProviders.of(
@@ -56,7 +61,8 @@ class Landing : AppCompatActivity() {
                 Interactors(
                     findCurrentRegion,
                     getCityWeatherFromDatabase,
-                    requestCityWeatherByCoordinates
+                    requestCityWeatherByCoordinates,
+                    saveCityWeather
                 )
             )
         )[CityViewModel::class.java]
@@ -68,6 +74,7 @@ class Landing : AppCompatActivity() {
         viewModel.eventRequestLocationPermission.observe(
             this,
             Observer {
+
                 it.getContentIfNotHandled()
                     ?.let {
 
@@ -83,9 +90,8 @@ class Landing : AppCompatActivity() {
         viewModel.eventRequestedLocationPermissionFinished.observe(
             this,
             Observer {
-                it.getContentIfNotHandled()?.let {
 
-                    progressBar.visibility = View.GONE
+                it.getContentIfNotHandled()?.let {
 
                     if (it.latitude == 0F || it.longitude == 0F) {
 
@@ -128,12 +134,20 @@ class Landing : AppCompatActivity() {
 
             it.getContentIfNotHandled()?.let {
 
-                progressBar.visibility = View.GONE
+                //progressBar.visibility = View.GONE
+                lyt_frg_city_weather.visibility = View.VISIBLE
+
 
             }
 
         })
 
+        viewModel.eventCityWeather.observe(this, Observer {
+
+            progressBar.visibility = View.GONE
+            Toast.makeText(this, "Dades: " + it.coordinates?.longitude, Toast.LENGTH_SHORT).show()
+        }
+        )
     }
 
 }

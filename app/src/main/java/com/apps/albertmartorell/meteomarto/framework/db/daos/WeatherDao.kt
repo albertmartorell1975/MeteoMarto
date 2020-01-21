@@ -1,8 +1,12 @@
 package com.apps.albertmartorell.meteomarto.framework.db.daos
 
+import albertmartorell.com.domain.responses.City
 import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.apps.albertmartorell.meteomarto.framework.db.entities.CityEntity
+import kotlinx.coroutines.flow.Flow
 
 /**
  * The class marked with @Dao should either be an interface or an abstract class. At compile time, Room will generate an implementation of this class when it is referenced by a Database.
@@ -21,7 +25,7 @@ interface WeatherDao {
     fun getAll(): List<CityEntity>
 
     @Query("SELECT * FROM cities LIMIT 1")
-    fun getCity(): CityEntity
+    fun getCity(): Flow<CityEntity>
 
     @Query(value = "SELECT * FROM cities WHERE name = :name")
     fun getCityWeatherByName(name: String): CityEntity
@@ -32,4 +36,6 @@ interface WeatherDao {
     @Query(value = "SELECT * FROM cities WHERE latitude = :latitude and longitude = :longitude")
     fun getCityWeatherByCoordinates(latitude: Float, longitude: Float): CityEntity
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertWeatherCity(cityWeather: CityEntity)
 }
