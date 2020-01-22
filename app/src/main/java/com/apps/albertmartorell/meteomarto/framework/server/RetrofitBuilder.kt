@@ -14,7 +14,9 @@ import java.util.concurrent.TimeUnit
  */
 object RetrofitBuilder {
 
-    private val baseUrl = "https://api.openweathermap.org/"
+    const val iconsPrefixWeatherUrl ="https://openweathermap.org/img/wn/"
+    const val iconsSuffixWeatherUrl="@2x.png"
+    private const val baseUrl = "https://api.openweathermap.org/"
     private val safeHttpClient = OkHttpClient().newBuilder()
 
         .connectTimeout(60, TimeUnit.SECONDS)

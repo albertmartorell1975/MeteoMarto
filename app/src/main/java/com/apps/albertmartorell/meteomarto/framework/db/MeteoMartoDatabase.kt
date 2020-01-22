@@ -4,8 +4,10 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
+import com.apps.albertmartorell.meteomarto.framework.db.common.DbTypeConverters
 import com.apps.albertmartorell.meteomarto.framework.db.daos.WeatherDao
-import com.apps.albertmartorell.meteomarto.framework.db.entities.*
+import com.apps.albertmartorell.meteomarto.framework.db.model.*
 
 /**
  *
@@ -22,6 +24,7 @@ import com.apps.albertmartorell.meteomarto.framework.db.entities.*
     entities = [CityEntity::class],
     version = 1
 )
+@TypeConverters(DbTypeConverters::class)
 abstract class MeteoMartoDatabase : RoomDatabase() {
 
     //A function or a property to be tied to a class rather than to instances of it

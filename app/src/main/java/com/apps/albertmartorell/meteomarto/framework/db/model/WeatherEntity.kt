@@ -1,7 +1,4 @@
-package com.apps.albertmartorell.meteomarto.framework.db.entities
-
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+package com.apps.albertmartorell.meteomarto.framework.db.model
 
 //@Entity(tableName = "weather")
 data class WeatherEntity(

@@ -1,7 +1,7 @@
 package com.apps.albertmartorell.meteomarto.framework.db.daos
 
 import androidx.room.*
-import com.apps.albertmartorell.meteomarto.framework.db.entities.CityEntity
+import com.apps.albertmartorell.meteomarto.framework.db.model.CityEntity
 import kotlinx.coroutines.flow.Flow
 
 /**

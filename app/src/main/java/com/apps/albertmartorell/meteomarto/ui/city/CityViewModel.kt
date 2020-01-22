@@ -1,14 +1,15 @@
 package com.apps.albertmartorell.meteomarto.ui.city
 
 import albertmartorell.com.domain.Coordinates
-import albertmartorell.com.domain.responses.City
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.apps.albertmartorell.meteomarto.framework.Interactors
+import com.apps.albertmartorell.meteomarto.framework.db.common.convertToCityView
 import com.apps.albertmartorell.meteomarto.ui.Scope
 import com.apps.albertmartorell.meteomarto.ui.common.Event
+import com.apps.albertmartorell.meteomarto.ui.model.CityView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
@@ -71,7 +72,7 @@ class CityViewModel(private val interactors: Interactors) : ViewModel(), Scope {
 //            eventCityWeather.value = it
 //        }
 
-    private val _eventCityWeather = MutableLiveData<Event<City>>()
+    private val _eventCityWeather = MutableLiveData<Event<CityView>>()
     val eventCityWeather = _eventCityWeather
 
     init {
@@ -125,7 +126,9 @@ class CityViewModel(private val interactors: Interactors) : ViewModel(), Scope {
             withContext(Dispatchers.IO) {
                 interactors.getCityWeatherFromDatabase.invoke().collect {
 
-                    withContext(Dispatchers.Main) { eventCityWeather.value = Event(it) }
+                    withContext(Dispatchers.Main) {
+                        _eventCityWeather.value = Event(it.convertToCityView())
+                    }
 
                 }
 
@@ -152,7 +155,9 @@ class CityViewModel(private val interactors: Interactors) : ViewModel(), Scope {
                     interactors.saveCityWeather.invoke(response)
                     interactors.getCityWeatherFromDatabase.invoke().collect {
 
-                        withContext(Dispatchers.Main) { eventCityWeather.value = Event(it) }
+                        withContext(Dispatchers.Main) {
+                            _eventCityWeather.value = Event(it.convertToCityView())
+                        }
 
                     }
 

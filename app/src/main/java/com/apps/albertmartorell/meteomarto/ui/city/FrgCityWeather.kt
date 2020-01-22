@@ -15,6 +15,7 @@ import androidx.navigation.findNavController
 import com.apps.albertmartorell.meteomarto.R
 import com.apps.albertmartorell.meteomarto.databinding.LytFrgCityWeatherBinding
 import com.apps.albertmartorell.meteomarto.ui.PermissionRequester
+import com.apps.albertmartorell.meteomarto.ui.loadIconsWeather
 import kotlinx.android.synthetic.main.lyt_frg_city_weather.*
 
 class FrgCityWeather : Fragment() {
@@ -150,12 +151,43 @@ class FrgCityWeather : Fragment() {
 
         })
 
-        viewModel.eventCityWeather.observe(this, Observer {
+        viewModel.eventCityWeather.observe(this, Observer { cityView ->
 
-            it.getContentIfNotHandled()?.let {
+            cityView.getContentIfNotHandled()?.let { response ->
+
+                binding.lytFrgCityWeatherDate.setText(response.date.toString())
+
+                binding.lytFrgCityWeatherTempMin.setText(
+                    activity?.getString(
+                        R.string.min_temperature,
+                        response.temperatureMin.toString()
+                    )
+                )
+
+                binding.lytFrgCityWeatherTempMax.setText(
+                    activity?.getString(
+                        R.string.max_temperature,
+                        response.temperatureMax.toString()
+                    )
+                )
+
+                binding.lytFrgCityWeatherPressure.setText(
+                    activity?.getString(
+                        R.string.atmospheric_pressure,
+                        response.pressure.toString()
+                    )
+                )
+
+                binding.lytFrgCityWeatherDescription.setText(
+                    activity?.getString(
+                        R.string.current_weather,
+                        response.description.toString()
+                    )
+                )
+
+                binding.lytFrgCityWeatherIcon.loadIconsWeather(response.icon)
 
                 progressBar.visibility = View.GONE
-                binding.lytFrgCityWeatherDate.setText(it.coordinates?.longitude.toString())
 
             }
 

@@ -3,8 +3,8 @@ package com.apps.albertmartorell.meteomarto.framework.db
 import albertmartorell.com.data.repositories.WeatherRepository
 import albertmartorell.com.domain.responses.City
 import android.content.Context
-import com.apps.albertmartorell.meteomarto.framework.db.common.convertToEntity
 import com.apps.albertmartorell.meteomarto.framework.db.common.convertToResponse
+import com.apps.albertmartorell.meteomarto.framework.db.common.saveAsEntity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
@@ -29,7 +29,7 @@ class ImpWeatherDeviceSource(context: Context) : WeatherRepository.WeatherDevice
 
     override suspend fun saveCityWeather(cityWeather: City) {
 
-        dao.insertWeatherCity(cityWeather.convertToEntity())
+        dao.insertWeatherCity(cityWeather.saveAsEntity())
 
     }
 

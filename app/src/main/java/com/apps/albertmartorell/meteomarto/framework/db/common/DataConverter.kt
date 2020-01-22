@@ -2,11 +2,14 @@ package com.apps.albertmartorell.meteomarto.framework.db.common
 
 import albertmartorell.com.domain.*
 import albertmartorell.com.domain.responses.City
-import com.apps.albertmartorell.meteomarto.framework.db.entities.CityEntity
-import com.apps.albertmartorell.meteomarto.framework.db.entities.WeatherEntity
+import com.apps.albertmartorell.meteomarto.framework.db.model.CityEntity
+import com.apps.albertmartorell.meteomarto.framework.db.model.WeatherEntity
+import com.apps.albertmartorell.meteomarto.ui.model.CityView
 
-// From model domain to model database
-fun City.convertToEntity(): CityEntity =
+const val FROM_KELVIN_TO_CELSIUS = 273
+
+// From domain model to database model
+fun City.saveAsEntity(): CityEntity =
 
     CityEntity(
         0,
@@ -15,7 +18,35 @@ fun City.convertToEntity(): CityEntity =
         weather?.get(0)?.main,
         weather?.get(0)?.description,
         weather?.get(0)?.icon,
-        main?.temperature,
+        convertFromKelvinToCelsius(main?.temperature),
+        main?.humidity,
+        main?.pressure,
+        convertFromKelvinToCelsius(main?.temperatureMin),
+        convertFromKelvinToCelsius(main?.temperatureMax),
+        visibility,
+        wind?.speed,
+        wind?.degrees,
+        clouds?.coverage,
+        sys?.type,
+        sys?.message,
+        sys?.country,
+        sys?.sunrise,
+        sys?.sunset,
+        name,
+        DbTypeConverters().fromTimestamp(System.currentTimeMillis())
+
+    )
+
+// From model domain to model view
+fun City.convertToCityView(): CityView =
+
+    CityView(
+        coordinates?.latitude,
+        coordinates?.longitude,
+        weather?.get(0)?.main,
+        weather?.get(0)?.description,
+        weather?.get(0)?.icon,
+        convertFromKelvinToCelsius(main?.temperature),
         main?.humidity,
         main?.pressure,
         main?.temperatureMin,
@@ -29,9 +60,21 @@ fun City.convertToEntity(): CityEntity =
         sys?.country,
         sys?.sunrise,
         sys?.sunset,
-        name
+        name,
+        DbTypeConverters().fromTimestamp(System.currentTimeMillis())
 
     )
+
+fun convertFromKelvinToCelsius(temperature: Float?): Float? {
+
+    temperature?.let {
+
+        return temperature - FROM_KELVIN_TO_CELSIUS
+    }
+
+    return 0F
+
+}
 
 //private fun Coordinates.convertToEntity(): CoordinatesEntity =
 //
@@ -81,7 +124,7 @@ fun City.convertToEntity(): CityEntity =
 //        sunset
 //    )
 
-// From model database to model domain
+// From database model to domain model
 fun CityEntity.convertToResponse(): City =
 
     City(
