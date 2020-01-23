@@ -16,6 +16,7 @@ import com.apps.albertmartorell.meteomarto.R
 import com.apps.albertmartorell.meteomarto.databinding.LytFrgCityWeatherBinding
 import com.apps.albertmartorell.meteomarto.ui.PermissionRequester
 import com.apps.albertmartorell.meteomarto.ui.loadIconsWeather
+import com.apps.albertmartorell.meteomarto.ui.model.CityUIView
 import kotlinx.android.synthetic.main.lyt_frg_city_weather.*
 
 class FrgCityWeather : Fragment() {
@@ -87,6 +88,7 @@ class FrgCityWeather : Fragment() {
                 it.getContentIfNotHandled()
                     ?.let {
 
+                        makeViewsVisible(View.GONE)
                         progressBar.visibility = View.VISIBLE
                         // this is a lambda function: val lambdaName : Type = { argumentList -> codeBody }
                         // The only part of a lambda which is not optional is the codeBody. So the below lambda only have the codeBody:
@@ -104,25 +106,13 @@ class FrgCityWeather : Fragment() {
 
                     if (it.latitude == 0F || it.longitude == 0F) {
 
-                        viewModel.getCityWeatherFromDatabase()
+                        viewModel.getCityWeatherNotCoordinates()
 
                     } else {
 
                         viewModel.getCityWeatherFromService(it)
 
                     }
-
-                }
-
-            })
-
-        viewModel.eventPermissionGranted.observe(
-            this,
-            Observer {
-
-                it.getContentIfNotHandled()?.let {
-
-                    viewModel.getCityWeather()
 
                 }
 
@@ -139,13 +129,35 @@ class FrgCityWeather : Fragment() {
 
         })
 
-        viewModel.eventFinished.observe(this, Observer {
+        viewModel.eventPermissionGranted.observe(
+            this,
+            Observer {
+
+                it.getContentIfNotHandled()?.let {
+
+                    viewModel.getCityWeather()
+
+                }
+
+            })
+
+        viewModel.eventNotLocalData.observe(this, Observer {
 
             it.getContentIfNotHandled()?.let {
 
                 progressBar.visibility = View.GONE
-                binding.lytFrgActPermissionDenied.visibility = View.VISIBLE
-                //lyt_frg_city_weather.visibility = View.VISIBLE
+                binding.lytFrgCityWeatherNoCoordinates.visibility = View.VISIBLE
+
+            }
+
+        })
+
+        viewModel.eventCityWeatherOffline.observe(this, Observer { cityView ->
+
+            cityView.getContentIfNotHandled()?.let { response ->
+
+                showData(response)
+                binding.lytFrgCityWeatherNoCoordinates.visibility = View.VISIBLE
 
             }
 
@@ -155,45 +167,71 @@ class FrgCityWeather : Fragment() {
 
             cityView.getContentIfNotHandled()?.let { response ->
 
-                binding.lytFrgCityWeatherDate.setText(response.date.toString())
-
-                binding.lytFrgCityWeatherTempMin.setText(
-                    activity?.getString(
-                        R.string.min_temperature,
-                        response.temperatureMin.toString()
-                    )
-                )
-
-                binding.lytFrgCityWeatherTempMax.setText(
-                    activity?.getString(
-                        R.string.max_temperature,
-                        response.temperatureMax.toString()
-                    )
-                )
-
-                binding.lytFrgCityWeatherPressure.setText(
-                    activity?.getString(
-                        R.string.atmospheric_pressure,
-                        response.pressure.toString()
-                    )
-                )
-
-                binding.lytFrgCityWeatherDescription.setText(
-                    activity?.getString(
-                        R.string.current_weather,
-                        response.description.toString()
-                    )
-                )
-
-                binding.lytFrgCityWeatherIcon.loadIconsWeather(response.icon)
-
-                progressBar.visibility = View.GONE
+                showData(response)
 
             }
 
-        }
+        })
 
+    }
+
+    private fun showData(cityUIView: CityUIView) {
+
+        binding.lytFrgCityWeatherDate.setText(cityUIView.date.toString())
+
+        binding.lytFrgCityWeatherTempMin.setText(
+            activity?.getString(
+                R.string.min_temperature,
+                cityUIView.temperatureMin.toString()
+            )
         )
+
+        binding.lytFrgCityWeatherTempMax.setText(
+            activity?.getString(
+                R.string.max_temperature,
+                cityUIView.temperatureMax.toString()
+            )
+        )
+
+        binding.lytFrgCityWeatherFeelsLike.setText(
+            activity?.getString(
+                R.string.feels_like,
+                cityUIView.temperatureFeelsLike.toString()
+            )
+        )
+        binding.lytFrgCityWeatherPressure.setText(
+            activity?.getString(
+                R.string.atmospheric_pressure,
+                cityUIView.pressure.toString()
+            )
+        )
+
+        binding.lytFrgCityWeatherDescription.setText(
+            activity?.getString(
+                R.string.current_weather,
+                cityUIView.description.toString()
+            )
+        )
+
+        binding.lytFrgCityWeatherIcon.loadIconsWeather(cityUIView.icon)
+        binding.lytFrgCityWeatherName.setText(cityUIView.name)
+
+        makeViewsVisible(View.VISIBLE)
+        progressBar.visibility = View.GONE
+
+
+    }
+
+    private fun makeViewsVisible(_visibility: Int) {
+
+        binding.lytFrgCityWeatherName.visibility = _visibility
+        binding.lytFrgCityWeatherPressure.visibility = _visibility
+        binding.lytFrgCityWeatherDate.visibility = _visibility
+        binding.lytFrgCityWeatherDescription.visibility = _visibility
+        binding.lytFrgCityWeatherIcon.visibility = _visibility
+        binding.lytFrgCityWeatherTempMax.visibility = _visibility
+        binding.lytFrgCityWeatherTempMin.visibility = _visibility
+        binding.lytFrgCityWeatherFeelsLike.visibility = _visibility
 
     }
 

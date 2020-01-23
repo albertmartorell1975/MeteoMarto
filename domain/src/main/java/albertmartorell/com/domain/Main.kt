@@ -7,5 +7,6 @@ data class Main(
     var humidity: Float? = 0.toFloat(),
     var pressure: Float? = 0.toFloat(),
     @SerializedName("temp_min") var temperatureMin: Float? = 0.toFloat(),
-    @SerializedName("temp_max") var temperatureMax: Float? = 0.toFloat()
+    @SerializedName("temp_max") var temperatureMax: Float? = 0.toFloat(),
+    @SerializedName("feels_like") var temperatureFeelsLike: Float? = 0.toFloat()
 )

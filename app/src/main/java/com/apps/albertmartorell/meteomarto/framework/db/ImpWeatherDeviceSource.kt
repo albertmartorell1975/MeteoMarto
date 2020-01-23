@@ -20,7 +20,7 @@ class ImpWeatherDeviceSource(context: Context) : WeatherRepository.WeatherDevice
 
     override suspend fun isEmpty(): Boolean {
 
-        if (dao.getAll().count() > 0)
+        if (dao.getAll().count() == 0)
             return true
         else
             return false

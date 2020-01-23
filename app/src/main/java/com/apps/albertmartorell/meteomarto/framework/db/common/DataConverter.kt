@@ -4,7 +4,7 @@ import albertmartorell.com.domain.*
 import albertmartorell.com.domain.responses.City
 import com.apps.albertmartorell.meteomarto.framework.db.model.CityEntity
 import com.apps.albertmartorell.meteomarto.framework.db.model.WeatherEntity
-import com.apps.albertmartorell.meteomarto.ui.model.CityView
+import com.apps.albertmartorell.meteomarto.ui.model.CityUIView
 
 const val FROM_KELVIN_TO_CELSIUS = 273
 
@@ -23,6 +23,7 @@ fun City.saveAsEntity(): CityEntity =
         main?.pressure,
         convertFromKelvinToCelsius(main?.temperatureMin),
         convertFromKelvinToCelsius(main?.temperatureMax),
+        convertFromKelvinToCelsius(main?.temperatureFeelsLike),
         visibility,
         wind?.speed,
         wind?.degrees,
@@ -33,14 +34,14 @@ fun City.saveAsEntity(): CityEntity =
         sys?.sunrise,
         sys?.sunset,
         name,
-        DbTypeConverters().fromTimestamp(System.currentTimeMillis())
+        DbTypeConverters().dateToTimestamp(System.currentTimeMillis())
 
     )
 
 // From model domain to model view
-fun City.convertToCityView(): CityView =
+fun City.convertToCityUIView(): CityUIView =
 
-    CityView(
+    CityUIView(
         coordinates?.latitude,
         coordinates?.longitude,
         weather?.get(0)?.main,
@@ -51,6 +52,7 @@ fun City.convertToCityView(): CityView =
         main?.pressure,
         main?.temperatureMin,
         main?.temperatureMax,
+        main?.temperatureFeelsLike,
         visibility,
         wind?.speed,
         wind?.degrees,
@@ -61,7 +63,7 @@ fun City.convertToCityView(): CityView =
         sys?.sunrise,
         sys?.sunset,
         name,
-        DbTypeConverters().fromTimestamp(System.currentTimeMillis())
+        DbTypeConverters().dateToTimestamp(System.currentTimeMillis())
 
     )
 
@@ -135,7 +137,8 @@ fun CityEntity.convertToResponse(): City =
             humidity,
             pressure,
             temperatureMin,
-            temperatureMax
+            temperatureMax,
+            temperatureFeelsLike
         ),
         visibility,
         Wind(speed, degrees),

@@ -17,6 +17,7 @@ data class CityEntity(
     val pressure: Float? = 0F,
     val temperatureMin: Float? = 0F,
     val temperatureMax: Float? = 0F,
+    val temperatureFeelsLike: Float? = 0F,
     val visibility: Long? = 0,
     val speed: Float? = 0F,
     val degrees: Float? = 0F,
@@ -27,5 +28,5 @@ data class CityEntity(
     val sunrise: Long? = 0,
     val sunset: Long? = 0,
     val name: String? = "",
-    val dateServerUpdated: Date?
+    val dateServerUpdated: String?
 )

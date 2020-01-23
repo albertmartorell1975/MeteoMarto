@@ -6,10 +6,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.apps.albertmartorell.meteomarto.framework.Interactors
-import com.apps.albertmartorell.meteomarto.framework.db.common.convertToCityView
+import com.apps.albertmartorell.meteomarto.framework.db.common.convertToCityUIView
 import com.apps.albertmartorell.meteomarto.ui.Scope
 import com.apps.albertmartorell.meteomarto.ui.common.Event
-import com.apps.albertmartorell.meteomarto.ui.model.CityView
+import com.apps.albertmartorell.meteomarto.ui.model.CityUIView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
@@ -54,8 +54,8 @@ class CityViewModel(private val interactors: Interactors) : ViewModel(), Scope {
 
         }
 
-    private val _eventFinished = MutableLiveData<Event<Unit>>()
-    val eventFinished: LiveData<Event<Unit>> = _eventFinished
+    private val _eventNotLocalData = MutableLiveData<Event<Unit>>()
+    val eventNotLocalData: LiveData<Event<Unit>> = _eventNotLocalData
 
     private val _eventPermissionDenied = MutableLiveData<Event<Unit>>()
     val eventPermissionDenied: LiveData<Event<Unit>> = _eventPermissionDenied
@@ -72,8 +72,11 @@ class CityViewModel(private val interactors: Interactors) : ViewModel(), Scope {
 //            eventCityWeather.value = it
 //        }
 
-    private val _eventCityWeather = MutableLiveData<Event<CityView>>()
+    private val _eventCityWeather = MutableLiveData<Event<CityUIView>>()
     val eventCityWeather = _eventCityWeather
+
+    private val _eventCityWeatherOffline = MutableLiveData<Event<CityUIView>>()
+    val eventCityWeatherOffline = _eventCityWeatherOffline
 
     init {
 
@@ -119,18 +122,31 @@ class CityViewModel(private val interactors: Interactors) : ViewModel(), Scope {
 
     }
 
-    fun getCityWeatherFromDatabase() {
+    /**
+     * The app has not been able to collect the location. Then It tries to get the last city saved on the database
+     */
+    fun getCityWeatherNotCoordinates() {
 
         launch {
 
-            withContext(Dispatchers.IO) {
-                interactors.getCityWeatherFromDatabase.invoke().collect {
+            try {
 
-                    withContext(Dispatchers.Main) {
-                        _eventCityWeather.value = Event(it.convertToCityView())
+                withContext(Dispatchers.IO) {
+                    interactors.getCityWeatherFromDatabase.invoke().collect {
+
+                        withContext(Dispatchers.Main) {
+                            _eventCityWeatherOffline.value = Event(it.convertToCityUIView())
+                        }
+
+
                     }
 
                 }
+
+            } catch (ex: java.lang.Exception) {
+
+                // No city saved on the local database
+                withContext(Dispatchers.Main) { _eventNotLocalData.value = Event(Unit) }
 
             }
 
@@ -156,7 +172,7 @@ class CityViewModel(private val interactors: Interactors) : ViewModel(), Scope {
                     interactors.getCityWeatherFromDatabase.invoke().collect {
 
                         withContext(Dispatchers.Main) {
-                            _eventCityWeather.value = Event(it.convertToCityView())
+                            _eventCityWeather.value = Event(it.convertToCityUIView())
                         }
 
                     }
@@ -164,7 +180,13 @@ class CityViewModel(private val interactors: Interactors) : ViewModel(), Scope {
                 } catch (ex: Exception) {
 
                     // error
-                    withContext(Dispatchers.Main) { _eventFinished.value = Event(Unit) }
+                    interactors.getCityWeatherFromDatabase.invoke().collect {
+
+                        withContext(Dispatchers.Main) {
+                            _eventCityWeatherOffline.value = Event(it.convertToCityUIView())
+                        }
+
+                    }
 
                 }
 

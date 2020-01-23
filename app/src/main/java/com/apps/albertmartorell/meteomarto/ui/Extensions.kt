@@ -3,10 +3,12 @@ package com.apps.albertmartorell.meteomarto.ui
 import android.content.Context
 import android.location.Geocoder
 import android.location.Location
+import android.view.View
 import android.widget.ImageView
 import com.apps.albertmartorell.meteomarto.MeteoMartoApp
 import com.apps.albertmartorell.meteomarto.framework.server.RetrofitBuilder
 import com.bumptech.glide.Glide
+import com.google.android.material.snackbar.Snackbar
 
 /*
  From a Location it returns a region. Else returns a default region
@@ -35,6 +37,13 @@ fun ImageView.loadIconsWeather(url: String?) {
             .load(RetrofitBuilder.iconsPrefixWeatherUrl + url + RetrofitBuilder.iconsSuffixWeatherUrl)
             .into(this)
     }
+
+}
+
+fun View.snackBar(_message: String, _length: Int = Snackbar.LENGTH_LONG) {
+
+    val snack = Snackbar.make(this, _message, _length)
+    snack.show()
 
 }
 

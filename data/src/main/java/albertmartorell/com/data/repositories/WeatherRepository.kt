@@ -36,11 +36,7 @@ class WeatherRepository(
 
     suspend fun getCityWeatherFromDatabase(): Flow<City> {
 
-        //if (!deviceSource.isEmpty()) {
-
         return deviceSource.getCity()
-
-        //}
 
     }
 
@@ -50,7 +46,7 @@ class WeatherRepository(
 
     }
 
-    suspend fun deleteAllCities(){
+    suspend fun deleteAllCities() {
 
         deviceSource.deleteAllCities()
 

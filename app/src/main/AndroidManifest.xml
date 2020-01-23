@@ -16,7 +16,7 @@
 
         <activity
             android:name=".ui.city.Landing"
-            android:windowSoftInputMode="stateUnchanged|adjustResize|stateAlwaysHidden">
+            android:screenOrientation="sensorPortrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
