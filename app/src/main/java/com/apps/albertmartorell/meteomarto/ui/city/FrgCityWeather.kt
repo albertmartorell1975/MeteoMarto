@@ -90,10 +90,11 @@ class FrgCityWeather : Fragment() {
 
                         makeViewsVisible(View.GONE)
                         progressBar.visibility = View.VISIBLE
-                        // this is a lambda function: val lambdaName : Type = { argumentList -> codeBody }
-                        // The only part of a lambda which is not optional is the codeBody. So the below lambda only have the codeBody:
-                        //coarsedPermissionRequest.request { viewModel.onCoarsePermissionRequested(it) }
-                        viewModel.onCoarsePermissionRequested(coarsedPermissionRequest.request())
+                        coarsedPermissionRequest.request { permissionGranted: Boolean ->
+                            viewModel.onCoarsePermissionRequested(
+                                permissionGranted
+                            )
+                        }
 
                     }
             })

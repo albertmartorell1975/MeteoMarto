@@ -94,12 +94,14 @@ class CityViewModel(private val interactors: Interactors) : ViewModel(), Scope {
 
     }
 
-    fun onCoarsePermissionRequested(success: Boolean) {
+    fun onCoarsePermissionRequested(_success: Boolean) {
 
         launch {
 
-            if (success) _eventPerMissionGranted.value = Event(Unit)
-            else _eventPermissionDenied.value = Event(Unit)
+            if (_success)
+                _eventPerMissionGranted.value = Event(Unit)
+            else
+                _eventPermissionDenied.value = Event(Unit)
 
         }
 
@@ -137,7 +139,6 @@ class CityViewModel(private val interactors: Interactors) : ViewModel(), Scope {
                         withContext(Dispatchers.Main) {
                             _eventCityWeatherOffline.value = Event(it.convertToCityUIView())
                         }
-
 
                     }
 
