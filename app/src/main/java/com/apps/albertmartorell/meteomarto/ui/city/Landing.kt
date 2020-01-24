@@ -4,6 +4,7 @@ import albertmartorell.com.data.repositories.RegionRepository
 import albertmartorell.com.data.repositories.WeatherRepository
 import albertmartorell.com.usecases.*
 import android.os.Bundle
+import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
@@ -61,6 +62,25 @@ class Landing : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.lyt_act_landing)
 
         binding.lifecycleOwner = this
+        customizeToolbar()
+
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+
+        // Inflate the menu to use in the action bar
+        val inflater = menuInflater
+        inflater.inflate(R.menu.menu_city_weather, menu)
+        return super.onCreateOptionsMenu(menu)
+
+    }
+
+    private fun customizeToolbar() {
+
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+        supportActionBar?.setTitle(getString(R.string.toolbar_title))
 
     }
 

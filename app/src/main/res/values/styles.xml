@@ -1,11 +1,116 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar.Bridge">
+
+        <item name="windowNoTitle">true</item>
+        <item name="buttonStyle">@style/MeteoMartoButton</item>
+        <item name="android:textViewStyle">@style/MeteoMartoTextView</item>
+        <item name="android:editTextStyle">@style/MeteoMartoEditText</item>
+        <!--Status bar background color-->
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <!--Toolbar, tab bar background color-->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <!-- The color of the Up, Overflow and other UI views when are not checked (radio buttons, checkboxes)-->
+        <item name="colorControlNormal">@color/toolbar_system_buttons_color</item>
+        <item name="android:textColorHint">@color/hint_color</item>
+        <!--The color when UI views have been to clicked by the user-->
         <item name="colorAccent">@color/colorAccent</item>
+        <!--The color applied to framework controls in their activated (ex. checked, switch on) state. -->
+        <item name="colorControlActivated">@color/colorAccent</item>
+        <!--The color applied to framework switch thumbs in their normal state. (switch off)-->
+        <item name="colorSwitchThumbNormal">@color/colorControlNormal</item>
+        <!-- The color of the app bar title text-->
+        <item name="android:textColorPrimary">@color/text_color_standard</item>
+        <!-- The color the the action's text-->
+        <item name="actionMenuTextColor">@color/toolbar_text_buttons</item>
+        <!-- the action's appearance-->
+        <item name="actionMenuTextAppearance">@style/MeteoMartoMenuText</item>
+        <!-- The color that is shown when a icon is clicked: p.e. navigation view's items -->
+        <item name="colorControlHighlight">@color/colorAccent</item>
+        <!-- Enable these 2 lines below if you want clicking icons to trigger a ripple effect -->
+        <item name="selectableItemBackground">?android:selectableItemBackground</item>
+        <item name="selectableItemBackgroundBorderless">?android:selectableItemBackground</item>
+        <item name="android:itemTextAppearance">@style/MeteoMartoTextAppearance</item>
+        <!-- this will override DialogFragment theme -->
+        <item name="android:dialogTheme">@style/MeteoMartoDialogFragment</item>
+        <item name="actionModeStyle">@style/MeteoMartoActionMode</item>
+        <item name="actionModeCloseButtonStyle">@style/ActionModeCloseButton</item>
+
+    </style>
+
+    <style name="MeteoMartoActionMode" parent="@style/Widget.AppCompat.ActionMode">
+        <item name="background">@color/book_config_examples</item>
+        <item name="titleTextStyle">@style/MeteoMartokActionModeTitleStyle</item>
+    </style>
+
+    <style name="MeteoMartokActionModeTitleStyle" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="ActionModeCloseButton" parent="android:style/Widget.ActionButton.CloseMode">
+        <item name="android:visibility">gone</item>
+    </style>
+
+    <style name="MeteoMartoDialogFragment" parent="Theme.AppCompat.Light.Dialog">
+        <!--The color when UI views have been to clicked by the user-->
+        <item name="colorAccent">@color/colorAccent</item>
+        <!--The color applied to framework switch thumbs in their normal state. (switch off)-->
+        <item name="colorSwitchThumbNormal">@color/colorControlNormal</item>
+    </style>
+
+    <style name="MeteoMartoMenuText" parent="TextAppearance.AppCompat.Widget.ActionBar.Menu">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/rol_title</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="MeteoMartoButton" parent="Widget.AppCompat.Button">
+
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:freezesText">true</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:textColor">@color/text_color_standard</item>
+
+    </style>
+
+    <style name="MeteoMartoTextView" parent="android:Widget.TextView">
+
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:freezesText">true</item>
+
+    </style>
+
+    <style name="MeteoMartoEditText" parent="android:Widget.EditText">
+
+        <item name="android:textColor">@color/text_color_standard</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:freezesText">true</item>
+
+    </style>
+
+    <style name="MeteoMartoAppBarLayout" parent="Widget.Design.AppBarLayout">
+        <item name="elevation">1dp</item>
+    </style>
+
+    <!-- To customize a pop up menu, for example the menu that is shown in the overflow menu
+    In this scope, the style is not apply in every pop up menu only for the overflow menu-->
+    <style name="MeteoMartoPopUpMenu" parent="@android:style/Widget.PopupMenu">
+        <item name="android:colorBackground">@color/white</item>
+    </style>
+
+    <!-- To change the text inside the oveflow menu-->
+    <style name="MeteoMartoTextAppearance" parent="@android:style/TextAppearance.Widget.IconMenu.Item">
+        <item name="android:textColor">@color/text_color_standard</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="MeteoMartoDialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/fade_in</item>
+        <item name="android:windowExitAnimation">@anim/fade_out</item>
     </style>
 
 </resources>

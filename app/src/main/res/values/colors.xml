@@ -2,8 +2,8 @@
 <resources>
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimary">#AAD7EB</color>
+    <color name="colorPrimaryDark">#03A9F4</color>
     <color name="colorAccent">#f2a215</color>
     <color name="colorControlNormal">#f9cd6d</color>
     <color name="colorTest">#f2a215</color>
@@ -53,7 +53,7 @@
     <color name="toolbar_system_buttons_color">#706f6f</color>
 
     <!-- buttons -->
-    <color name="toolbar_text_buttons">#f2a116</color>
+    <color name="toolbar_text_buttons">#055CA5</color>
     <!--50% of transparency: 50 and the color is f9cd6d-->
     <color name="toolbar_text_buttons_disabled">#500f7995</color>
 
@@ -103,5 +103,5 @@
     <color name="highlight_grey_color">#FFF1C1</color>
 
     <!-- Background color for messge that warns the user has already done a mAuthor exercise-->
-    <color name ="mauthor_warning_color">#fafafa</color>
+    <color name="mauthor_warning_color">#fafafa</color>
 </resources>

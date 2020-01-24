@@ -8,4 +8,6 @@
     <string name="atmospheric_pressure">"Presión: %1$s</string>
     <string name="current_weather">"Tiempo actual: %1$s</string>
     <string name="not_coordinates">"No se ha podido obtener la localización</string>
+    <string name="toolbar_title">Meteo by Marto</string>
+    <string name="menu_forecast">Previsión</string>
 </resources>

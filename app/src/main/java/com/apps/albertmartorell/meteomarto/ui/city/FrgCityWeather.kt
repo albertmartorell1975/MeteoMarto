@@ -3,6 +3,7 @@ package com.apps.albertmartorell.meteomarto.ui.city
 import android.Manifest
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -17,7 +18,9 @@ import com.apps.albertmartorell.meteomarto.databinding.LytFrgCityWeatherBinding
 import com.apps.albertmartorell.meteomarto.ui.PermissionRequester
 import com.apps.albertmartorell.meteomarto.ui.loadIconsWeather
 import com.apps.albertmartorell.meteomarto.ui.model.CityUIView
+import com.apps.albertmartorell.meteomarto.ui.snackBar
 import kotlinx.android.synthetic.main.lyt_frg_city_weather.*
+
 
 class FrgCityWeather : Fragment() {
 
@@ -30,6 +33,7 @@ class FrgCityWeather : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
         viewModel = ViewModelProviders.of(activity!!).get(CityViewModel::class.java)
 
     }
@@ -76,6 +80,20 @@ class FrgCityWeather : Fragment() {
         coarsedPermissionRequest =
             PermissionRequester(activity!!, Manifest.permission.ACCESS_COARSE_LOCATION)
         observeUI()
+
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        when (item.itemId) {
+
+            R.id.menu_city_weather_forecast ->
+
+                binding.lytFrgCityWeather.snackBar("Doctor")
+
+        }
+
+        return super.onOptionsItemSelected(item)
 
     }
 
