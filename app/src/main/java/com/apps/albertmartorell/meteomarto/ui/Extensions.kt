@@ -5,6 +5,7 @@ import android.location.Geocoder
 import android.location.Location
 import android.view.View
 import android.widget.ImageView
+import androidx.databinding.BindingAdapter
 import com.apps.albertmartorell.meteomarto.MeteoMartoApp
 import com.apps.albertmartorell.meteomarto.framework.server.RetrofitBuilder
 import com.bumptech.glide.Glide
@@ -30,6 +31,7 @@ val Context.app: MeteoMartoApp
     get() = applicationContext as MeteoMartoApp
 
 
+@BindingAdapter("getWeatherIcon")
 fun ImageView.loadIconsWeather(url: String?) {
 
     url?.let {

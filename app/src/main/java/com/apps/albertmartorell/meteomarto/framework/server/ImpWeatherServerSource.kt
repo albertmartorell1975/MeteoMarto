@@ -19,12 +19,6 @@ class ImpWeatherServerSource : WeatherRepository.WeatherServerSource {
 
     override suspend fun getWeatherByCoordinates(latitude: Float?, longitude: Float?): City {
 
-        //val resultHandler = ResultHandler()
-
-//        val result: Resource<City> = resultHandler.safeApiCall(
-//            { client.getWeather(latitude.toString(), longitude.toString()) }, "Error occurred"
-//        )
-
         val result = client.getWeather(latitude.toString(), longitude.toString())
         return result
 

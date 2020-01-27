@@ -21,17 +21,18 @@
         android:name="com.apps.albertmartorell.meteomarto.ui.forecast.FrgCityForecast"
         android:label="FrgCityForecast">
         <argument
-            android:name="hola"
-            android:defaultValue="-1"
-            app:argType="integer" />
-        <argument
-            android:name="hola2"
-            android:defaultValue="doctor2"
+            android:name="latitude"
+            app:nullable="true"
             app:argType="string" />
+        <argument
+            android:name="name"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue='""' />
 
         <argument
-            android:name="hola3"
-            android:defaultValue="doctor3"
+            android:name="longitude"
+            app:nullable="true"
             app:argType="string" />
     </fragment>
 </navigation>

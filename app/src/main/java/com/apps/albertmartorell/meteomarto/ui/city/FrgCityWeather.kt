@@ -2,10 +2,7 @@ package com.apps.albertmartorell.meteomarto.ui.city
 
 import android.Manifest
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -16,11 +13,8 @@ import androidx.navigation.findNavController
 import com.apps.albertmartorell.meteomarto.R
 import com.apps.albertmartorell.meteomarto.databinding.LytFrgCityWeatherBinding
 import com.apps.albertmartorell.meteomarto.ui.PermissionRequester
-import com.apps.albertmartorell.meteomarto.ui.loadIconsWeather
 import com.apps.albertmartorell.meteomarto.ui.model.CityUIView
-import com.apps.albertmartorell.meteomarto.ui.snackBar
 import kotlinx.android.synthetic.main.lyt_frg_city_weather.*
-
 
 class FrgCityWeather : Fragment() {
 
@@ -44,14 +38,9 @@ class FrgCityWeather : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        binding =
-            DataBindingUtil.inflate(inflater, R.layout.lyt_frg_city_weather, container, false)
-        root = binding.root as ConstraintLayout
-        binding.lifecycleOwner = viewLifecycleOwner
-        //The third parameter of inflate specifies whether the inflated fragment should be added to the container.
-        // The container is the parent view that will hold the fragment’s view hierarchy.
-        // You should always set this to false when inflating a view for a fragment: The FragmentManager will take care of adding the fragment to the container.
-        //return inflater.inflate(R.layout.lyt_frg_city_weather, container, false)
+        customizeToolBar()
+        customizeDataBinding(inflater, container)
+
         return root
 
     }
@@ -60,17 +49,6 @@ class FrgCityWeather : Fragment() {
 
         super.onViewCreated(view, savedInstanceState)
         navController = view.findNavController()
-        binding.lytFrgCityWeatherButton.setOnClickListener {
-
-            val action =
-                FrgCityWeatherDirections.actionFrgCityWeatherToFrgCityForecast(
-                    3,
-                    "2",
-                    "Jaume"
-                )
-            navController.navigate(action)
-
-        }
 
     }
 
@@ -83,13 +61,55 @@ class FrgCityWeather : Fragment() {
 
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+
+        // Inflate the menu to use in the action bar
+        //val inflater = menuInflater
+        inflater.inflate(R.menu.menu_city_weather, menu)
+        val menuItem = menu.findItem(R.id.menu_city_weather_forecast)
+
+        viewModel.eventCityWeather.value?.peekContent()?.latitude.let {
+
+            when (it) {
+
+                0F -> {
+
+                    menuItem.setVisible(false)
+
+                }
+                null -> {
+
+                    menuItem.setVisible(false)
+
+                }
+                else -> {
+
+                    menuItem.setVisible(true)
+
+                }
+
+            }
+
+        }
+
+
+        super.onCreateOptionsMenu(menu, inflater)
+
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
         when (item.itemId) {
 
-            R.id.menu_city_weather_forecast ->
+            R.id.menu_city_weather_forecast -> {
+                val action = FrgCityWeatherDirections.actionFrgCityWeatherToFrgCityForecast(
+                    viewModel.eventCityWeather.value?.peekContent()?.latitude.toString(),
+                    viewModel.eventCityWeather.value?.peekContent()?.name,
+                    viewModel.eventCityWeather.value?.peekContent()?.longitude.toString()
+                )
+                navController.navigate(action)
 
-                binding.lytFrgCityWeather.snackBar("Doctor")
+            }
 
         }
 
@@ -143,6 +163,7 @@ class FrgCityWeather : Fragment() {
 
                 progressBar.visibility = View.GONE
                 binding.lytFrgActPermissionDenied.visibility = View.VISIBLE
+                //activity?.invalidateOptionsMenu()
 
             }
 
@@ -187,6 +208,7 @@ class FrgCityWeather : Fragment() {
             cityView.getContentIfNotHandled()?.let { response ->
 
                 showData(response)
+                activity?.invalidateOptionsMenu()
 
             }
 
@@ -232,7 +254,7 @@ class FrgCityWeather : Fragment() {
             )
         )
 
-        binding.lytFrgCityWeatherIcon.loadIconsWeather(cityUIView.icon)
+        //binding.lytFrgCityWeatherIcon.loadIconsWeather(cityUIView.icon)
         binding.lytFrgCityWeatherName.setText(cityUIView.name)
 
         makeViewsVisible(View.VISIBLE)
@@ -251,6 +273,27 @@ class FrgCityWeather : Fragment() {
         binding.lytFrgCityWeatherTempMax.visibility = _visibility
         binding.lytFrgCityWeatherTempMin.visibility = _visibility
         binding.lytFrgCityWeatherFeelsLike.visibility = _visibility
+
+    }
+
+    private fun customizeDataBinding(inflater: LayoutInflater, container: ViewGroup?) {
+
+        // The third parameter of inflate method specifies whether the inflated fragment should be added to the container.
+        // The container is the parent view that will hold the fragment’s view hierarchy.
+        // You should always set this to false when inflating a view for a fragment: The FragmentManager will take care of adding the fragment to the container.
+        binding = DataBindingUtil.inflate(inflater, R.layout.lyt_frg_city_weather, container, false)
+        root = binding.root as ConstraintLayout
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
+
+    }
+
+    private fun customizeToolBar() {
+
+        (activity as Landing).supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        (activity as Landing).supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        (activity as Landing).supportActionBar?.setDisplayShowHomeEnabled(true)
+        (activity as Landing).supportActionBar?.setTitle(getString(R.string.toolbar_title))
 
     }
 

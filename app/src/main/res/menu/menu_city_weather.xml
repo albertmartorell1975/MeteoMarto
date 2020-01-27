@@ -6,6 +6,7 @@
         android:id="@+id/menu_city_weather_forecast"
         android:orderInCategory="0"
         android:title="@string/menu_forecast"
+        android:visible="false"
         app:showAsAction="ifRoom" />
 
 </menu>

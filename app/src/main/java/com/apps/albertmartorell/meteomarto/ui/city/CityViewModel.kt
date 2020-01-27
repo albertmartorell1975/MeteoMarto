@@ -118,12 +118,6 @@ class CityViewModel(private val interactors: Interactors) : ViewModel(), Scope {
 
     }
 
-    override fun onCleared() {
-
-        cancelScope()
-
-    }
-
     /**
      * The app has not been able to collect the location. Then It tries to get the last city saved on the database
      */
@@ -194,6 +188,12 @@ class CityViewModel(private val interactors: Interactors) : ViewModel(), Scope {
             }
 
         }
+
+    }
+
+    override fun onCleared() {
+
+        cancelScope()
 
     }
 
