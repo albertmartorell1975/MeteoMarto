@@ -24,4 +24,12 @@ class ImpWeatherServerSource : WeatherRepository.WeatherServerSource {
 
     }
 
+    override suspend fun requestCityForecastByCoordinates(
+        latitude: Float?,
+        longitude: Float?
+    ): City {
+
+        return client.getForecast(latitude.toString(), longitude.toString())
+
+    }
 }

@@ -38,6 +38,26 @@ class CityViewModel(private val interactors: Interactors) : ViewModel(), Scope {
 //
 //    }
 
+    private val _eventStartRequestForecast = MutableLiveData<Event<Unit>>()
+    val eventStartRequestForecast: LiveData<Event<Unit>>
+        get() {
+
+            if (_eventStartRequestForecast.value == null) {
+
+                startRequestForecast()
+            }
+
+            return _eventStartRequestForecast
+
+        }
+
+
+    private fun startRequestForecast() {
+
+        _eventStartRequestForecast.value = Event(Unit)
+
+    }
+
     private val _eventRequestLocationPermission = MutableLiveData<Event<Unit>>()
 
     val eventRequestLocationPermission: LiveData<Event<Unit>>
@@ -182,6 +202,52 @@ class CityViewModel(private val interactors: Interactors) : ViewModel(), Scope {
                         }
 
                     }
+
+                }
+
+            }
+
+        }
+
+    }
+
+    fun requestCityForecastByCoordinates(latitude: Float?, longitude: Float?) {
+
+        launch {
+
+            withContext(Dispatchers.IO) {
+
+                try {
+
+                    val response = interactors.requestCityForecastByCoordinates.invoke(
+                        latitude, longitude
+                    )
+
+                    val s = ""
+                    /**
+                    interactors.deleteAllCities.invoke()
+                    interactors.saveCityWeather.invoke(response)
+                    interactors.getCityWeatherFromDatabase.invoke().collect {
+
+                    withContext(Dispatchers.Main) {
+                    _eventCityWeather.value = Event(it.convertToCityUIView())
+                    }
+
+                    }**/
+
+                } catch (ex: Exception) {
+
+                    val s = ""
+                    // error
+                    /**
+                    interactors.getCityWeatherFromDatabase.invoke().collect {
+
+                    withContext(Dispatchers.Main) {
+                    _eventCityWeatherOffline.value = Event(it.convertToCityUIView())
+                    }
+
+                    }
+                     **/
 
                 }
 

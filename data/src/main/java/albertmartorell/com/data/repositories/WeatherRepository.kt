@@ -54,6 +54,10 @@ class WeatherRepository(
 
     suspend fun requestWeatherByName(name: String) = serverSource.getCityWeatherByName(name)
 
+    suspend fun requestCityForecastByCoordinates(latitude: Float?, longitude: Float?): City =
+        serverSource.requestCityForecastByCoordinates(latitude, longitude)
+
+
     /**
      * The interface that the framework layer must implement
      *
@@ -63,6 +67,11 @@ class WeatherRepository(
         suspend fun getCityWeatherByName(name: String): City
 
         suspend fun getWeatherByCoordinates(
+            latitude: Float?,
+            longitude: Float?
+        ): City
+
+        suspend fun requestCityForecastByCoordinates(
             latitude: Float?,
             longitude: Float?
         ): City

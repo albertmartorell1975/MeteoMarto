@@ -28,7 +28,7 @@ class FrgCityWeather : Fragment() {
 
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
-        viewModel = ViewModelProviders.of(activity!!).get(CityViewModel::class.java)
+        viewModel = ViewModelProviders.of(activity as Landing).get(CityViewModel::class.java)
 
     }
 
@@ -56,7 +56,7 @@ class FrgCityWeather : Fragment() {
 
         super.onActivityCreated(savedInstanceState)
         coarsedPermissionRequest =
-            PermissionRequester(activity!!, Manifest.permission.ACCESS_COARSE_LOCATION)
+            PermissionRequester((activity as Landing), Manifest.permission.ACCESS_COARSE_LOCATION)
         observeUI()
 
     }
@@ -127,7 +127,7 @@ class FrgCityWeather : Fragment() {
                     ?.let {
 
                         makeViewsVisible(View.GONE)
-                        progressBar.visibility = View.VISIBLE
+                        binding.progressBar.visibility = View.VISIBLE
                         coarsedPermissionRequest.request { permissionGranted: Boolean ->
                             viewModel.onCoarsePermissionRequested(
                                 permissionGranted
@@ -161,7 +161,7 @@ class FrgCityWeather : Fragment() {
 
             it.getContentIfNotHandled()?.let {
 
-                progressBar.visibility = View.GONE
+                binding.progressBar.visibility = View.GONE
                 binding.lytFrgActPermissionDenied.visibility = View.VISIBLE
                 //activity?.invalidateOptionsMenu()
 
@@ -185,7 +185,7 @@ class FrgCityWeather : Fragment() {
 
             it.getContentIfNotHandled()?.let {
 
-                progressBar.visibility = View.GONE
+                binding.progressBar.visibility = View.GONE
                 binding.lytFrgCityWeatherNoCoordinates.visibility = View.VISIBLE
 
             }
@@ -258,7 +258,7 @@ class FrgCityWeather : Fragment() {
         binding.lytFrgCityWeatherName.setText(cityUIView.name)
 
         makeViewsVisible(View.VISIBLE)
-        progressBar.visibility = View.GONE
+        binding.progressBar.visibility = View.GONE
 
 
     }

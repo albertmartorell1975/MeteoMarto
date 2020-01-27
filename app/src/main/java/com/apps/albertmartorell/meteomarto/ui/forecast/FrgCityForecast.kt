@@ -8,11 +8,14 @@ import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import com.apps.albertmartorell.meteomarto.R
 import com.apps.albertmartorell.meteomarto.databinding.LytFrgCityForecastBinding
+import com.apps.albertmartorell.meteomarto.ui.city.CityViewModel
 import com.apps.albertmartorell.meteomarto.ui.city.Landing
 
 class FrgCityForecast : Fragment() {
@@ -20,7 +23,16 @@ class FrgCityForecast : Fragment() {
     lateinit var binding: LytFrgCityForecastBinding
     lateinit var root: ConstraintLayout
     lateinit var navController: NavController
+    lateinit var viewModel: CityViewModel
     val args: FrgCityForecastArgs by navArgs()
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+        viewModel = ViewModelProviders.of(activity as Landing).get(CityViewModel::class.java)
+
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,10 +40,16 @@ class FrgCityForecast : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        setHasOptionsMenu(true)
         customizeDataBinding(inflater, container)
 
         return root
+
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+
+        super.onActivityCreated(savedInstanceState)
+        observeUI()
 
     }
 
@@ -82,6 +100,28 @@ class FrgCityForecast : Fragment() {
         root = binding.root as ConstraintLayout
         binding.lifecycleOwner = viewLifecycleOwner
 
+    }
+
+    private fun observeUI() {
+
+        viewModel.eventStartRequestForecast.observe(
+            this,
+            Observer {
+
+                it.getContentIfNotHandled()?.let {
+
+                    binding.progressBar.visibility = View.VISIBLE
+
+                    viewModel.requestCityForecastByCoordinates(
+                        viewModel.eventCityWeather.value?.peekContent()?.latitude,
+                        viewModel.eventCityWeather.value?.peekContent()?.longitude
+                    )
+
+                    binding.progressBar.visibility = View.GONE
+
+                }
+
+            })
     }
 
 }
