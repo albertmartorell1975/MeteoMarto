@@ -67,6 +67,8 @@ class FrgCityForecast : Fragment() {
 
         navController = view.findNavController()
         (activity as Landing).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        (activity as Landing).supportActionBar?.setTitle(args.name)
+        (activity as Landing).supportActionBar?.setSubtitle(getString(R.string.subtitle_forecast))
 
     }
 

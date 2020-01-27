@@ -294,6 +294,7 @@ class FrgCityWeather : Fragment() {
         (activity as Landing).supportActionBar?.setDisplayHomeAsUpEnabled(false)
         (activity as Landing).supportActionBar?.setDisplayShowHomeEnabled(true)
         (activity as Landing).supportActionBar?.setTitle(getString(R.string.toolbar_title))
+        (activity as Landing).supportActionBar?.setSubtitle("")
 
     }
 

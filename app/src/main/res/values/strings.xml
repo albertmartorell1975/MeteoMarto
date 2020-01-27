@@ -10,4 +10,5 @@
     <string name="not_coordinates">"No se ha podido obtener la localización</string>
     <string name="toolbar_title">Meteo by Marto</string>
     <string name="menu_forecast">Previsión</string>
+    <string name="subtitle_forecast">El tiempo para los siguientes días</string>
 </resources>
