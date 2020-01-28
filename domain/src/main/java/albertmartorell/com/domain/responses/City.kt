@@ -1,6 +1,6 @@
 package albertmartorell.com.domain.responses
 
-import albertmartorell.com.domain.*
+import albertmartorell.com.domain.cityweather.*
 import com.google.gson.annotations.SerializedName
 
 data class City(

@@ -1,7 +1,7 @@
 package albertmartorell.com.data.repositories
 
 import albertmartorell.com.data.sources.LocationDataSource
-import albertmartorell.com.domain.Coordinates
+import albertmartorell.com.domain.cityweather.Coordinates
 
 class RegionRepository(
     private val locationDataSource: LocationDataSource,

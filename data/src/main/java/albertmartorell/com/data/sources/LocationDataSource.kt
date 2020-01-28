@@ -1,6 +1,6 @@
 package albertmartorell.com.data.sources
 
-import albertmartorell.com.domain.Coordinates
+import albertmartorell.com.domain.cityweather.Coordinates
 
 
 interface LocationDataSource {

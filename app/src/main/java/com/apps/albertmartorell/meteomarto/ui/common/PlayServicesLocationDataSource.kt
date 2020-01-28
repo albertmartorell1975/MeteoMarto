@@ -1,7 +1,7 @@
 package com.apps.albertmartorell.meteomarto.ui.common
 
 import albertmartorell.com.data.sources.LocationDataSource
-import albertmartorell.com.domain.Coordinates
+import albertmartorell.com.domain.cityweather.Coordinates
 import android.app.Application
 import android.location.Geocoder
 import android.location.Location
@@ -41,11 +41,15 @@ class PlayServicesLocationDataSource(application: Application) : LocationDataSou
 
     private fun Location?.getCoordinate(): Coordinates {
 
-        var coordinates = Coordinates(0F, 0F)
+        var coordinates =
+            Coordinates(0F, 0F)
 
         this?.let {
 
-            coordinates = Coordinates(latitude.toFloat(), longitude.toFloat())
+            coordinates = Coordinates(
+                latitude.toFloat(),
+                longitude.toFloat()
+            )
 
         }
 

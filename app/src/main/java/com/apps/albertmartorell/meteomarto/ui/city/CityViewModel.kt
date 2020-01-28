@@ -1,6 +1,6 @@
 package com.apps.albertmartorell.meteomarto.ui.city
 
-import albertmartorell.com.domain.Coordinates
+import albertmartorell.com.domain.cityweather.Coordinates
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,11 +10,8 @@ import com.apps.albertmartorell.meteomarto.framework.db.common.convertToCityUIVi
 import com.apps.albertmartorell.meteomarto.ui.Scope
 import com.apps.albertmartorell.meteomarto.ui.common.Event
 import com.apps.albertmartorell.meteomarto.ui.model.CityUIView
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class CityViewModel(private val interactors: Interactors) : ViewModel(), Scope {
 
@@ -38,32 +35,34 @@ class CityViewModel(private val interactors: Interactors) : ViewModel(), Scope {
 //
 //    }
 
-    private val _eventStartRequestForecast = MutableLiveData<Event<Unit>>()
-    val eventStartRequestForecast: LiveData<Event<Unit>>
+    sealed class UiForecastModel {
+
+        object Loading : UiForecastModel()
+        object FinishedRequestForecast : UiForecastModel()
+
+    }
+
+    private val _eventRequestForecast = MutableLiveData<UiForecastModel>()
+    val eventRequestForecast: LiveData<UiForecastModel>
         get() {
 
-            if (_eventStartRequestForecast.value == null) {
+            // the first time somebody subscribes to this LiveData
+            if (_eventRequestForecast.value == null) {
 
-                startRequestForecast()
+                loadingForecast()
             }
 
-            return _eventStartRequestForecast
+            return _eventRequestForecast
 
         }
 
-
-    private fun startRequestForecast() {
-
-        _eventStartRequestForecast.value = Event(Unit)
-
-    }
 
     private val _eventRequestLocationPermission = MutableLiveData<Event<Unit>>()
 
     val eventRequestLocationPermission: LiveData<Event<Unit>>
         get() {
 
-            // the first time somebody subscribes to the LiveData
+            // the first time somebody subscribes to this LiveData
             if (_eventRequestLocationPermission.value == null) {
 
                 refresh()
@@ -104,6 +103,13 @@ class CityViewModel(private val interactors: Interactors) : ViewModel(), Scope {
 
     }
 
+    private fun loadingForecast() {
+
+        _eventRequestForecast.value = UiForecastModel.Loading
+
+    }
+
+
     /**
      * I wonder when to call this method: a good moment is wait when somebody is subscribed to the LiveData
      * for the first time. As alternative it could be called in the init constructor
@@ -116,14 +122,10 @@ class CityViewModel(private val interactors: Interactors) : ViewModel(), Scope {
 
     fun onCoarsePermissionRequested(_success: Boolean) {
 
-        launch {
-
-            if (_success)
-                _eventPerMissionGranted.value = Event(Unit)
-            else
-                _eventPermissionDenied.value = Event(Unit)
-
-        }
+        if (_success)
+            _eventPerMissionGranted.value = Event(Unit)
+        else
+            _eventPermissionDenied.value = Event(Unit)
 
     }
 
@@ -211,7 +213,7 @@ class CityViewModel(private val interactors: Interactors) : ViewModel(), Scope {
 
     }
 
-    fun requestCityForecastByCoordinates(latitude: Float?, longitude: Float?) {
+    fun startRequestForecast(latitude: Float?, longitude: Float?) {
 
         launch {
 
@@ -219,13 +221,16 @@ class CityViewModel(private val interactors: Interactors) : ViewModel(), Scope {
 
                 try {
 
+                    delay(2000)
                     val response = interactors.requestCityForecastByCoordinates.invoke(
                         latitude, longitude
                     )
 
-                    val s = ""
+                    interactors.deleteAllForecast.invoke()
+                    //interactors.saveCityWeather.invoke(response)
+
                     /**
-                    interactors.deleteAllCities.invoke()
+
                     interactors.saveCityWeather.invoke(response)
                     interactors.getCityWeatherFromDatabase.invoke().collect {
 
@@ -235,9 +240,15 @@ class CityViewModel(private val interactors: Interactors) : ViewModel(), Scope {
 
                     }**/
 
+                    withContext(Dispatchers.Main) {
+                        _eventRequestForecast.value = UiForecastModel.FinishedRequestForecast
+                    }
+
                 } catch (ex: Exception) {
 
-                    val s = ""
+                    withContext(Dispatchers.Main) {
+                        _eventRequestForecast.value = UiForecastModel.FinishedRequestForecast
+                    }
                     // error
                     /**
                     interactors.getCityWeatherFromDatabase.invoke().collect {
@@ -254,6 +265,15 @@ class CityViewModel(private val interactors: Interactors) : ViewModel(), Scope {
             }
 
         }
+
+    }
+
+    /**
+     * To make the process as the first time the user goes to this screen
+     */
+    fun resetRequestForecast() {
+
+        _eventRequestForecast.value = null
 
     }
 

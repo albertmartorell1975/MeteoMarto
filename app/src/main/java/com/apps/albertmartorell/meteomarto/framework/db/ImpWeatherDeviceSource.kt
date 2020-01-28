@@ -45,4 +45,10 @@ class ImpWeatherDeviceSource(context: Context) : WeatherRepository.WeatherDevice
 
     }
 
+    override suspend fun deleteAllForecast() {
+
+        return dao.deleteAllForecast()
+
+    }
+
 }

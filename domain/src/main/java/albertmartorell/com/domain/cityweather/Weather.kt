@@ -1,4 +1,4 @@
-package albertmartorell.com.domain
+package albertmartorell.com.domain.cityweather
 
 data class Weather(
     var main: String? = "",

@@ -1,6 +1,9 @@
 package com.apps.albertmartorell.meteomarto.framework.db.daos
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import com.apps.albertmartorell.meteomarto.framework.db.model.CityEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -37,5 +40,8 @@ interface WeatherDao {
 
     @Query("DELETE FROM cities")
     fun deleteAllCities()
+
+    @Query("DELETE FROM forecasts")
+    fun deleteAllForecast()
 
 }

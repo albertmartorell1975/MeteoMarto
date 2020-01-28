@@ -1,4 +1,4 @@
-package albertmartorell.com.domain
+package albertmartorell.com.domain.cityweather
 
 data class Sys(
     var type: Int? = 0,

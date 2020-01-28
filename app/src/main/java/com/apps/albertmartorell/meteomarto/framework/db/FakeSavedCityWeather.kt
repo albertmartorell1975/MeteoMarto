@@ -71,4 +71,7 @@ class FakeSavedCityWeather : WeatherRepository.WeatherDeviceSource {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
+    override suspend fun deleteAllForecast() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 }

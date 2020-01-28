@@ -16,6 +16,7 @@ import androidx.navigation.fragment.navArgs
 import com.apps.albertmartorell.meteomarto.R
 import com.apps.albertmartorell.meteomarto.databinding.LytFrgCityForecastBinding
 import com.apps.albertmartorell.meteomarto.ui.city.CityViewModel
+import com.apps.albertmartorell.meteomarto.ui.city.CityViewModel.UiForecastModel
 import com.apps.albertmartorell.meteomarto.ui.city.Landing
 
 class FrgCityForecast : Fragment() {
@@ -104,24 +105,33 @@ class FrgCityForecast : Fragment() {
 
     private fun observeUI() {
 
-        viewModel.eventStartRequestForecast.observe(
+        viewModel.eventRequestForecast.observe(
             this,
             Observer {
 
-                it.getContentIfNotHandled()?.let {
+                when (it) {
 
-                    binding.progressBar.visibility = View.VISIBLE
+                    is UiForecastModel.Loading -> {
 
-                    viewModel.requestCityForecastByCoordinates(
-                        viewModel.eventCityWeather.value?.peekContent()?.latitude,
-                        viewModel.eventCityWeather.value?.peekContent()?.longitude
-                    )
+                        binding.progressBar.visibility = View.VISIBLE
+                        viewModel.startRequestForecast(
+                            viewModel.eventCityWeather.value?.peekContent()?.latitude,
+                            viewModel.eventCityWeather.value?.peekContent()?.longitude
+                        )
 
-                    binding.progressBar.visibility = View.GONE
+                    }
+
+                    is UiForecastModel.FinishedRequestForecast -> {
+
+                        binding.progressBar.visibility = View.GONE
+                        viewModel.resetRequestForecast()
+
+                    }
 
                 }
 
             })
+
     }
 
 }

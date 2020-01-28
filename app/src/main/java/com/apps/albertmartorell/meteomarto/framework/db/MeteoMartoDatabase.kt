@@ -7,7 +7,8 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.apps.albertmartorell.meteomarto.framework.db.common.DbTypeConverters
 import com.apps.albertmartorell.meteomarto.framework.db.daos.WeatherDao
-import com.apps.albertmartorell.meteomarto.framework.db.model.*
+import com.apps.albertmartorell.meteomarto.framework.db.model.CityEntity
+import com.apps.albertmartorell.meteomarto.framework.db.model.ForecastEntity
 
 /**
  *
@@ -20,8 +21,7 @@ import com.apps.albertmartorell.meteomarto.framework.db.model.*
  * Room also verifies all of your queries in Dao classes while the application is being compiled so that if there is a problem in one of the queries, you will be notified instantly.
  */
 @Database(
-    //entities = [CityEntity::class, CloudsEntity::class, CoordinatesEntity::class, MainEntity::class, SysEntity::class, WeatherEntity::class, WindEntity::class],
-    entities = [CityEntity::class],
+    entities = [CityEntity::class, ForecastEntity::class],
     version = 1
 )
 @TypeConverters(DbTypeConverters::class)

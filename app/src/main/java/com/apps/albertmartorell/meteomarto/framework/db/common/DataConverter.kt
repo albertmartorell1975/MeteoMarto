@@ -1,6 +1,6 @@
 package com.apps.albertmartorell.meteomarto.framework.db.common
 
-import albertmartorell.com.domain.*
+import albertmartorell.com.domain.cityweather.*
 import albertmartorell.com.domain.responses.City
 import com.apps.albertmartorell.meteomarto.framework.db.model.CityEntity
 import com.apps.albertmartorell.meteomarto.framework.db.model.WeatherEntity
