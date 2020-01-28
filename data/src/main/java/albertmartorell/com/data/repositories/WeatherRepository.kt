@@ -62,6 +62,11 @@ class WeatherRepository(
 
     }
 
+    suspend fun saveForecastCity(forecast: Forecast) {
+
+        deviceSource.saveForecastCity(forecast)
+    }
+
     /**
      * The interface that the framework layer must implement
      *
@@ -87,6 +92,7 @@ class WeatherRepository(
         suspend fun saveCityWeather(cityWeather: City)
         suspend fun deleteAllCities()
         suspend fun deleteAllForecast()
+        suspend fun saveForecastCity(forecast: Forecast)
     }
 
 }

@@ -2,6 +2,7 @@ package com.apps.albertmartorell.meteomarto.framework.db
 
 import albertmartorell.com.data.repositories.WeatherRepository
 import albertmartorell.com.domain.responses.City
+import albertmartorell.com.domain.responses.Forecast
 import android.content.Context
 import com.apps.albertmartorell.meteomarto.framework.db.common.convertToResponse
 import com.apps.albertmartorell.meteomarto.framework.db.common.saveAsEntity
@@ -48,6 +49,12 @@ class ImpWeatherDeviceSource(context: Context) : WeatherRepository.WeatherDevice
     override suspend fun deleteAllForecast() {
 
         return dao.deleteAllForecast()
+
+    }
+
+    override suspend fun saveForecastCity(forecast: Forecast) {
+
+        dao.insertForecastCity(forecast.saveAsEntity())
 
     }
 

@@ -2,11 +2,17 @@ package com.apps.albertmartorell.meteomarto.framework.db.common
 
 import albertmartorell.com.domain.cityweather.*
 import albertmartorell.com.domain.responses.City
+import albertmartorell.com.domain.responses.Forecast
 import com.apps.albertmartorell.meteomarto.framework.db.model.CityEntity
+import com.apps.albertmartorell.meteomarto.framework.db.model.ForecastEntity
 import com.apps.albertmartorell.meteomarto.framework.db.model.WeatherEntity
 import com.apps.albertmartorell.meteomarto.ui.model.CityUIView
 
 const val FROM_KELVIN_TO_CELSIUS = 273
+
+fun Forecast.saveAsEntity(): ForecastEntity =
+
+    ForecastEntity(0, city?.id, city?.name, list?.get(0)?.main?.temperatureMin)
 
 // From domain model to database model
 fun City.saveAsEntity(): CityEntity =

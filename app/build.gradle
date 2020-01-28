@@ -37,7 +37,8 @@ android {
 
 dependencies {
     def roomVersion = "2.2.3"
-    def navigationVersion = "2.1.0"
+    def navigationVersion = "2.2.0"
+    def liveDataVersion = "2.2.0"
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     // Karumi library that simplifies the process of requesting permissions at runtime.
     implementation 'com.karumi:dexter:6.0.1'
@@ -79,9 +80,9 @@ dependencies {
     implementation 'android.arch.lifecycle:viewmodel:1.1.1'
 
     //Live Data
-    implementation "androidx.lifecycle:lifecycle-livedata-core-ktx:2.2.0-rc03"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0-rc03"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0-rc03"
+    implementation "androidx.lifecycle:lifecycle-livedata-core-ktx:$liveDataVersion"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$liveDataVersion"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$liveDataVersion"
     // Glide for loading images
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'

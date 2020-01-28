@@ -15,6 +15,7 @@ data class Interactors(
     val saveCityWeather: SaveCityWeather,
     val deleteAllCities: DeleteAllCities,
     val requestCityForecastByCoordinates: RequestCityForecastByCoordinates,
-    val deleteAllForecast: DeleteAllForecast
+    val deleteAllForecast: DeleteAllForecast,
+    val saveForecastCity: SaveForecastCity
 
 )

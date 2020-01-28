@@ -221,17 +221,15 @@ class CityViewModel(private val interactors: Interactors) : ViewModel(), Scope {
 
                 try {
 
-                    delay(2000)
                     val response = interactors.requestCityForecastByCoordinates.invoke(
                         latitude, longitude
                     )
 
                     interactors.deleteAllForecast.invoke()
-                    //interactors.saveCityWeather.invoke(response)
+                    interactors.saveForecastCity.invoke(response)
 
                     /**
 
-                    interactors.saveCityWeather.invoke(response)
                     interactors.getCityWeatherFromDatabase.invoke().collect {
 
                     withContext(Dispatchers.Main) {
