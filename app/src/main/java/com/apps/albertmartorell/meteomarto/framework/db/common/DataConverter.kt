@@ -1,9 +1,10 @@
 package com.apps.albertmartorell.meteomarto.framework.db.common
 
+import albertmartorell.com.domain.cityforecast.ForecastDomain
 import albertmartorell.com.domain.cityforecast.ListForecast
 import albertmartorell.com.domain.cityweather.*
 import albertmartorell.com.domain.responses.City
-import albertmartorell.com.domain.responses.Forecast
+import albertmartorell.com.domain.responses.ForecastResponse
 import com.apps.albertmartorell.meteomarto.framework.db.model.CityEntity
 import com.apps.albertmartorell.meteomarto.framework.db.model.ForecastEntity
 import com.apps.albertmartorell.meteomarto.framework.db.model.WeatherEntity
@@ -22,14 +23,36 @@ fun convertFromKelvinToCelsius(temperature: Float?): Float? {
 
 }
 
-fun convertListForecastToListForecastEntity(forecast: Forecast): List<ForecastEntity>? {
+fun convertForecastDomainToEntity(forecastDomain: List<ForecastDomain>): List<ForecastEntity> {
 
-    return forecast.list?.map { it.saveAsEntity() }
+    return forecastDomain.map { it.saveDomainAsEntity() }
 
 }
 
-// From domain model to database model
-fun ListForecast.saveAsEntity(): ForecastEntity =
+fun convertForecastEntityToDomain(forecastEntity: List<ForecastEntity>): List<ForecastDomain> {
+
+    return forecastEntity.map { it.convertToDomain() }
+
+}
+
+fun convertForecastResponseToDomain(forecastResponse: ForecastResponse): List<ForecastDomain> {
+
+    return forecastResponse.list?.map { it.saveListForecastAsDomain() }
+
+}
+
+fun ForecastDomain.saveDomainAsEntity(): ForecastEntity =
+
+    ForecastEntity(
+        0,
+        convertFromKelvinToCelsius(temperatureMin),
+        convertFromKelvinToCelsius(temperatureMax),
+        convertFromKelvinToCelsius(temperatureFeelsLike),
+        description, icon
+    )
+
+//From domain model to database model
+fun ListForecast.saveListForecastAsEntity(): ForecastEntity =
 
     ForecastEntity(
         0,
@@ -39,8 +62,18 @@ fun ListForecast.saveAsEntity(): ForecastEntity =
         weather?.get(0)?.description, weather?.get(0)?.icon
     )
 
+//From domain model to database model
+fun ListForecast.saveListForecastAsDomain(): ForecastDomain =
+
+    ForecastDomain(
+        convertFromKelvinToCelsius(main?.temperatureMin),
+        convertFromKelvinToCelsius(main?.temperatureMax),
+        convertFromKelvinToCelsius(main?.temperatureFeelsLike),
+        "", weather?.get(0)?.description, weather?.get(0)?.icon
+    )
+
 // From domain model to database model
-fun City.saveAsEntity(): CityEntity =
+fun City.saveCityAsEntity(): CityEntity =
 
     CityEntity(
         0,
@@ -97,6 +130,19 @@ fun City.convertToCityUIView(): CityUIView =
         DbTypeConverters().dateToTimestamp(System.currentTimeMillis())
 
     )
+
+// From database model to domain model
+fun ForecastEntity.convertToDomain(): ForecastDomain =
+
+    ForecastDomain(temperatureMin, temperatureMax, temperatureFeelsLike, "", weather, weatherIcon)
+
+fun List<ForecastEntity>.convertToDomain2(): ForecastDomain =
+
+    return this.map { it.convertToDomain() }
+
+
+    //ForecastDomain(temperatureMin, temperatureMax, temperatureFeelsLike, "", weather, weatherIcon)
+
 
 // From database model to domain model
 fun CityEntity.convertToResponse(): City =

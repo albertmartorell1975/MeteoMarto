@@ -1,7 +1,7 @@
 package albertmartorell.com.data.repositories
 
+import albertmartorell.com.domain.cityforecast.ForecastDomain
 import albertmartorell.com.domain.responses.City
-import albertmartorell.com.domain.responses.Forecast
 import kotlinx.coroutines.flow.Flow
 
 // We use the Repository pattern, which its main purpose is to abstract the concrete implementation of data access. To achieve this, I will add one interface and one class for each model
@@ -53,7 +53,10 @@ class WeatherRepository(
 
     }
 
-    suspend fun requestCityForecastByCoordinates(latitude: Float?, longitude: Float?): Forecast =
+    suspend fun requestCityForecastByCoordinates(
+        latitude: Float?,
+        longitude: Float?
+    ): List<ForecastDomain> =
         serverSource.requestCityForecastByCoordinates(latitude, longitude)
 
     suspend fun deleteAllForecast() {
@@ -62,13 +65,13 @@ class WeatherRepository(
 
     }
 
-    suspend fun saveForecastCity(forecast: Forecast) {
+    suspend fun saveForecastCity(forecastDomain: List<ForecastDomain>) {
 
-        deviceSource.saveForecastCity(forecast)
+        deviceSource.saveForecastCity(forecastDomain)
 
     }
 
-    suspend fun getForecastCityFromDatabase(): Flow<City> {
+    suspend fun getForecastCityFromDatabase(): Flow<List<ForecastDomain>> {
 
         return deviceSource.getForecastCity()
 
@@ -88,19 +91,19 @@ class WeatherRepository(
         suspend fun requestCityForecastByCoordinates(
             latitude: Float?,
             longitude: Float?
-        ): Forecast
+        ): List<ForecastDomain>
 
     }
 
     interface WeatherDeviceSource {
 
-        suspend fun getCity(): Flow<City>
         suspend fun isEmpty(): Boolean
         suspend fun saveCityWeather(cityWeather: City)
+        suspend fun getCity(): Flow<City>
         suspend fun deleteAllCities()
         suspend fun deleteAllForecast()
-        suspend fun saveForecastCity(forecast: Forecast)
-        suspend fun getForecastCity(): Flow<City>
+        suspend fun saveForecastCity(forecastDomain: List<ForecastDomain>)
+        suspend fun getForecastCity(): Flow<List<ForecastDomain>>
     }
 
 }

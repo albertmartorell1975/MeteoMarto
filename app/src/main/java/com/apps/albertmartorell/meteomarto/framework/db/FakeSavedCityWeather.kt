@@ -1,8 +1,8 @@
 package com.apps.albertmartorell.meteomarto.framework.db
 
 import albertmartorell.com.data.repositories.WeatherRepository
+import albertmartorell.com.domain.cityforecast.ForecastDomain
 import albertmartorell.com.domain.responses.City
-import albertmartorell.com.domain.responses.Forecast
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -76,11 +76,11 @@ class FakeSavedCityWeather : WeatherRepository.WeatherDeviceSource {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override suspend fun saveForecastCity(forecast: Forecast) {
+    override suspend fun saveForecastCity(forecastDomain: List<ForecastDomain>) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override suspend fun getForecastCity(): Flow<City> {
+    override suspend fun getForecastCity(): Flow<List<ForecastDomain>> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

@@ -1,15 +1,13 @@
 package albertmartorell.com.usecases
 
 import albertmartorell.com.data.repositories.WeatherRepository
-import albertmartorell.com.domain.Result
-import albertmartorell.com.domain.responses.City
-import albertmartorell.com.domain.responses.Forecast
+import albertmartorell.com.domain.cityforecast.ForecastDomain
 
 class SaveForecastCity(private val weatherRepository: WeatherRepository) {
 
-    suspend operator fun invoke(forecast: Forecast) {
+    suspend operator fun invoke(forecastDomain: List<ForecastDomain>) {
 
-        weatherRepository.saveForecastCity(forecast)
+        weatherRepository.saveForecastCity(forecastDomain)
 
     }
 

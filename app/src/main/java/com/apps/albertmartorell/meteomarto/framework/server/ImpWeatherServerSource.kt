@@ -1,8 +1,9 @@
 package com.apps.albertmartorell.meteomarto.framework.server
 
 import albertmartorell.com.data.repositories.WeatherRepository
+import albertmartorell.com.domain.cityforecast.ForecastDomain
 import albertmartorell.com.domain.responses.City
-import albertmartorell.com.domain.responses.Forecast
+import com.apps.albertmartorell.meteomarto.framework.db.common.convertForecastResponseToDomain
 
 /**
  * It implements one dependency offered by the data layer, in this case the WeatherServerSource
@@ -21,9 +22,13 @@ class ImpWeatherServerSource : WeatherRepository.WeatherServerSource {
     override suspend fun requestCityForecastByCoordinates(
         latitude: Float?,
         longitude: Float?
-    ): Forecast {
+    ): List<ForecastDomain> {
 
-        return client.getForecast(latitude.toString(), longitude.toString())
+        val forecastResponse = client.getForecast(latitude.toString(), longitude.toString())
+        return convertForecastResponseToDomain(forecastResponse)
+        //val hola = convertListForecastToListForecastEntity(forecastResponse)
+
+        //return client.getForecast(latitude.toString(), longitude.toString())
 
     }
 
