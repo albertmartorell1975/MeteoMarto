@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.apps.albertmartorell.meteomarto.R
 import com.apps.albertmartorell.meteomarto.databinding.LytFrgCityForecastBinding
 import com.apps.albertmartorell.meteomarto.ui.city.CityViewModel
@@ -25,13 +26,17 @@ class FrgCityForecast : Fragment() {
     lateinit var root: ConstraintLayout
     lateinit var navController: NavController
     lateinit var viewModel: CityViewModel
+    private lateinit var linearLayoutManager: LinearLayoutManager
+
     val args: FrgCityForecastArgs by navArgs()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
         viewModel = ViewModelProviders.of(activity as Landing).get(CityViewModel::class.java)
+        linearLayoutManager = LinearLayoutManager(activity)
 
     }
 
@@ -42,6 +47,7 @@ class FrgCityForecast : Fragment() {
     ): View? {
 
         customizeDataBinding(inflater, container)
+        binding.lytFrgCityForecastRecycler.layoutManager = linearLayoutManager
 
         return root
 
@@ -57,11 +63,6 @@ class FrgCityForecast : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         super.onViewCreated(view, savedInstanceState)
-
-//        Toast.makeText(context, "Toast 1: " + args.latitude, Toast.LENGTH_SHORT).show()
-//        Toast.makeText(context, "Toast 2: " + args.longitude, Toast.LENGTH_SHORT).show()
-//        Toast.makeText(context, "Toast 3: " + args.name, Toast.LENGTH_SHORT).show()
-
         customizeToolBar(view)
 
     }
@@ -125,6 +126,8 @@ class FrgCityForecast : Fragment() {
 
                         binding.progressBar.visibility = View.GONE
                         viewModel.resetRequestForecast()
+                        //val adapter = ForecastRecyclerAdapter(viewModel.eventRequestForecast.value)
+                        //binding.lytFrgCityForecastRecycler.adapter = adapter
 
                     }
 

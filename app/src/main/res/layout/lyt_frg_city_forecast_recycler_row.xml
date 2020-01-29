@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/lyt_frg_city_forecast_recycler_row"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="124dp">
+
+    <ImageView
+        android:id="@+id/lyt_frg_city_forecast_recycler_row_icon"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/lyt_frg_city_forecast_recycler_row_description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/lyt_frg_city_forecast_recycler_row_icon"
+        app:layout_constraintTop_toTopOf="@id/lyt_frg_city_forecast_recycler_row_icon"
+        tools:text="Descripció del temps" />
+
+    <TextView
+        android:id="@+id/lyt_frg_city_forecast_recycler_row_temp_min"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/lyt_frg_city_forecast_recycler_row_icon"
+        app:layout_constraintTop_toBottomOf="@id/lyt_frg_city_forecast_recycler_row_description"
+        tools:text="Tempteratura mínima" />
+
+    <TextView
+        android:id="@+id/lyt_frg_city_forecast_recycler_row_temp_max"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/lyt_frg_city_forecast_recycler_row_icon"
+        app:layout_constraintTop_toBottomOf="@id/lyt_frg_city_forecast_recycler_row_temp_min"
+        tools:text="Tempteratura màxima" />
+
+    <TextView
+        android:id="@+id/lyt_frg_city_forecast_recycler_row_temp_feel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/lyt_frg_city_forecast_recycler_row_icon"
+        app:layout_constraintTop_toBottomOf="@id/lyt_frg_city_forecast_recycler_row_temp_max"
+        tools:text="Tempteratura sensació" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

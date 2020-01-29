@@ -65,6 +65,13 @@ class WeatherRepository(
     suspend fun saveForecastCity(forecast: Forecast) {
 
         deviceSource.saveForecastCity(forecast)
+
+    }
+
+    suspend fun getForecastCityFromDatabase(): Flow<City> {
+
+        return deviceSource.getForecastCity()
+
     }
 
     /**
@@ -93,6 +100,7 @@ class WeatherRepository(
         suspend fun deleteAllCities()
         suspend fun deleteAllForecast()
         suspend fun saveForecastCity(forecast: Forecast)
+        suspend fun getForecastCity(): Flow<City>
     }
 
 }

@@ -1,5 +1,6 @@
 package com.apps.albertmartorell.meteomarto.framework.db.common
 
+import albertmartorell.com.domain.cityforecast.ListForecast
 import albertmartorell.com.domain.cityweather.*
 import albertmartorell.com.domain.responses.City
 import albertmartorell.com.domain.responses.Forecast
@@ -10,9 +11,33 @@ import com.apps.albertmartorell.meteomarto.ui.model.CityUIView
 
 const val FROM_KELVIN_TO_CELSIUS = 273
 
-fun Forecast.saveAsEntity(): ForecastEntity =
+fun convertFromKelvinToCelsius(temperature: Float?): Float? {
 
-    ForecastEntity(0, city?.id, city?.name, list?.get(0)?.main?.temperatureMin)
+    temperature?.let {
+
+        return temperature - FROM_KELVIN_TO_CELSIUS
+    }
+
+    return 0F
+
+}
+
+fun convertListForecastToListForecastEntity(forecast: Forecast): List<ForecastEntity>? {
+
+    return forecast.list?.map { it.saveAsEntity() }
+
+}
+
+// From domain model to database model
+fun ListForecast.saveAsEntity(): ForecastEntity =
+
+    ForecastEntity(
+        0,
+        convertFromKelvinToCelsius(main?.temperatureMin),
+        convertFromKelvinToCelsius(main?.temperatureMax),
+        convertFromKelvinToCelsius(main?.temperatureFeelsLike),
+        weather?.get(0)?.description, weather?.get(0)?.icon
+    )
 
 // From domain model to database model
 fun City.saveAsEntity(): CityEntity =
@@ -73,65 +98,6 @@ fun City.convertToCityUIView(): CityUIView =
 
     )
 
-fun convertFromKelvinToCelsius(temperature: Float?): Float? {
-
-    temperature?.let {
-
-        return temperature - FROM_KELVIN_TO_CELSIUS
-    }
-
-    return 0F
-
-}
-
-//private fun Coordinates.convertToEntity(): CoordinatesEntity =
-//
-//    CoordinatesEntity(
-//        latitude,
-//        longitude
-//    )
-//
-//private fun Weather.convertToEntity(): WeatherEntity =
-//
-//    WeatherEntity(
-//        main,
-//        description,
-//        icon
-//    )
-//
-//private fun Main.convertToEntity(): MainEntity =
-//
-//    MainEntity(
-//        temperature,
-//        humidity,
-//        pressure,
-//        temperatureMin,
-//        temperatureMax
-//    )
-
-//private fun Wind.convertToEntity(): WindEntity =
-//
-//    WindEntity(
-//        speed,
-//        degrees
-//    )
-//
-//private fun Clouds.convertToEntity(): CloudsEntity =
-//
-//    CloudsEntity(
-//        coverage
-//    )
-//
-//private fun Sys.convertToEntity(): SysEntity =
-//
-//    SysEntity(
-//        type,
-//        message,
-//        country,
-//        sunrise,
-//        sunset
-//    )
-
 // From database model to domain model
 fun CityEntity.convertToResponse(): City =
 
@@ -158,6 +124,19 @@ fun CityEntity.convertToResponse(): City =
         ),
         name
     )
+
+private fun WeatherEntity.convertToResponse(
+    main: String?,
+    description: String?,
+    icon: String?
+): List<Weather> {
+
+    val weather = Weather(main, description, icon)
+    val weatherList: List<Weather> = listOf(weather)
+
+    return weatherList
+
+}
 
 //// From model domain to model database
 //fun City.convertToEntity(): CityEntity =
@@ -242,48 +221,5 @@ fun CityEntity.convertToResponse(): City =
 //    Coordinates(
 //        latitude,
 //        longitude
-//    )
-//
-private fun WeatherEntity.convertToResponse(
-    main: String?,
-    description: String?,
-    icon: String?
-): List<Weather> {
-
-    val weather = Weather(main, description, icon)
-    val weatherList: List<Weather> = listOf(weather)
-
-    return weatherList
-
-}
-//
-//private fun MainEntity.convertToResponse() =
-//
-//    Main(
-//        temperature,
-//        humidity,
-//        pressure,
-//        temperatureMin,
-//        temperatureMax
-//    )
-//
-//private fun WindEntity.convertToResponse() =
-//
-//    Wind(
-//        speed,
-//        degrees
-//    )
-//
-//private fun CloudsEntity.convertToResponse() =
-//    Clouds(coverage)
-//
-//private fun SysEntity.convertToResponse() =
-//
-//    Sys(
-//        type,
-//        message,
-//        country,
-//        sunrise,
-//        sunset
 //    )
 //

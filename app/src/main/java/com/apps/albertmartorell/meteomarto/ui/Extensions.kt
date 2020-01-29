@@ -3,8 +3,11 @@ package com.apps.albertmartorell.meteomarto.ui
 import android.content.Context
 import android.location.Geocoder
 import android.location.Location
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.annotation.LayoutRes
 import androidx.databinding.BindingAdapter
 import com.apps.albertmartorell.meteomarto.MeteoMartoApp
 import com.apps.albertmartorell.meteomarto.framework.server.RetrofitBuilder
@@ -49,4 +52,8 @@ fun View.snackBar(_message: String, _length: Int = Snackbar.LENGTH_LONG) {
 
 }
 
-// todo inflate layout, toast.....
+fun ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToRoot: Boolean = false): View {
+
+    return LayoutInflater.from(context).inflate(layoutRes, this, attachToRoot)
+
+}

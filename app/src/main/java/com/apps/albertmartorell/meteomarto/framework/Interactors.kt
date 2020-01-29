@@ -16,6 +16,7 @@ data class Interactors(
     val deleteAllCities: DeleteAllCities,
     val requestCityForecastByCoordinates: RequestCityForecastByCoordinates,
     val deleteAllForecast: DeleteAllForecast,
-    val saveForecastCity: SaveForecastCity
+    val saveForecastCity: SaveForecastCity,
+    val getForecastCity: GetForecastCityFromDatabase
 
 )

@@ -4,6 +4,7 @@ import albertmartorell.com.data.repositories.WeatherRepository
 import albertmartorell.com.domain.responses.City
 import albertmartorell.com.domain.responses.Forecast
 import android.content.Context
+import com.apps.albertmartorell.meteomarto.framework.db.common.convertListForecastToListForecastEntity
 import com.apps.albertmartorell.meteomarto.framework.db.common.convertToResponse
 import com.apps.albertmartorell.meteomarto.framework.db.common.saveAsEntity
 import kotlinx.coroutines.flow.Flow
@@ -34,6 +35,7 @@ class ImpWeatherDeviceSource(context: Context) : WeatherRepository.WeatherDevice
 
     }
 
+    @kotlinx.coroutines.ExperimentalCoroutinesApi
     override suspend fun getCity(): Flow<City> {
 
         return dao.getCity().map { it.convertToResponse() }.distinctUntilChanged()
@@ -54,7 +56,15 @@ class ImpWeatherDeviceSource(context: Context) : WeatherRepository.WeatherDevice
 
     override suspend fun saveForecastCity(forecast: Forecast) {
 
-        dao.insertForecastCity(forecast.saveAsEntity())
+        dao.insertForecastCity(convertListForecastToListForecastEntity(forecast))
+
+    }
+
+    @kotlinx.coroutines.ExperimentalCoroutinesApi
+    override suspend fun getForecastCity(): Flow<City> {
+
+        //return dao.getCity().map { it.convertToResponse() }.distinctUntilChanged()
+        //return dao.getForecastCity().map()
 
     }
 

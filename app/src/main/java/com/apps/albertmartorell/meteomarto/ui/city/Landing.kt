@@ -47,6 +47,7 @@ class Landing : AppCompatActivity() {
         val requestCityForecastByCoordinates = RequestCityForecastByCoordinates(weatherRepository)
         val deleteAllForecast = DeleteAllForecast(weatherRepository)
         val saveForecastCity = SaveForecastCity(weatherRepository)
+        val getForecastCityFromDatabase = GetForecastCityFromDatabase(weatherRepository)
 
         // the this param does that each time we access the view model providers checks if this view model already exists: if not it is created else it is got again
         viewModel = ViewModelProviders.of(
@@ -59,7 +60,8 @@ class Landing : AppCompatActivity() {
                     deleteAllCities,
                     requestCityForecastByCoordinates,
                     deleteAllForecast,
-                    saveForecastCity
+                    saveForecastCity,
+                    getForecastCityFromDatabase
                 )
             )
         )[CityViewModel::class.java]

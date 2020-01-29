@@ -10,8 +10,11 @@ import com.apps.albertmartorell.meteomarto.framework.db.common.convertToCityUIVi
 import com.apps.albertmartorell.meteomarto.ui.Scope
 import com.apps.albertmartorell.meteomarto.ui.common.Event
 import com.apps.albertmartorell.meteomarto.ui.model.CityUIView
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class CityViewModel(private val interactors: Interactors) : ViewModel(), Scope {
 
@@ -55,7 +58,6 @@ class CityViewModel(private val interactors: Interactors) : ViewModel(), Scope {
             return _eventRequestForecast
 
         }
-
 
     private val _eventRequestLocationPermission = MutableLiveData<Event<Unit>>()
 
@@ -227,16 +229,13 @@ class CityViewModel(private val interactors: Interactors) : ViewModel(), Scope {
 
                     interactors.deleteAllForecast.invoke()
                     interactors.saveForecastCity.invoke(response)
+                    interactors.getForecastCity.invoke().collect {
 
-                    /**
+                        // withContext(Dispatchers.Main) {
+                        //     _eventCityWeather.value = Event(it.convertToCityUIView())
+                        // }
 
-                    interactors.getCityWeatherFromDatabase.invoke().collect {
-
-                    withContext(Dispatchers.Main) {
-                    _eventCityWeather.value = Event(it.convertToCityUIView())
                     }
-
-                    }**/
 
                     withContext(Dispatchers.Main) {
                         _eventRequestForecast.value = UiForecastModel.FinishedRequestForecast
