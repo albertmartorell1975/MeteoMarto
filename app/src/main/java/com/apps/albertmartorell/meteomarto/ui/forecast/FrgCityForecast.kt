@@ -107,10 +107,10 @@ class FrgCityForecast : Fragment() {
     private fun observeUI() {
 
         viewModel.eventRequestForecast.observe(
-            this,
-            Observer {
+            viewLifecycleOwner,
+            Observer { forecastCity ->
 
-                when (it) {
+                when (forecastCity) {
 
                     is UiForecastModel.Loading -> {
 
@@ -122,12 +122,12 @@ class FrgCityForecast : Fragment() {
 
                     }
 
-                    is UiForecastModel.FinishedRequestForecast -> {
+                    is UiForecastModel.SuccessRequest -> {
 
-                        binding.progressBar.visibility = View.GONE
-                        viewModel.resetRequestForecast()
-                        //val adapter = ForecastRecyclerAdapter(viewModel.eventRequestForecast.value)
+                        //val adapter = ForecastRecyclerAdapter(forecastCity.listForecast)
                         //binding.lytFrgCityForecastRecycler.adapter = adapter
+                        viewModel.resetRequestForecast()
+                        binding.progressBar.visibility = View.GONE
 
                     }
 

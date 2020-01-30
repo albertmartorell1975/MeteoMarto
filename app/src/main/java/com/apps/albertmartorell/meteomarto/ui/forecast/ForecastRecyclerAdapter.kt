@@ -1,5 +1,6 @@
 package com.apps.albertmartorell.meteomarto.ui.forecast
 
+import albertmartorell.com.domain.cityforecast.ForecastDomain
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +11,7 @@ import com.apps.albertmartorell.meteomarto.framework.db.model.ForecastEntity
 import com.apps.albertmartorell.meteomarto.ui.inflate
 import com.apps.albertmartorell.meteomarto.ui.loadIconsWeather
 
-class ForecastRecyclerAdapter(private val forecastList: List<ForecastEntity>) :
+class ForecastRecyclerAdapter(private val forecastList: List<ForecastDomain>) :
     RecyclerView.Adapter<ForecastRecyclerAdapter.ForecastHolder>() {
 
     override fun onCreateViewHolder(

@@ -5,7 +5,7 @@ import albertmartorell.com.domain.cityforecast.ForecastDomain
 import albertmartorell.com.domain.responses.City
 import android.content.Context
 import com.apps.albertmartorell.meteomarto.framework.db.common.convertForecastDomainToEntity
-import com.apps.albertmartorell.meteomarto.framework.db.common.convertToDomain2
+import com.apps.albertmartorell.meteomarto.framework.db.common.convertToDomain
 import com.apps.albertmartorell.meteomarto.framework.db.common.convertToResponse
 import com.apps.albertmartorell.meteomarto.framework.db.common.saveCityAsEntity
 import kotlinx.coroutines.flow.Flow
@@ -58,17 +58,13 @@ class ImpWeatherDeviceSource(context: Context) : WeatherRepository.WeatherDevice
     override suspend fun saveForecastCity(forecastDomain: List<ForecastDomain>) {
 
         dao.insertForecastCity(convertForecastDomainToEntity(forecastDomain))
-        //dao.insertForecastCity(convertListForecastToListForecastEntity(forecast))
 
     }
 
     @kotlinx.coroutines.ExperimentalCoroutinesApi
     override suspend fun getForecastCity(): Flow<List<ForecastDomain>> {
 
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        return dao.getForecastCity().map { it.convertToDomain2() }.distinctUntilChanged()
-
-        //return convertForecastEntityToDomain(dao.getForecastCity()) }.distinctUntilChanged(
+        return dao.getForecastCity().map { it.convertToDomain() }.distinctUntilChanged()
 
     }
 

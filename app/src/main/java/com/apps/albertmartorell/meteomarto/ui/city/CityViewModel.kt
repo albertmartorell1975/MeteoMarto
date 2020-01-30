@@ -1,5 +1,6 @@
 package com.apps.albertmartorell.meteomarto.ui.city
 
+import albertmartorell.com.domain.cityforecast.ForecastDomain
 import albertmartorell.com.domain.cityweather.Coordinates
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -41,7 +42,7 @@ class CityViewModel(private val interactors: Interactors) : ViewModel(), Scope {
     sealed class UiForecastModel {
 
         object Loading : UiForecastModel()
-        object FinishedRequestForecast : UiForecastModel()
+        class SuccessRequest(val listForecast: List<ForecastDomain>) : UiForecastModel()
 
     }
 
@@ -231,31 +232,20 @@ class CityViewModel(private val interactors: Interactors) : ViewModel(), Scope {
                     interactors.saveForecastCity.invoke(response)
                     interactors.getForecastCity.invoke().collect {
 
-                        // withContext(Dispatchers.Main) {
-                        //     _eventCityWeather.value = Event(it.convertToCityUIView())
-                        // }
+                        withContext(Dispatchers.Main) {
 
-                    }
+                            _eventRequestForecast.value = UiForecastModel.SuccessRequest(it)
 
-                    withContext(Dispatchers.Main) {
-                        _eventRequestForecast.value = UiForecastModel.FinishedRequestForecast
+                        }
+
                     }
 
                 } catch (ex: Exception) {
 
-                    withContext(Dispatchers.Main) {
-                        _eventRequestForecast.value = UiForecastModel.FinishedRequestForecast
-                    }
-                    // error
-                    /**
-                    interactors.getCityWeatherFromDatabase.invoke().collect {
-
-                    withContext(Dispatchers.Main) {
-                    _eventCityWeatherOffline.value = Event(it.convertToCityUIView())
-                    }
-
-                    }
-                     **/
+                    val s = ""
+                    //withContext(Dispatchers.Main) {
+                    //    _eventRequestForecast.value = UiForecastModel.FinishedRequestForecast
+                    //}
 
                 }
 

@@ -29,12 +29,6 @@ fun convertForecastDomainToEntity(forecastDomain: List<ForecastDomain>): List<Fo
 
 }
 
-fun convertForecastEntityToDomain(forecastEntity: List<ForecastEntity>): List<ForecastDomain> {
-
-    return forecastEntity.map { it.convertToDomain() }
-
-}
-
 fun convertForecastResponseToDomain(forecastResponse: ForecastResponse): List<ForecastDomain> {
 
     return forecastResponse.list?.map { it.saveListForecastAsDomain() }
@@ -131,18 +125,23 @@ fun City.convertToCityUIView(): CityUIView =
 
     )
 
-// From database model to domain model
-fun ForecastEntity.convertToDomain(): ForecastDomain =
+fun List<ForecastEntity>.convertToDomain(): List<ForecastDomain> {
 
-    ForecastDomain(temperatureMin, temperatureMax, temperatureFeelsLike, "", weather, weatherIcon)
+    val forecastDomainList = mutableListOf<ForecastDomain>()
+    for (forecast in this) {
 
-fun List<ForecastEntity>.convertToDomain2(): ForecastDomain =
+        val forecastDomain = ForecastDomain(
+            forecast.temperatureMax, forecast.temperatureMax, forecast.temperatureFeelsLike,
+            "", forecast.weather, forecast.weatherIcon
+        )
 
-    return this.map { it.convertToDomain() }
+        forecastDomainList.add(forecastDomain)
 
+    }
 
-    //ForecastDomain(temperatureMin, temperatureMax, temperatureFeelsLike, "", weather, weatherIcon)
+    return forecastDomainList
 
+}
 
 // From database model to domain model
 fun CityEntity.convertToResponse(): City =

@@ -14,7 +14,6 @@ import com.apps.albertmartorell.meteomarto.R
 import com.apps.albertmartorell.meteomarto.databinding.LytFrgCityWeatherBinding
 import com.apps.albertmartorell.meteomarto.ui.PermissionRequester
 import com.apps.albertmartorell.meteomarto.ui.model.CityUIView
-import kotlinx.android.synthetic.main.lyt_frg_city_weather.*
 
 class FrgCityWeather : Fragment() {
 
@@ -120,7 +119,7 @@ class FrgCityWeather : Fragment() {
     private fun observeUI() {
 
         viewModel.eventRequestLocationPermission.observe(
-            this,
+            viewLifecycleOwner,
             Observer {
 
                 it.getContentIfNotHandled()
@@ -138,7 +137,7 @@ class FrgCityWeather : Fragment() {
             })
 
         viewModel.eventRequestedLocationPermissionFinished.observe(
-            this,
+            viewLifecycleOwner,
             Observer {
 
                 it.getContentIfNotHandled()?.let {
@@ -157,7 +156,7 @@ class FrgCityWeather : Fragment() {
 
             })
 
-        viewModel.eventPermissionDenied.observe(this, Observer {
+        viewModel.eventPermissionDenied.observe(viewLifecycleOwner, Observer {
 
             it.getContentIfNotHandled()?.let {
 
@@ -170,7 +169,7 @@ class FrgCityWeather : Fragment() {
         })
 
         viewModel.eventPermissionGranted.observe(
-            this,
+            viewLifecycleOwner,
             Observer {
 
                 it.getContentIfNotHandled()?.let {
@@ -181,7 +180,7 @@ class FrgCityWeather : Fragment() {
 
             })
 
-        viewModel.eventNotLocalData.observe(this, Observer {
+        viewModel.eventNotLocalData.observe(viewLifecycleOwner, Observer {
 
             it.getContentIfNotHandled()?.let {
 
@@ -192,7 +191,7 @@ class FrgCityWeather : Fragment() {
 
         })
 
-        viewModel.eventCityWeatherOffline.observe(this, Observer { cityView ->
+        viewModel.eventCityWeatherOffline.observe(viewLifecycleOwner, Observer { cityView ->
 
             cityView.getContentIfNotHandled()?.let { response ->
 
@@ -203,7 +202,7 @@ class FrgCityWeather : Fragment() {
 
         })
 
-        viewModel.eventCityWeather.observe(this, Observer { cityView ->
+        viewModel.eventCityWeather.observe(viewLifecycleOwner, Observer { cityView ->
 
             cityView.getContentIfNotHandled()?.let { response ->
 
