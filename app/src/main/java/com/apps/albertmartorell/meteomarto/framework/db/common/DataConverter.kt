@@ -12,14 +12,14 @@ import com.apps.albertmartorell.meteomarto.ui.model.CityUIView
 
 const val FROM_KELVIN_TO_CELSIUS = 273
 
-fun convertFromKelvinToCelsius(temperature: Float?): Float? {
+fun convertFromKelvinToCelsius(temperature: Int?): Int? {
 
     temperature?.let {
 
         return temperature - FROM_KELVIN_TO_CELSIUS
     }
 
-    return 0F
+    return 0
 
 }
 
@@ -75,9 +75,9 @@ fun ListForecast.saveListForecastAsDomain(): ForecastDomain =
 
     ForecastDomain(
         DbTypeConverters().dateToTimestamp(time?.times(1000)),
-        convertFromKelvinToCelsius(main?.temperatureMin),
-        convertFromKelvinToCelsius(main?.temperatureMax),
-        convertFromKelvinToCelsius(main?.temperatureFeelsLike),
+        convertFromKelvinToCelsius(main?.temperatureMin?.toInt()),
+        convertFromKelvinToCelsius(main?.temperatureMax?.toInt()),
+        convertFromKelvinToCelsius(main?.temperatureFeelsLike?.toInt()),
         weather?.get(0)?.description, weather?.get(0)?.icon
 
     )
@@ -94,12 +94,12 @@ fun City.saveCityAsEntity(): CityEntity =
         weather?.get(0)?.main,
         weather?.get(0)?.description,
         weather?.get(0)?.icon,
-        convertFromKelvinToCelsius(main?.temperature),
+        convertFromKelvinToCelsius(main?.temperature?.toInt()),
         main?.humidity,
         main?.pressure,
-        convertFromKelvinToCelsius(main?.temperatureMin),
-        convertFromKelvinToCelsius(main?.temperatureMax),
-        convertFromKelvinToCelsius(main?.temperatureFeelsLike),
+        convertFromKelvinToCelsius(main?.temperatureMin?.toInt()),
+        convertFromKelvinToCelsius(main?.temperatureMax?.toInt()),
+        convertFromKelvinToCelsius(main?.temperatureFeelsLike?.toInt()),
         visibility,
         wind?.speed,
         wind?.degrees,
@@ -123,12 +123,12 @@ fun City.convertToCityUIView(): CityUIView =
         weather?.get(0)?.main,
         weather?.get(0)?.description,
         weather?.get(0)?.icon,
-        convertFromKelvinToCelsius(main?.temperature),
+        convertFromKelvinToCelsius(main?.temperature?.toInt()),
         main?.humidity,
         main?.pressure,
-        main?.temperatureMin,
-        main?.temperatureMax,
-        main?.temperatureFeelsLike,
+        main?.temperatureMin?.toInt(),
+        main?.temperatureMax?.toInt(),
+        main?.temperatureFeelsLike?.toInt(),
         visibility,
         wind?.speed,
         wind?.degrees,
@@ -150,12 +150,12 @@ fun CityEntity.convertToResponse(): City =
         Coordinates(latitude, longitude),
         WeatherEntity().convertToResponse(main, description, icon),
         Main(
-            temperature,
+            temperature?.toFloat(),
             humidity,
             pressure,
-            temperatureMin,
-            temperatureMax,
-            temperatureFeelsLike
+            temperatureMin?.toFloat(),
+            temperatureMax?.toFloat(),
+            temperatureFeelsLike?.toFloat()
         ),
         visibility,
         Wind(speed, degrees),

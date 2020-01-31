@@ -7,9 +7,9 @@ import androidx.room.PrimaryKey
 data class ForecastEntity(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
     val time: String? = "",
-    val temperatureMin: Float? = 0F,
-    val temperatureMax: Float?,
-    val temperatureFeelsLike: Float? = 0F,
+    val temperatureMin: Int? = 0,
+    val temperatureMax: Int? = 0,
+    val temperatureFeelsLike: Int? = 0,
     val weather: String? = "",
     val weatherIcon: String? = ""
 )

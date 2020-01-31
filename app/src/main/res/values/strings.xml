@@ -2,9 +2,9 @@
     <!--<string name="prova">Hello, %1$s! You have %2$d new messages.</string>-->
     <string name="app_name">MeteoMarto</string>
     <string name="lyt_act_landing_permission_denied">"Tienes que dar permisos de localización</string>
-    <string name="min_temperature">"Temperatura mínima: %1$s</string>
-    <string name="max_temperature">"Temperatura màxima: %1$s</string>
-    <string name="feels_like">"Temperatura sensación: %1$s</string>
+    <string name="min_temperature">"Temperatura mínima: %1$s\u00B0</string>
+    <string name="max_temperature">"Temperatura màxima: %1$s\u00B0</string>
+    <string name="feels_like">"Temperatura sensación: %1$s\u00B0</string>
     <string name="atmospheric_pressure">"Presión: %1$s</string>
     <string name="current_weather">"Tiempo actual: %1$s</string>
     <string name="not_coordinates">"No se ha podido obtener la localización</string>

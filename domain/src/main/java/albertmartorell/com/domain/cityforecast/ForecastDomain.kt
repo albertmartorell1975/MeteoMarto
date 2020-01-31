@@ -2,9 +2,9 @@ package albertmartorell.com.domain.cityforecast
 
 data class ForecastDomain(
     val time: String? = "",
-    val temperatureMin: Float? = 0F,
-    val temperatureMax: Float? = 0F,
-    val temperatureFeelsLike: Float? = 0F,
+    val temperatureMin: Int? = 0,
+    val temperatureMax: Int? = 0,
+    val temperatureFeelsLike: Int? = 0,
     val description: String? = "",
     val icon: String? = ""
 )
