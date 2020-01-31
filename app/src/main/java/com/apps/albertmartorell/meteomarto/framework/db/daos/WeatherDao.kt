@@ -48,7 +48,7 @@ interface WeatherDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertForecastCity(forecastEntity: List<ForecastEntity>?)
 
-    @Query("SELECT * FROM forecasts LIMIT 5")
+    @Query("SELECT * FROM forecasts")
     fun getForecastCity(): Flow<List<ForecastEntity>>
 
 }

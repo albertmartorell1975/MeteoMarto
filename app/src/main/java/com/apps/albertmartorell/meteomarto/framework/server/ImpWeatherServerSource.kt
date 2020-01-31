@@ -26,9 +26,6 @@ class ImpWeatherServerSource : WeatherRepository.WeatherServerSource {
 
         val forecastResponse = client.getForecast(latitude.toString(), longitude.toString())
         return convertForecastResponseToDomain(forecastResponse)
-        //val hola = convertListForecastToListForecastEntity(forecastResponse)
-
-        //return client.getForecast(latitude.toString(), longitude.toString())
 
     }
 

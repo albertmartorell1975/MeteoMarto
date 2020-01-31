@@ -27,7 +27,7 @@ class FrgCityForecast : Fragment() {
     lateinit var navController: NavController
     lateinit var viewModel: CityViewModel
     private lateinit var linearLayoutManager: LinearLayoutManager
-
+    private lateinit var adapter: ForecastRecyclerAdapter
     val args: FrgCityForecastArgs by navArgs()
 
 
@@ -124,8 +124,16 @@ class FrgCityForecast : Fragment() {
 
                     is UiForecastModel.SuccessRequest -> {
 
-                        //val adapter = ForecastRecyclerAdapter(forecastCity.listForecast)
-                        //binding.lytFrgCityForecastRecycler.adapter = adapter
+                        adapter = ForecastRecyclerAdapter(forecastCity.listForecast)
+                        binding.lytFrgCityForecastRecycler.adapter = adapter
+                        viewModel.resetRequestForecast()
+                        binding.progressBar.visibility = View.GONE
+
+                    }
+
+                    is UiForecastModel.FinishedWithError -> {
+
+                        binding.lytFrgCityForecastEmptyState.viewStub?.visibility = View.VISIBLE
                         viewModel.resetRequestForecast()
                         binding.progressBar.visibility = View.GONE
 

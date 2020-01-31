@@ -5,6 +5,7 @@
     android:id="@+id/lyt_frg_city_forecast_recycler_row"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/forecast_row_background"
     android:minHeight="124dp">
 
     <ImageView
@@ -14,7 +15,22 @@
         android:layout_marginStart="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/ic_stress" />
+
+    <TextView
+        android:id="@+id/lyt_frg_city_forecast_recycler_row_time"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        android:textColor="@color/text_color_standard"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/lyt_frg_city_forecast_recycler_row_icon"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="La data" />
 
     <TextView
         android:id="@+id/lyt_frg_city_forecast_recycler_row_description"
@@ -22,9 +38,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
+        android:textColor="@color/text_color_standard"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/lyt_frg_city_forecast_recycler_row_icon"
-        app:layout_constraintTop_toTopOf="@id/lyt_frg_city_forecast_recycler_row_icon"
+        app:layout_constraintTop_toBottomOf="@id/lyt_frg_city_forecast_recycler_row_time"
         tools:text="Descripció del temps" />
 
     <TextView
@@ -34,6 +52,9 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="24dp"
+        android:text="@string/min_temperature"
+        android:textColor="@color/text_color_standard"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/lyt_frg_city_forecast_recycler_row_icon"
         app:layout_constraintTop_toBottomOf="@id/lyt_frg_city_forecast_recycler_row_description"
@@ -44,8 +65,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="24dp"
+        android:textColor="@color/text_color_standard"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/lyt_frg_city_forecast_recycler_row_icon"
         app:layout_constraintTop_toBottomOf="@id/lyt_frg_city_forecast_recycler_row_temp_min"
@@ -56,8 +78,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
+        android:textColor="@color/text_color_standard"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/lyt_frg_city_forecast_recycler_row_icon"
         app:layout_constraintTop_toBottomOf="@id/lyt_frg_city_forecast_recycler_row_temp_max"

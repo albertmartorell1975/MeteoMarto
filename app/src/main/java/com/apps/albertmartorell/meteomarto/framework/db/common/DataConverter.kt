@@ -23,6 +23,7 @@ fun convertFromKelvinToCelsius(temperature: Float?): Float? {
 
 }
 
+// **** Forecast city
 fun convertForecastDomainToEntity(forecastDomain: List<ForecastDomain>): List<ForecastEntity> {
 
     return forecastDomain.map { it.saveDomainAsEntity() }
@@ -31,40 +32,57 @@ fun convertForecastDomainToEntity(forecastDomain: List<ForecastDomain>): List<Fo
 
 fun convertForecastResponseToDomain(forecastResponse: ForecastResponse): List<ForecastDomain> {
 
-    return forecastResponse.list?.map { it.saveListForecastAsDomain() }
+    return forecastResponse.list.map { it.saveListForecastAsDomain() }
 
 }
 
+fun List<ForecastEntity>.convertToDomain(): List<ForecastDomain> {
+
+    val forecastDomainList = mutableListOf<ForecastDomain>()
+    for (forecast in this) {
+
+        val forecastDomain = ForecastDomain(
+            forecast.time,
+            forecast.temperatureMin,
+            forecast.temperatureMax,
+            forecast.temperatureFeelsLike,
+            forecast.weather,
+            forecast.weatherIcon
+        )
+
+        forecastDomainList.add(forecastDomain)
+
+    }
+
+    return forecastDomainList
+
+}
+
+// Save domain model to database model
 fun ForecastDomain.saveDomainAsEntity(): ForecastEntity =
 
     ForecastEntity(
         0,
-        convertFromKelvinToCelsius(temperatureMin),
-        convertFromKelvinToCelsius(temperatureMax),
-        convertFromKelvinToCelsius(temperatureFeelsLike),
+        time,
+        temperatureMin,
+        temperatureMax,
+        temperatureFeelsLike,
         description, icon
     )
 
-//From domain model to database model
-fun ListForecast.saveListForecastAsEntity(): ForecastEntity =
+//Save server response to domain model
+fun ListForecast.saveListForecastAsDomain(): ForecastDomain =
 
-    ForecastEntity(
-        0,
+    ForecastDomain(
+        DbTypeConverters().dateToTimestamp(time?.times(1000)),
         convertFromKelvinToCelsius(main?.temperatureMin),
         convertFromKelvinToCelsius(main?.temperatureMax),
         convertFromKelvinToCelsius(main?.temperatureFeelsLike),
         weather?.get(0)?.description, weather?.get(0)?.icon
+
     )
 
-//From domain model to database model
-fun ListForecast.saveListForecastAsDomain(): ForecastDomain =
-
-    ForecastDomain(
-        convertFromKelvinToCelsius(main?.temperatureMin),
-        convertFromKelvinToCelsius(main?.temperatureMax),
-        convertFromKelvinToCelsius(main?.temperatureFeelsLike),
-        "", weather?.get(0)?.description, weather?.get(0)?.icon
-    )
+// **** Current weather city
 
 // From domain model to database model
 fun City.saveCityAsEntity(): CityEntity =
@@ -124,24 +142,6 @@ fun City.convertToCityUIView(): CityUIView =
         DbTypeConverters().dateToTimestamp(System.currentTimeMillis())
 
     )
-
-fun List<ForecastEntity>.convertToDomain(): List<ForecastDomain> {
-
-    val forecastDomainList = mutableListOf<ForecastDomain>()
-    for (forecast in this) {
-
-        val forecastDomain = ForecastDomain(
-            forecast.temperatureMax, forecast.temperatureMax, forecast.temperatureFeelsLike,
-            "", forecast.weather, forecast.weatherIcon
-        )
-
-        forecastDomainList.add(forecastDomain)
-
-    }
-
-    return forecastDomainList
-
-}
 
 // From database model to domain model
 fun CityEntity.convertToResponse(): City =

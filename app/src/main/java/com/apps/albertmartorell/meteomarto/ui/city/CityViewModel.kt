@@ -21,27 +21,10 @@ class CityViewModel(private val interactors: Interactors) : ViewModel(), Scope {
 
     override lateinit var job: Job
 
-//    sealed class UiModel {
-//
-//        object Loading : UiModel()
-//        object RequestLocationPermission : UiModel()
-//
-//        object PermissionGranted : UiModel() // location permission is granted
-//
-//        object PermissionDenied : UiModel() // location permission is denied
-//
-//        class Success(val cityEntity: String) : UiModel()
-//         //As it has state, it must be a class
-//        class Finished(val cityEntity: String) : UiModel()
-//
-//        object cityWeatherCollected : UiModel() // the city weather has been already collected
-//        object NotInternet : UiModel() // there is not Internet connection
-//
-//    }
-
     sealed class UiForecastModel {
 
         object Loading : UiForecastModel()
+        object FinishedWithError : UiForecastModel()
         class SuccessRequest(val listForecast: List<ForecastDomain>) : UiForecastModel()
 
     }
@@ -242,10 +225,9 @@ class CityViewModel(private val interactors: Interactors) : ViewModel(), Scope {
 
                 } catch (ex: Exception) {
 
-                    val s = ""
-                    //withContext(Dispatchers.Main) {
-                    //    _eventRequestForecast.value = UiForecastModel.FinishedRequestForecast
-                    //}
+                    withContext(Dispatchers.Main) {
+                        _eventRequestForecast.value = UiForecastModel.FinishedWithError
+                    }
 
                 }
 
