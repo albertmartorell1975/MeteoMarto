@@ -5,7 +5,7 @@
     <string name="min_temperature">"Temperatura mínima: %1$s\u00B0</string>
     <string name="max_temperature">"Temperatura màxima: %1$s\u00B0</string>
     <string name="feels_like">"Temperatura sensación: %1$s\u00B0</string>
-    <string name="atmospheric_pressure">"Presión: %1$s</string>
+    <string name="atmospheric_pressure">"Presión: %1$s hPa</string>
     <string name="current_weather">"Tiempo actual: %1$s</string>
     <string name="not_coordinates">"No se ha podido obtener la localización</string>
     <string name="toolbar_title">Meteo by Marto</string>

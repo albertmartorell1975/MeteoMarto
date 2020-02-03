@@ -4,7 +4,7 @@ import androidx.room.TypeConverter
 import java.text.SimpleDateFormat
 import java.util.*
 
-const val DATE_FORMAT = "DD/MM/YYYY HH:mm"
+const val DATE_FORMAT = "dd/MM/YYYY HH:mm"
 
 class DbTypeConverters {
 

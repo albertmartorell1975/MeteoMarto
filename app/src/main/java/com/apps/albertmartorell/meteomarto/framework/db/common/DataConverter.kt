@@ -125,7 +125,7 @@ fun City.convertToCityUIView(): CityUIView =
         weather?.get(0)?.icon,
         convertFromKelvinToCelsius(main?.temperature?.toInt()),
         main?.humidity,
-        main?.pressure,
+        main?.pressure?.toInt(),
         main?.temperatureMin?.toInt(),
         main?.temperatureMax?.toInt(),
         main?.temperatureFeelsLike?.toInt(),

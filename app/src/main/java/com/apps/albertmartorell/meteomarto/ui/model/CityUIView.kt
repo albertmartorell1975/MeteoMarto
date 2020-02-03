@@ -8,7 +8,7 @@ data class CityUIView(
     val icon: String? = "",
     val temperature: Int? = 0,
     val humidity: Float? = 0F,
-    val pressure: Float? = 0F,
+    val pressure: Int? = 0,
     val temperatureMin: Int? = 0,
     val temperatureMax: Int? = 0,
     val temperatureFeelsLike: Int? = 0,
