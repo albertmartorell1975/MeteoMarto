@@ -16,19 +16,6 @@ class WeatherRepository(
     private val deviceSource: WeatherDeviceSource
 ) {
 
-    //    suspend fun getCityWeatherOnLocal(latitude: Float, longitude: Float): City {
-//
-//        if (deviceSource.isEmpty()) {
-//
-//            val cityWeather = serverSource.getWeatherByCoordinates(latitude, longitude)
-//            deviceSource.saveCityWeather(cityWeather)
-//
-//        }
-//
-//        return deviceSource.getCityWeatherByCoordinates(latitude, longitude)
-//
-//    }
-
     suspend fun saveCityWeather(city: City) {
 
         deviceSource.saveCityWeather(city)

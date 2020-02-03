@@ -248,6 +248,7 @@ class CityViewModel(private val interactors: Interactors) : ViewModel(), Scope {
 
     override fun onCleared() {
 
+        super.onCleared()
         cancelScope()
 
     }
